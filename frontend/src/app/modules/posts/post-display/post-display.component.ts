@@ -23,5 +23,4 @@ export class PostDisplayComponent {
     else
       this.accordion.closeAll()
   }
-
 }

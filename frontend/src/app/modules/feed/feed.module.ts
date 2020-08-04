@@ -20,6 +20,7 @@ import { HeaderComponent } from '../header/header.component';
 import { SideBarComponent } from './sidebar/sidebar.component';
 import { FooterComponent } from '../footer/footer.component';
 import { PostCommentsComponent } from '../posts/post-comments/post-comments.component';
+import { PostCreateCommentsComponent } from '../posts/post-create-comments/post-create-comments.component';
 
 @NgModule({
   imports: [
@@ -50,6 +51,7 @@ import { PostCommentsComponent } from '../posts/post-comments/post-comments.comp
     SideBarComponent,
     FooterComponent,
     PostCommentsComponent,
+    PostCreateCommentsComponent
   ],
   providers: [],
 })
