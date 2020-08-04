@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -10,7 +11,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import {MatMenuModule} from '@angular/material/menu';
 
 import { FeedComponent } from './feed/feed.component';
-import { CreatePostComponent } from './modal/create-post.component';
+import { CreatePostComponent } from './create-post/create-post.component';
 import { PostListComponent } from '../posts/post-list/post-list.component';
 import { PostDisplayComponent } from '../posts/post-display/post-display.component';
 import { CreatePostButtonComponent } from './create-post-button/create-post-button.component';
@@ -24,6 +25,7 @@ import { PostCreateCommentsComponent } from '../posts/post-create-comments/post-
 
 @NgModule({
   imports: [
+    CommonModule,
     MatToolbarModule,
     MatIconModule,
     MatDialogModule,

@@ -1,6 +1,6 @@
-<div class="m-post-wrapper">
+<div class="m-post-wrapper" *ngFor="let item of items">
   <div class="m-post-row">
-    <p class="a-post-title">User name</p>
+    <p class="a-post-title">{{ item.title }}</p>
     <div class="m-menu">
       <fa-icon class="a-post-more-icon" [icon]="faEllipsisH" [matMenuTriggerFor]="menu" ></fa-icon>
       <mat-menu #menu="matMenu" yPosition="below" xPosition="before">
@@ -11,10 +11,10 @@
     </div>
   </div>
 
-  <p class="a-post-body">This is a post</p>
+  <p class="a-post-body">{{ items.body }}</p>
 
   <div class="m-post-row">
-    <p class="a-post-tags">Sports,running, sky</p>
+    <p class="a-post-tags">{{ item.tags }}</p>
     <div class="m-post-row">
       <div class="m-comments" (click)="toggleComments()" >
         <fa-icon class="a-post-comments-icon" [icon]="faComments"></fa-icon>
@@ -33,8 +33,6 @@
       <app-create-post-comments></app-create-post-comments>
     </mat-expansion-panel>
   </mat-accordion>
-
-
 </div>
 
 

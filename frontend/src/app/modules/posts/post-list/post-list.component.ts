@@ -2,9 +2,12 @@ import { Component } from '@angular/core';
 
 export interface Post {
   title:string;
-  body:string;
+  body: string;
   tags?:string;
-  comments?:[]
+  comments?: [{
+    body: string;
+    title: string;
+  }]
 }
 
 @Component({
@@ -14,7 +17,15 @@ export interface Post {
 })
 
 export class PostListComponent {
-  constructor() { }
 
-  ngOnInit() { }
+  posts: Post[] = [
+    { title : "User Name" , body: "This is a post", tags: "tags, hi, sports, running"},
+    { title : "User Name" , body: "This is a post", tags: "tags, hi, sports, running"},
+    { title : "User Name" , body: "This is a post", tags: "tags, hi, sports, running"},
+    { title : "User Name" , body: "This is a post", tags: "tags, hi, sports, running"},
+    { title : "User Name" , body: "This is a post", tags: "tags, hi, sports, running"}
+  ]
+  /**
+   *  posts= [];
+  */
 }

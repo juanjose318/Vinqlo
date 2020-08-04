@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { CreatePostComponent } from '../modal/create-post.component';
+import { CreatePostComponent } from '../create-post/create-post.component';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 
 @Component({
@@ -20,7 +20,7 @@ export class CreatePostButtonComponent {
       width: '30%',
     });
 
-    /** 
+    /**
     dialogRef.afterClosed().subscribe(
         console.log('The dialog was closed');
     );
