@@ -10,11 +10,18 @@ import {MatAccordion} from '@angular/material/expansion';
 
 export class PostDisplayComponent {
   @ViewChild(MatAccordion) accordion: MatAccordion;
-  panelOpenState = false;
 
   faEllipsisH = faEllipsisH;
   faComments = faComments;
   faBookmark = faBookmark;
+  panelOpenState: boolean = false;
+
+  toggleComments () {
+    this.panelOpenState = !this.panelOpenState;
+    if (this.panelOpenState)
+      this.accordion.openAll()
+    else
+      this.accordion.closeAll()
+  }
+
 }
-
-
