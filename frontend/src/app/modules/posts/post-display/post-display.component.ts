@@ -11,7 +11,7 @@ import {MatAccordion} from '@angular/material/expansion';
 export class PostDisplayComponent {
   @ViewChild(MatAccordion) accordion: MatAccordion;
   panelOpenState = false;
-g
+
   faEllipsisH = faEllipsisH;
   faComments = faComments;
   faBookmark = faBookmark;
