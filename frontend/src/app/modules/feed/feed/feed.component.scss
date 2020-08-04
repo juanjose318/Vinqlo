@@ -1,0 +1,20 @@
+@import '../../../../assets/styles/variables.scss';
+
+.o-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  min-height: calc(100vh - 70px);
+}
+
+.m-sidebar {
+  width: 20%;
+}
+
+.m-main-content {
+  width: 70%;
+}
+
+.a-push, .a-footer {
+  height: 140px;
+}

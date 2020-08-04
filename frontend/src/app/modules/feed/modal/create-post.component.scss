@@ -1,0 +1,106 @@
+@import '../../../../assets/styles/variables.scss';
+
+.m-form {
+  display:block;
+  margin: auto;
+}
+
+.m-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.a-file-input {
+  display: none;
+}
+
+textarea {
+  margin-top: 3em;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding: 4px;
+  resize: none;
+  overflow: auto;
+}
+
+input, textarea, select {
+  padding: 4px;
+  width: 100%;
+  border:0px;
+  border-bottom: 2px solid $darkblue;
+  border-left: 2px solid $darkblue;
+}
+
+textarea {
+  margin: 4% 0;
+}
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+    background-position: 98% center;
+    background-repeat: no-repeat;
+    outline: none;
+}
+
+::placeholder, select {
+  font: 300 14px 'Open Sans', serif;
+  color: $darkblue;
+}
+
+.m-dialog-header {
+  margin-bottom: 4%;
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.a-times-icon{
+  font-size: 28px;
+  color:$darkblue;
+  cursor: pointer;
+}
+
+.a-times-icon:hover{
+  opacity: 0.6;
+  transition-duration: .4s, .4s;
+  transition-timing-function: ease, ease-out;
+}
+
+
+.a-title-dialog {
+  font: 800 18px 'Open Sans', serif;
+  color: $darkblue;
+}
+
+.a-label {
+  cursor: pointer;
+}
+
+.a-label, select, option, textarea, input {
+  font: 300 14px 'Open Sans', serif;
+  color:$lightgray;
+}
+.a-images-icon {
+  color: $cyan;
+}
+
+.a-button {
+  margin: auto;
+  font: 300 14px 'Raleway', serif;
+  color: $white;
+  background-color: $cyan;
+  padding: 4% 24%;
+  border-radius:20px;
+  border:none;
+  cursor:pointer;
+}
+
+.a-button:hover {
+  background-color: $darkblue;
+  transition-duration: .4s, .4s;
+  transition-timing-function: ease, ease-out;
+}

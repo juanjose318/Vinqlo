@@ -1,0 +1,17 @@
+@import '../../../../assets/styles/variables.scss';
+
+.a-plus-icon {
+    display: block;
+    position: fixed;
+    bottom:10%;
+    left:90%;
+    color: $darkblue;
+    font-size: 40px;
+    cursor: pointer;
+}
+
+.a-plus-icon:hover {
+  opacity: 0.6;
+  transition-duration: .4s, .4s;
+  transition-timing-function: ease, ease-out;
+}
