@@ -16,6 +16,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items:baseline;
+  margin-bottom:1em;
 }
 
 .a-post-title {
@@ -56,4 +57,8 @@
 
 .mat-expansion-panel:not([class*="mat-elevation-z"]) {
   box-shadow: none;
+}
+
+.mat-expansion-panel-header {
+  padding:0.1em;
 }

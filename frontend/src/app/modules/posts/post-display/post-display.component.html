@@ -15,24 +15,26 @@
 
   <div class="m-post-row">
     <p class="a-post-tags">{{ item.tags }}</p>
-    <div class="m-post-row">
-      <div class="m-comments" (click)="toggleComments()" >
-        <fa-icon class="a-post-comments-icon" [icon]="faComments"></fa-icon>
-        <a class="a-post-comments-text">Comments</a>
-      </div>
+    <div>
       <div class="m-save">
         <fa-icon class="a-post-save-icon" [icon]="faBookmark"></fa-icon>
         <a class="a-post-comments-text">Save</a>
       </div>
     </div>
   </div>
-  <mat-accordion multi="true">
-    <mat-expansion-panel
-      (closed)="panelOpenState = false">
+
+  <mat-divider></mat-divider>
+      <mat-expansion-panel >
+      <mat-expansion-panel-header>
+        <div class="m-comments">
+          <fa-icon class="a-post-comments-icon" [icon]="faComments"></fa-icon>
+          <a class="a-post-comments-text">Comments</a>
+        </div>
+      </mat-expansion-panel-header>
+
       <app-post-comments></app-post-comments>
       <app-create-post-comments></app-create-post-comments>
     </mat-expansion-panel>
-  </mat-accordion>
 </div>
 
 
