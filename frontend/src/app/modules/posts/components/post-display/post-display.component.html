@@ -1,0 +1,40 @@
+<ng-container *ngIf="items">
+  <div class="m-post-wrapper" *ngFor="let posts of items.posts">
+    <div class="m-post-row">
+      <p class="a-post-title">{{ posts.title }}</p>
+      <div class="m-menu">
+        <fa-icon class="a-post-more-icon" [icon]="faEllipsisH" [matMenuTriggerFor]="menu" ></fa-icon>
+        <mat-menu #menu="matMenu" yPosition="below" xPosition="before">
+          <button mat-menu-posts>
+            <span>Report</span>
+          </button>
+        </mat-menu>
+      </div>
+    </div>
+
+    <p class="a-post-body">{{ posts.body }} </p>
+    <div class="m-post-row">
+      <p class="a-post-tags">{{ posts.tags }}</p>
+      <div>
+        <div class="m-save">
+          <fa-icon class="a-post-save-icon" [icon]="faBookmark"></fa-icon>
+          <a class="a-post- comments-text">Save</a>
+        </div>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+        <mat-expansion-panel >
+          <mat-expansion-panel-header>
+            <div class="m-comments">
+              <fa-icon class="a-post-comments-icon" [icon]="faComments"></fa-icon>
+              <a class="a-post-comments-text">Comments</a>
+           </div>
+        </mat-expansion-panel-header>
+        <app-post-comments></app-post-comments>
+        <app-create-post-comments></app-create-post-comments>
+      </mat-expansion-panel>
+  </div>
+
+
+
+</ng-container>

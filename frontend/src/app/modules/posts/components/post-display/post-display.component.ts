@@ -1,7 +1,7 @@
-import { Component,  ViewChild, Input } from '@angular/core';
+import { Component,  ViewChild, Input, OnInit } from '@angular/core';
 import { faEllipsisH, faBookmark, faComments } from '@fortawesome/free-solid-svg-icons';
 import { MatExpansionPanel } from '@angular/material/expansion';
-import { Post } from '../post-list/post-list.component';
+import { Post } from '../../models/post.interface';
 
 @Component({
   selector: 'app-post-display',
@@ -9,9 +9,9 @@ import { Post } from '../post-list/post-list.component';
   templateUrl: 'post-display.component.html',
 })
 
-export class PostDisplayComponent{
+export class PostDisplayComponent {
   @Input()
-  items: Post;
+  items;
 
   @ViewChild(MatExpansionPanel) expansionPannel: MatExpansionPanel;
   faEllipsisH = faEllipsisH;

@@ -1,29 +1,30 @@
 <div class="m-dialog-header">
-  <fa-icon class="a-times-icon" (click)="closeDialog()" [icon]="faTimesCircle"></fa-icon>
+  <fa-icon class="a-times-icon" (click)="close()" [icon]="faTimesCircle"></fa-icon>
   <h1 mat-dialog-title class="a-title-dialog">Create Post</h1>
 </div>
 
-  <div mat-dialog-content >
+  <div mat-dialog-content [formGroup]="form" >
     <div class="m-form">
       <div class="m-row">
-          <select class="a-select-input" placeholder="Select category">
+          <select class="a-select-input" placeholder="Select category" formControlName="category">
             <option value="1">Sports</option>
             <option value="2">Nightlife</option>
             <option value="3">Education</option>
             <option value="3">Events</option>
             <option value="3">Tips & tricks</option>
           </select>
-          <input type="text" name="tags" placeholder="Tags (Separate with ,)">
+          <input type="text" name="tags" placeholder="Tags (Separate with ,)" formControlName="tags">
       </div>
 
-      <textarea type="text" placeholder="What do you want to share?"></textarea>
+      <textarea type="text" placeholder="What do you want to share?" formControlName="body"></textarea>
       <label for="file-input" class="a-label" >
         <fa-icon class="a-images-icon"  [icon]="faImages"></fa-icon>
           Upload an image
       </label>
-      <input class="a-file-input" type="file" id="file-input"/>
+      <input class="a-file-input" type="file" id="file-input" formControlName="file"/>
 
       <div mat-dialog-actions>
-        <button type="submit" class="a-button">Post</button>
+        <button type="submit" class="a-button" (click)="save()">Post</button>
       </div>
+  </div>
   </div>

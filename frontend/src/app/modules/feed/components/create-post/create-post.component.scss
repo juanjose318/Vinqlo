@@ -1,4 +1,4 @@
-@import '../../../../assets/styles/variables.scss';
+@import '../../../../../assets/styles/variables.scss';
 
 .m-form {
   display:block;
@@ -104,3 +104,8 @@ select {
   transition-duration: .4s, .4s;
   transition-timing-function: ease, ease-out;
 }
+
+.mat-dialog-content {
+  overflow:visible;
+}
+

@@ -9,5 +9,8 @@ import { Component, OnInit } from '@angular/core';
 export class FeedComponent implements OnInit {
   constructor() { }
 
+  onPostCreated(){
+
+  }
   ngOnInit() { }
 }
