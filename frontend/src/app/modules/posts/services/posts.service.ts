@@ -14,10 +14,14 @@ export class PostService {
     return this.http.get<Post[]>(`${environment.apiUrl}/posts`)
     .pipe(
       map(( response: Post[] ) => response )
-    );
+      );
   }
 
-  addPost(id: number, title: string, content: string, tags: string) {
-    return this.http.post(`${environment.apiUrl}/posts`, {title, content, tags} );
+  addPost(post: Post) {
+    this.http.post<{message: string}>(`${environment.apiUrl}/posts`, post )
+    .subscribe((responseData) => {
+      console.log(responseData.message);
+      this.posts.push(post);
+    });
   }
 }

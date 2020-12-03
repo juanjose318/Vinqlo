@@ -1,7 +1,8 @@
-import { Component,  OnInit } from '@angular/core';
+import { Component,  EventEmitter,  OnInit, Output } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { faTimesCircle, faImages } from '@fortawesome/free-solid-svg-icons';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { Post } from 'src/app/modules/posts/models/post.interface';
 
 @Component({
   selector: 'app-create-post-form',
@@ -10,11 +11,13 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 })
 
 export class CreatePostComponent implements OnInit {
+  @Output()
+  postCreated: EventEmitter<Post> = new EventEmitter();
   form: FormGroup;
-  body:string;
-  tags:string;
-  category:string;
-  image:File;
+  body: string;
+  tags: string;
+  category: string;
+  image: File;
 
   faTimesCircle = faTimesCircle;
   faImages = faImages;
@@ -28,9 +31,9 @@ export class CreatePostComponent implements OnInit {
       this.form = this.fb.group ({
         body: this.body,
         tags: this.tags,
-        category:this.category,
-        image: this.image
-      })
+        category: this.category,
+        file: this.image
+      });
     }
 
     save() {

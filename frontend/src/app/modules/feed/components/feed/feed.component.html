@@ -6,7 +6,7 @@
   <div class="m-main-content">
     <app-searchbar></app-searchbar>
     <app-post-list></app-post-list>
-    <app-create-post-button></app-create-post-button>
+    <app-create-post-button (postCreated)="onPostCreated($event)"></app-create-post-button>
   </div>
   <div class="a-push"></div>
 </div>

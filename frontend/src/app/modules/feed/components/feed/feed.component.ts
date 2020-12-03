@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PostService } from 'src/app/modules/posts/services/posts.service';
 
 @Component({
   selector: 'app-feed',
@@ -7,10 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class FeedComponent implements OnInit {
-  constructor() { }
+  constructor( private postsService: PostService) { }
 
-  onPostCreated(){
-
+  onPostCreated(event){
+    this.postsService.addPost(event);
   }
   ngOnInit() { }
 }

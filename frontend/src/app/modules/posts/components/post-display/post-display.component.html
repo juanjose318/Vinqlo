@@ -7,6 +7,7 @@
         <mat-menu #menu="matMenu" yPosition="below" xPosition="before">
           <button mat-menu-posts>
             <span>Report</span>
+            <span (click)="onDelete(posts)">Delete</span>
           </button>
         </mat-menu>
       </div>

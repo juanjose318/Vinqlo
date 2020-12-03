@@ -1,19 +1,20 @@
-import { Component,  EventEmitter, Output,} from '@angular/core';
+import { Component,  EventEmitter, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CreatePostComponent } from '../create-post/create-post.component';
-import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { Post } from 'src/app/modules/posts/models/post.interface';
 
 @Component({
     selector: 'app-create-post-button',
     styleUrls: ['./create-post-button.component.scss'],
-    template:`
+    template: `
         <fa-icon class="a-plus-icon" (click)="openDialog()" [icon]="faPlusCircle"></fa-icon>
     `
 })
 
 export class CreatePostButtonComponent {
     @Output()
-    $post = new EventEmitter;
+    postCreated: EventEmitter<Post> = new EventEmitter();
     faPlusCircle = faPlusCircle;
 
     constructor(public dialog: MatDialog) {}
@@ -23,8 +24,8 @@ export class CreatePostButtonComponent {
       width: '30%',
     });
 
-    dialogRef.afterClosed().subscribe(
-      result =>this.$post.emit(result)
-      );
+    dialogRef.afterClosed().subscribe(result => {
+      this.postCreated.emit(result);
+    });
     }
 }

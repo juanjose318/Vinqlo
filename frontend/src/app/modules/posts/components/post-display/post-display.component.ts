@@ -1,4 +1,4 @@
-import { Component,  ViewChild, Input, OnInit } from '@angular/core';
+import { Component,  ViewChild, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { faEllipsisH, faBookmark, faComments } from '@fortawesome/free-solid-svg-icons';
 import { MatExpansionPanel } from '@angular/material/expansion';
 import { Post } from '../../models/post.interface';
@@ -13,8 +13,15 @@ export class PostDisplayComponent {
   @Input()
   items;
 
+  @Output()
+  postDeleted = new EventEmitter();
+
   @ViewChild(MatExpansionPanel) expansionPannel: MatExpansionPanel;
   faEllipsisH = faEllipsisH;
   faComments = faComments;
   faBookmark = faBookmark;
+
+  onDelete(post){
+    this.postDeleted.emit(post);
+  }
 }

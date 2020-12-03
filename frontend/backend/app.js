@@ -1,14 +1,26 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+
+const Post = require('./models/post');
+
+mongoose.connect("mongodb+srv://Admin:__N4FWbp@cluster0.vccib.mongodb.net/vinqlo?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true })
+.then(() => {
+  console.log('connected to database!');
+})
+.catch(() => {
+  console.log('connection failed');
+});
 
 const app = express();
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use((req,res,next) => {
   res.setHeader("Access-Control-Allow-Origin","*"),
   res.setHeader(
-    "Access-Control-Allow-Header",
+    "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept"
   );
   res.setHeader("Access-Control-Allow-Methods",
@@ -17,49 +29,27 @@ app.use((req,res,next) => {
   next();
 })
 
-app.get('/api/posts', (req, res, next) => {
-  const posts = [
-    {
-      id:134243,
-      UserId:566213,
-      title: 'Hello',
-      body:'This is the content',
-      tags:'Hello, bitch, madafaca'
-    },
-    {
-      id:134243562,
-      title: 'This is another post',
-      body:'This is the content from the backend',
-      tags:'Sky, dog, jump'
-    },
-    {
-      id:13455243,
-      UserId:566213,
-      title: 'Hello',
-      body:'This is the content',
-      tags:'Hello, word, hi'
-    }, {
-      id:13425543,
-      UserId:566213,
-      title: 'Hello',
-      body:'This is the content',
-      tags:' word, hi, skyline'
-    },
-  ];
-  res.status(200).json({
-    message: 'Post fetched succesfully!',
-    posts: posts
+app.post('/api/posts', (req, res) => {
+  const post = new Post({
+    body: req.body.body,
+    tags: req.body.tags,
+    category: req.body.category,
+    file: req.body.file
   });
-
-  next();
-});
-
-app.use("api/posts", (req, res, next) => {
-  const post = req.body;
+  post.save();
   res.status(201).json({
     message: "Post added succesfully"
   });
-})
+});
 
+app.get('/api/posts', (req, res, next) => {
+  Post.find()
+  .then(documents => {
+    res.status(200).json({
+      message: 'Post fetched succesfully!',
+      posts: documents
+    });
+  });
+});
 
 module.exports = app;

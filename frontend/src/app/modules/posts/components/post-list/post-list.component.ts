@@ -22,7 +22,6 @@ constructor(
 ngOnInit() {
   this.postsService.getPosts().subscribe(( data: Post[] ) => {
     this.posts = data;
-    console.log(this.posts);
   });
 }
 
