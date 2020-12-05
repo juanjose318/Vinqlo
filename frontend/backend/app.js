@@ -42,7 +42,7 @@ app.post('/api/posts', (req, res) => {
   });
 });
 
-app.get('/api/posts', (req, res, next) => {
+app.get('/api/posts', (req, res) => {
   Post.find()
   .then(documents => {
     res.status(200).json({
@@ -50,6 +50,13 @@ app.get('/api/posts', (req, res, next) => {
       posts: documents
     });
   });
+});
+
+app.delete('/api/posts/:id', (req, res) => {
+  Post.deleteOne({ _id: req.params.id }).then(res => {
+    console.log(res);
+  });
+  res.status(200).json({ message: "Post Deleted"});
 });
 
 module.exports = app;

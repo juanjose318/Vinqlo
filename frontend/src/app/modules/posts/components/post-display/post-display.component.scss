@@ -19,29 +19,35 @@
   margin-bottom:1em;
 }
 
+.m-actions-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.m-action-item {
+  padding: 1em;
+}
+
 .a-post-title {
   margin:0;
   font: 600 18px 'Open Sans', serif;
   color: $darkblue;
 }
 
-.a-post-comments-text {
-  font: 400 12px 'Open Sans', serif;
-  color: $black;
+.a-icon-text {
+  font: $blackSmallSemibold;
+  color: $lightgray;
 }
 
-.m-comments {
-  margin-right: 30px;
-}
-
-.a-post-comments-icon, .a-post-save-icon {
+.a-post-icon{
   padding-right: 4px;
   color: $cyan;
 }
 
 .a-post-body {
   font: 400 14px 'Open Sans', serif;
-  color: $lightgray;
+  color: $black;
   margin: 1em 0;
 }
 
@@ -49,6 +55,11 @@
   margin: 0;
   font: 12px 'Open Sans', serif;
   color: $purple;
+}
+
+.a-option-item{
+  font: $ralewayRegular;
+  color: $black;
 }
 
 .m-save, .m-comments, .a-post-more-icon {

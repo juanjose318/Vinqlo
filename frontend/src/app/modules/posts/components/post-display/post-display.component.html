@@ -5,10 +5,8 @@
       <div class="m-menu">
         <fa-icon class="a-post-more-icon" [icon]="faEllipsisH" [matMenuTriggerFor]="menu" ></fa-icon>
         <mat-menu #menu="matMenu" yPosition="below" xPosition="before">
-          <button mat-menu-posts>
-            <span>Report</span>
-            <span (click)="onDelete(posts)">Delete</span>
-          </button>
+            <button mat-menu-item class="a-option-item">Report</button>
+            <button mat-menu-item class="a-option-item" (click)="onDelete(posts)">Delete</button>
         </mat-menu>
       </div>
     </div>
@@ -16,10 +14,20 @@
     <p class="a-post-body">{{ posts.body }} </p>
     <div class="m-post-row">
       <p class="a-post-tags">{{ posts.tags }}</p>
-      <div>
-        <div class="m-save">
-          <fa-icon class="a-post-save-icon" [icon]="faBookmark"></fa-icon>
-          <a class="a-post- comments-text">Save</a>
+      <div class="m-actions-wrapper">
+        <div class="m-action-item">
+          <fa-icon class="a-post-icon" [icon]="faHeart"></fa-icon>
+          <a class="a-icon-text">15</a>
+        </div>
+        <div class="m-action-item">
+          <fa-icon class="a-post-icon" [icon]="faComments"></fa-icon>
+          <a class="a-icon-text">10</a>
+        </div>
+        <div class="m-action-item">
+          <fa-icon class="a-post-icon" [icon]="faBookmark"></fa-icon>
+        </div>
+        <div class="m-action-item">
+          <fa-icon class="a-post-icon" [icon]="faShare"></fa-icon>
         </div>
       </div>
     </div>
@@ -27,8 +35,8 @@
         <mat-expansion-panel >
           <mat-expansion-panel-header>
             <div class="m-comments">
-              <fa-icon class="a-post-comments-icon" [icon]="faComments"></fa-icon>
-              <a class="a-post-comments-text">Comments</a>
+              <fa-icon class="a-post-icon" [icon]="faComments"></fa-icon>
+              <a class="a-icon-text">Comments</a>
            </div>
         </mat-expansion-panel-header>
         <app-post-comments></app-post-comments>

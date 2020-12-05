@@ -13,7 +13,7 @@ export class PostService {
   getPosts(): Observable<Post[]>{
     return this.http.get<Post[]>(`${environment.apiUrl}/posts`)
     .pipe(
-      map(( response: Post[] ) => response )
+      map((response) => response)
       );
   }
 
@@ -23,5 +23,10 @@ export class PostService {
       console.log(responseData.message);
       this.posts.push(post);
     });
+  }
+
+  deletePost(post: Post) {
+    this.http.delete(`${environment.apiUrl}/posts/` + post._id).subscribe(
+    );
   }
 }

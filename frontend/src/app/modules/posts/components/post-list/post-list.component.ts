@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import { Post } from '../../models/post.interface';
 import { PostService } from '../../services/posts.service';
 import { Observable } from 'rxjs';
@@ -12,6 +12,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class PostListComponent implements OnInit{
 
+@Output()
+postDeleted = new EventEmitter();
+
 posts: Post[];
 
 constructor(
@@ -23,6 +26,10 @@ ngOnInit() {
   this.postsService.getPosts().subscribe(( data: Post[] ) => {
     this.posts = data;
   });
+}
+
+onPostDeleted(post) {
+  this.postDeleted.emit(post);
 }
 
 }

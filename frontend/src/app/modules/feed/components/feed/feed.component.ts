@@ -13,5 +13,10 @@ export class FeedComponent implements OnInit {
   onPostCreated(event){
     this.postsService.addPost(event);
   }
+
+  handleDelete(event){
+    this.postsService.deletePost(event);
+  }
+
   ngOnInit() { }
 }
