@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Post } from 'src/app/modules/posts/models/post.interface';
 import { PostService } from 'src/app/modules/posts/services/posts.service';
 
 @Component({
@@ -7,16 +8,15 @@ import { PostService } from 'src/app/modules/posts/services/posts.service';
   styleUrls: ['./feed.component.scss' ]
 })
 
-export class FeedComponent implements OnInit {
+export class FeedComponent {
   constructor( private postsService: PostService) { }
 
-  onPostCreated(event){
-    this.postsService.addPost(event);
+  onPostCreated(post: Post){
+    this.postsService.addPost(post);
   }
 
-  handleDelete(event){
-    this.postsService.deletePost(event);
+  handleDelete(post): void{
+    this.postsService.deletePost(post);
   }
 
-  ngOnInit() { }
 }

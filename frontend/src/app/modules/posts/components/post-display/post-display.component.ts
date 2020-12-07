@@ -2,6 +2,7 @@ import { Component,  ViewChild, Input, Output, EventEmitter } from '@angular/cor
 import { faEllipsisH, faBookmark, faComments, faHeart, faShare } from '@fortawesome/free-solid-svg-icons';
 import { MatExpansionPanel } from '@angular/material/expansion';
 import { Post } from '../../models/post.interface';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-post-display',

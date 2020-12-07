@@ -1,26 +1,22 @@
-import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Post } from '../../models/post.interface';
 import { PostService } from '../../services/posts.service';
-import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
-import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-post-list',
   templateUrl: 'post-list.component.html',
   styleUrls: ['./post-list.component.scss']
 })
+
 export class PostListComponent implements OnInit{
 
 @Output()
 postDeleted = new EventEmitter();
 
-posts: Post[];
+posts: Post[] = [];
 
 constructor(
-  private postsService: PostService,
-  private router: Router,
-  private route: ActivatedRoute, ) {}
+  private postsService: PostService ) {}
 
 ngOnInit() {
   this.postsService.getPosts().subscribe(( data: Post[] ) => {

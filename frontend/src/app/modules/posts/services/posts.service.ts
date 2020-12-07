@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { Post } from '../models/post.interface';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
-import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable( { providedIn: 'root' })
 export class PostService {
   constructor(private http: HttpClient) {}
-  posts: Post[] = [];
+  private posts: Post[] = [];
 
   getPosts(): Observable<Post[]>{
     return this.http.get<Post[]>(`${environment.apiUrl}/posts`)
@@ -26,7 +26,10 @@ export class PostService {
   }
 
   deletePost(post: Post) {
-    this.http.delete(`${environment.apiUrl}/posts/` + post._id).subscribe(
-    );
+    this.http.delete(`${environment.apiUrl}/posts/` + post._id)
+    .subscribe(() => {
+     const updatedPosts = this.posts.filter(res => res._id !== post._id);
+     this.posts = updatedPosts;
+        });
   }
 }

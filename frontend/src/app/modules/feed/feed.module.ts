@@ -48,12 +48,10 @@ import { PostCommentsComponent } from '../posts/components/post-comments/post-co
   declarations: [
     FeedComponent,
     CreatePostComponent,
-    FeedComponent,
     PostListComponent,
     PostDisplayComponent,
     CreatePostButtonComponent,
     SearchBarComponent,
-    FeedComponent,
     HeaderComponent,
     SideBarComponent,
     FooterComponent,
