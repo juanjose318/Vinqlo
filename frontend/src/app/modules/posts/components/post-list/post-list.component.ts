@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { Post } from '../../models/post.interface';
 import { PostService } from '../../services/posts.service';
 
@@ -8,21 +8,15 @@ import { PostService } from '../../services/posts.service';
   styleUrls: ['./post-list.component.scss']
 })
 
-export class PostListComponent implements OnInit{
+export class PostListComponent {
+
+@Input()
+posts: Post;
 
 @Output()
 postDeleted = new EventEmitter();
 
-posts: Post[] = [];
-
-constructor(
-  private postsService: PostService ) {}
-
-ngOnInit() {
-  this.postsService.getPosts().subscribe(( data: Post[] ) => {
-    this.posts = data;
-  });
-}
+constructor() {}
 
 onPostDeleted(post) {
   this.postDeleted.emit(post);

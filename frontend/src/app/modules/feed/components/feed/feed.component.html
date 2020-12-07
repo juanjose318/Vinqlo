@@ -6,7 +6,8 @@
   <div class="m-main-content">
     <app-searchbar></app-searchbar>
     <app-post-list
-     (postDeleted)="handleDelete($event)"></app-post-list>
+     (postDeleted)="handleDelete($event)"
+     [posts]="posts"></app-post-list>
     <app-create-post-button
      (postCreated)="onPostCreated($event)"></app-create-post-button>
   </div>

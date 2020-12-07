@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Post } from 'src/app/modules/posts/models/post.interface';
 import { PostService } from 'src/app/modules/posts/services/posts.service';
 
@@ -8,8 +8,15 @@ import { PostService } from 'src/app/modules/posts/services/posts.service';
   styleUrls: ['./feed.component.scss' ]
 })
 
-export class FeedComponent {
+export class FeedComponent implements OnInit {
   constructor( private postsService: PostService) { }
+  posts: Post[] = [];
+
+  ngOnInit() {
+    this.postsService.getPosts().subscribe(( data: Post[] ) => {
+      this.posts = data;
+    });
+  }
 
   onPostCreated(post: Post){
     this.postsService.addPost(post);
