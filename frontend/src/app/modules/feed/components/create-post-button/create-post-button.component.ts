@@ -8,9 +8,12 @@ import { Post } from 'src/app/modules/posts/models/post.interface';
     selector: 'app-create-post-button',
     styleUrls: ['./create-post-button.component.scss'],
     template: `
-        <fa-icon class="a-plus-icon" (click)="openDialog()" [icon]="faPlusCircle"></fa-icon>
-    `
-})
+      <div class="m-bar">
+          <fa-icon class="a-plus-icon" (click)="openDialog()" [icon]="faPlusCircle"></fa-icon>
+          <span class="a-span">Create Post</span>
+      </div>
+      `
+  })
 
 export class CreatePostButtonComponent {
     @Output()
@@ -25,7 +28,9 @@ export class CreatePostButtonComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      if(!!result){
       this.postCreated.emit(result);
+      }
     });
     }
 }

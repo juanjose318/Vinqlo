@@ -6,6 +6,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
@@ -17,17 +20,22 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatIconModule,
     MatDialogModule,
     MatSidenavModule,
+    MatInputModule,
+    MatFormFieldModule,
+    FontAwesomeModule
   ],
   exports: [
     MatDividerModule,
+    MatFormFieldModule,
     MatExpansionModule,
     MatMenuModule,
     MatToolbarModule,
     MatIconModule,
     MatDialogModule,
     MatSidenavModule,
+    FontAwesomeModule
   ],
   declarations: [],
   providers: [],
 })
-export class MaterialModule { }
+export class MaterialModule {}

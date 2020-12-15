@@ -1,30 +1,43 @@
 <div class="m-dialog-header">
-  <fa-icon class="a-times-icon" (click)="close()" [icon]="faTimesCircle"></fa-icon>
   <h1 mat-dialog-title class="a-title-dialog">Create Post</h1>
+  <fa-icon class="a-times-icon" (click)="close()" [icon]="faTimesCircle"></fa-icon>
 </div>
 
-  <div mat-dialog-content [formGroup]="form" >
-    <div class="m-form">
-      <div class="m-row">
-          <select class="a-select-input" placeholder="Select category" formControlName="category">
-            <option value="1">Sports</option>
-            <option value="2">Nightlife</option>
-            <option value="3">Education</option>
-            <option value="3">Events</option>
-            <option value="3">Tips & tricks</option>
-          </select>
-          <input type="text" name="tags" placeholder="Tags (Separate with ,)" formControlName="tags">
-      </div>
-
-      <textarea type="text" placeholder="What do you want to share?" formControlName="body"></textarea>
-      <label for="file-input" class="a-label" >
-        <fa-icon class="a-images-icon"  [icon]="faImages"></fa-icon>
-          Upload an image
+<div mat-dialog-content [formGroup]="form"  class="m-dialog-content">
+  <div class="m-form">
+    <div class="m-row">
+      <mat-form-field appearance="legacy">
+        <mat-label required>Select Category</mat-label>
+        <select class="a-select-input" formControlName="category" matSelect >
+          <option value="1">Sports</option>
+          <option value="2">Nightlife</option>
+          <option value="3">Education</option>
+          <option value="3">Events</option>
+          <option value="3">Tips & tricks</option>
+        </select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label required>Title</mat-label>
+        <input type="text" name="tags" placeholder="Tags (Separate with ,)" formControlName="tags" matInput/>
+      </mat-form-field>
+    </div>
+    <div class="m-row">
+      <mat-form-field>
+        <input type="text" name="title" placeholder="Title" formControlName="title" matInput required/>
+      </mat-form-field>
+    </div>
+    <mat-form-field>
+      <textarea type="text" placeholder="What do you want to share?" formControlName="body" matInput required></textarea>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <label for="file-input" class="a-label">
+        <fa-icon class="a-images-icon" [icon]="faImages">holi</fa-icon>
+        Upload an image
       </label>
-      <input class="a-file-input" type="file" id="file-input" formControlName="file"/>
-
-      <div mat-dialog-actions>
-        <button type="submit" class="a-button" (click)="save()">Post</button>
-      </div>
+      <input class="a-file-input"type="file" id="file-input" formControlName="file" matInput/>
+    </mat-form-field>
+    <div mat-dialog-actions>
+      <button type="submit" class="a-button" (click)="save()">Post</button>
+    </div>
   </div>
-  </div>
+</div>

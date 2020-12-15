@@ -9,10 +9,10 @@
     (postDeleted)="handleDelete($event)"
     [posts]="posts">
     </app-post-list>
-    <app-create-post-button
-      (postCreated)="onPostCreated($event)"
-    ></app-create-post-button>
   </div>
   <div class="a-push"></div>
 </div>
+<app-create-post-button
+(postCreated)="onPostCreated($event)"
+></app-create-post-button>
 <app-footer class="a-footer"></app-footer>

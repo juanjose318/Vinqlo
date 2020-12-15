@@ -1,7 +1,7 @@
-@import '../../../../../assets/styles/variables.scss';
+@import "../../../../../assets/styles/variables.scss";
 
 .m-form {
-  display:block;
+  display: block;
   margin: auto;
 }
 
@@ -19,15 +19,15 @@ textarea {
   box-sizing: border-box;
   width: 100%;
   height: 100%;
-  padding: 4px;
   resize: none;
   overflow: auto;
 }
 
-input, textarea, select {
-  padding: 4px;
+input,
+textarea,
+select {
   width: 100%;
-  border:0px;
+  border: 0px;
   border-bottom: 2px solid $darkblue;
   border-left: 2px solid $darkblue;
 }
@@ -35,44 +35,45 @@ input, textarea, select {
 textarea {
   margin: 4% 0;
 }
+
 select {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    -o-appearance: none;
-    appearance: none;
-    background-position: 98% center;
-    background-repeat: no-repeat;
-    outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  background-position: 98% center;
+  background-repeat: no-repeat;
+  outline: none;
 }
 
-::placeholder, select {
-  font: 300 14px 'Open Sans', serif;
+::placeholder,
+select {
+  font: 300 14px "Open Sans", serif;
   color: $darkblue;
 }
 
 .m-dialog-header {
   margin-bottom: 4%;
-  display:flex;
+  display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
 }
 
-.a-times-icon{
-  font-size: 28px;
-  color:$darkblue;
+.a-times-icon {
+  font-size: 10px;
+  color: $darkblue;
   cursor: pointer;
 }
 
-.a-times-icon:hover{
+.a-times-icon:hover {
   opacity: 0.6;
-  transition-duration: .4s, .4s;
+  transition-duration: 0.4s, 0.4s;
   transition-timing-function: ease, ease-out;
 }
 
-
 .a-title-dialog {
-  font: 800 18px 'Open Sans', serif;
+  font: 800 18px "Open Sans", serif;
   color: $darkblue;
 }
 
@@ -80,9 +81,13 @@ select {
   cursor: pointer;
 }
 
-.a-label, select, option, textarea, input {
-  font: 300 14px 'Open Sans', serif;
-  color:$lightgray;
+.a-label,
+select,
+option,
+textarea,
+input {
+  font: 300 14px "Open Sans", serif;
+  color: $lightgray;
 }
 .a-images-icon {
   color: $cyan;
@@ -90,22 +95,30 @@ select {
 
 .a-button {
   margin: auto;
-  font: 300 14px 'Raleway', serif;
+  font: 300 14px "Raleway", serif;
   color: $white;
   background-color: $cyan;
   padding: 4% 24%;
-  border-radius:20px;
-  border:none;
-  cursor:pointer;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
 }
 
 .a-button:hover {
   background-color: $darkblue;
-  transition-duration: .4s, .4s;
+  transition-duration: 0.4s, 0.4s;
   transition-timing-function: ease, ease-out;
 }
 
+.mat-form-field {
+  width: 100%;
+
+}
 .mat-dialog-content {
-  overflow:visible;
+  overflow: visible;
 }
 
+::ng-deep .cdk-overlay-pane {
+  width: 50% !important;
+  height: 90vh;
+}

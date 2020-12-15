@@ -31,6 +31,7 @@ app.use((req,res,next) => {
 
 app.post('/api/posts', (req, res) => {
   const post = new Post({
+    title: req.body.title,
     body: req.body.body,
     tags: req.body.tags,
     category: req.body.category,

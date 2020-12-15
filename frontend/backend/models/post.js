@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const postSchema = mongoose.Schema({
-  title: { type: String, default : 'Title post' },
+  title: { type: String, required: true },
   body: { type: String, required : true },
   tags: { type: String, required : true },
   category: { type: Number, required : true },
