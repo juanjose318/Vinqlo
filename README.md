@@ -2,8 +2,7 @@
 Linking students through local community
 
 ## Start
-``Yarn install`` then
-``Yarn start`` 
-or
-``npm install`` then 
-``npm start``
+go to app/frontend
+
+``yarn install`` then
+``yarn start`` to load frontend, ``yarn start:server`` to start backend server  
