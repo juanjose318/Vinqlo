@@ -1,19 +1,19 @@
 <ng-container *ngIf="items">
-  <div class="m-post-wrapper" *ngFor="let posts of items.posts">
+  <div class="m-post-wrapper" *ngFor="let post of items;">
     <div class="m-post-row">
-      <p class="a-post-title">{{ posts.title }}</p>
+      <p class="a-post-title"><a (click)='onView(post)'>{{ post?.title }}</a></p>
       <div class="m-menu">
         <fa-icon class="a-post-more-icon" [icon]="faEllipsisH" [matMenuTriggerFor]="menu" ></fa-icon>
         <mat-menu #menu="matMenu" yPosition="below" xPosition="before">
             <button mat-menu-item class="a-option-item">Report</button>
-            <button mat-menu-item class="a-option-item" (click)="onDelete(posts)">Delete</button>
+            <button mat-menu-item class="a-option-item" (click)="onDelete(post)">Delete</button>
         </mat-menu>
       </div>
     </div>
 
-    <p class="a-post-body">{{ posts.body }} </p>
+    <p class="a-post-body">{{ post.body }} </p>
     <div class="m-post-row">
-      <p class="a-post-tags">{{ posts.tags }}</p>
+      <p class="a-post-tags">{{ post.tags }}</p>
       <div class="m-actions-wrapper">
         <div class="m-action-item">
           <fa-icon class="a-post-icon" [icon]="faHeart"></fa-icon>

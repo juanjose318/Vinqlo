@@ -2,6 +2,7 @@ import { Component,  ViewChild, Input, Output, EventEmitter } from '@angular/cor
 import { faEllipsisH, faBookmark, faComments, faHeart, faShare } from '@fortawesome/free-solid-svg-icons';
 import { MatExpansionPanel } from '@angular/material/expansion';
 import { Post } from '../../models/post.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-post-display',
@@ -10,11 +11,15 @@ import { Post } from '../../models/post.interface';
 })
 
 export class PostDisplayComponent {
+  constructor(  private router: Router ) {}
   @Input()
   items;
 
   @Output()
   postDeleted = new EventEmitter();
+
+  @Output()
+  postViewed = new EventEmitter();
 
   @ViewChild(MatExpansionPanel) expansionPannel: MatExpansionPanel;
   faEllipsisH = faEllipsisH;
@@ -22,6 +27,10 @@ export class PostDisplayComponent {
   faBookmark = faBookmark;
   faHeart = faHeart;
   faShare = faShare;
+
+  onView(post:Post) {
+    this.router.navigate(['/posts/',post._id])
+  }
 
   onDelete(post: Post){
     this.postDeleted.emit(post);

@@ -1,0 +1,30 @@
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { PostService } from '../../services/posts.service';
+
+import { switchMap } from 'rxjs/operators';
+import { Post } from '../../models/post.interface';
+
+@Component({
+  selector: 'selector-name',
+  templateUrl: 'post-single.component.html',
+  styleUrls: ['./post-single.component.scss'],
+})
+export class PostSingleComponent implements OnInit {
+  post: Post;
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private postService: PostService
+  ) {}
+
+  ngOnInit() {
+    this.route.params
+      .pipe(switchMap((data) => this.postService.getSinglePost(data)))
+      .subscribe((data) => (this.post = data.post));
+  }
+
+  goBack() {
+    this.router.navigate(['/feed']);
+  }
+}

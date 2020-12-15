@@ -1,6 +1,5 @@
-import { Component, Output, EventEmitter, Input } from '@angular/core';
+import { Component, Output, EventEmitter, Input, OnChanges } from '@angular/core';
 import { Post } from '../../models/post.interface';
-import { PostService } from '../../services/posts.service';
 
 @Component({
   selector: 'app-post-list',
@@ -8,7 +7,7 @@ import { PostService } from '../../services/posts.service';
   styleUrls: ['./post-list.component.scss']
 })
 
-export class PostListComponent {
+export class PostListComponent implements OnChanges {
 
 @Input()
 posts: Post;
@@ -18,6 +17,11 @@ postDeleted = new EventEmitter();
 
 constructor() {}
 
+ngOnChanges(changes) {
+  if (changes.posts) {
+    console.log(changes.posts);
+  }
+}
 onPostDeleted(post) {
   this.postDeleted.emit(post);
 }

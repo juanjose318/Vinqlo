@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { FeedComponent } from './components/feed/feed.component';
+import { UserHeaderComponent } from './components/user-header/user-header.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: FeedComponent,
-  },
+    component: UserHeaderComponent,
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class FeedRoutingModule {}
+export class ProfileRoutingModule { }

@@ -34,11 +34,15 @@ app.post('/api/posts', (req, res) => {
     body: req.body.body,
     tags: req.body.tags,
     category: req.body.category,
+    likes: req.body.category,
     file: req.body.file
   });
-  post.save();
-  res.status(201).json({
-    message: "Post added succesfully"
+  post.save().then(createdPost => {
+    console.log(res);
+    res.status(201).json({
+      message: "Post added succesfully",
+      postId: createdPost._id
+    });
   });
 });
 
@@ -48,6 +52,17 @@ app.get('/api/posts', (req, res) => {
     res.status(200).json({
       message: 'Post fetched succesfully!',
       posts: documents
+    });
+  });
+});
+
+app.get('/api/posts/:id', (req, res) => {
+  Post.findOne({ _id: req.params.id })
+  .then(post => {
+    console.log(post);
+    res.status(200).json({
+      message: 'Post fetched succesfully!',
+      post: post
     });
   });
 });

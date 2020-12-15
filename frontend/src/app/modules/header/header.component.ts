@@ -3,7 +3,7 @@ import { faUserAlt, faList, faEnvelope } from '@fortawesome/free-solid-svg-icons
 
 @Component({
   selector: 'app-header',
-  styleUrls:['./header.component.scss'],
+  styleUrls: ['./header.component.scss'],
   templateUrl: 'header.component.html'
 })
 

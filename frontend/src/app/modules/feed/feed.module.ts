@@ -1,20 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { HttpClientModule } from '@angular/common/http';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatIconModule } from '@angular/material/icon';
-import { MatToolbarModule } from '@angular/material/toolbar';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatMenuModule } from '@angular/material/menu';
-
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FeedRoutingModule } from './feed-routing.module';
-import { FeedComponent } from './components/feed/feed.component';
 
+import { FeedComponent } from './components/feed/feed.component';
 import { FooterComponent } from '../footer/footer.component';
 import { SideBarComponent } from './components/sidebar/sidebar.component';
 import { HeaderComponent } from '../header/header.component';
@@ -25,19 +16,14 @@ import { CreatePostComponent } from './components/create-post/create-post.compon
 import { PostListComponent } from '../posts/components/post-list/post-list.component';
 import { PostCreateCommentsComponent } from '../posts/components/post-create-comments/post-create-comments.component';
 import { PostCommentsComponent } from '../posts/components/post-comments/post-comments.component';
+import { MaterialModule } from '../materials/material.module';
 
 @NgModule({
   imports: [
     CommonModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatDialogModule,
-    MatSidenavModule,
     FontAwesomeModule,
     FeedRoutingModule,
-    MatDividerModule,
-    MatExpansionModule,
-    MatMenuModule,
+    MaterialModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
