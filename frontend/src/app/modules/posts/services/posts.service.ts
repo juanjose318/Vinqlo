@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Post } from '../models/post.interface';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 import { map, switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
@@ -15,16 +15,20 @@ export class PostService {
       .pipe(map((response) => response));
   }
 
-  getSinglePost(post): Observable<{ post: Post; message: string}> {
+  getSinglePost(post): Observable<{ post: Post; message: string }> {
     return this.http
       .get<{ message: string; post: Post }>(
-        `${environment.apiUrl}/posts/` + post.id)
-        .pipe(map( data => {
+        `${environment.apiUrl}/posts/` + post.id
+      )
+      .pipe(
+        map((data) => {
           return data;
-        }));
+        })
+      );
   }
 
   addPost(post: Post) {
+    console.log(post);
     this.http
       .post<{ message: string; postId }>(`${environment.apiUrl}/posts`, post)
       .subscribe((responseData) => {
@@ -37,6 +41,17 @@ export class PostService {
   deletePost(post: Post) {
     this.http
       .delete<{ message: string }>(`${environment.apiUrl}/posts/` + post._id)
+      .subscribe((responseData) => {
+        console.log(responseData.message);
+      });
+  }
+
+  updatePost(post: Post) {
+    console.log(post);
+    this.http
+      .put<{ message: string }>(
+        `${environment.apiUrl}/posts/` + post._id, post
+      )
       .subscribe((responseData) => {
         console.log(responseData.message);
       });

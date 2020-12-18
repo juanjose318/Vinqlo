@@ -1,0 +1,41 @@
+<div class="m-bar-wrapper">
+  <div class="m-bar-header">
+    <fa-icon
+      [icon]="faArrowLeft"
+      class="a-arrow-icon"
+      (click)="goBack()"
+    ></fa-icon>
+    <h2 class="a-community-title">Community's name</h2>
+    <div *ngIf="!joined; else join">
+      <div class="a-leave-button" (click)="toggleJoinButton()">
+        <fa-icon [icon]="faUnlink" class="a-link-closed-icon"></fa-icon>
+        <span>Leave</span>
+      </div>
+    </div>
+    <ng-template #join>
+      <div class="a-join-button" (click)="toggleJoinButton()">
+        <fa-icon [icon]="faLink" class="a-link-open-icon"></fa-icon>
+        <span>Join</span>
+      </div>
+    </ng-template>
+    <div class="m-menu">
+      <fa-icon
+        class="a-post-more-icon"
+        [icon]="faEllipsisH"
+        [matMenuTriggerFor]="menu"
+      ></fa-icon>
+      <mat-menu #menu="matMenu" yPosition="below" xPosition="before">
+        <button mat-menu-item class="a-option-item">Report</button>
+      </mat-menu>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+
+  <div class="m-bar-body">
+    <p class="a-body-paragraph">
+      Overpoort is a street lined with dance and drinking pubs, night shops,
+      chip shops and pita restaurants. Thursday night is student night, which
+      can get pretty crowded and wild.
+    </p>
+  </div>
+</div>

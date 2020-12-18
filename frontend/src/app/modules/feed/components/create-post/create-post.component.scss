@@ -15,7 +15,6 @@
 }
 
 textarea {
-  margin-top: 3em;
   box-sizing: border-box;
   width: 100%;
   height: 100%;
@@ -32,9 +31,17 @@ select {
   border-left: 2px solid $darkblue;
 }
 
-textarea {
-  margin: 4% 0;
+input:focus,
+textarea:focus,
+select:focus {
+  width: 100%;
+  border: 0px;
+  border-bottom: 2px solid $purple;
+  border-left: 2px solid $purple;
+  width: calc(100% - 1em);
+  padding: 0.5em;
 }
+
 
 select {
   -webkit-appearance: none;
@@ -60,8 +67,22 @@ select {
   align-items: flex-start;
 }
 
+.m-input-wrapper {
+  width: 100%;
+  margin:2em 0;
+}
+
+.m-input-wrapper:first-of-type {
+  margin:0;
+}
+
+.m-input-wrapper-last {
+  margin-bottom:1em;
+}
+
+
 .a-times-icon {
-  font-size: 10px;
+  font-size: 1.5em;
   color: $darkblue;
   cursor: pointer;
 }
@@ -73,27 +94,37 @@ select {
 }
 
 .a-title-dialog {
-  font: 800 18px "Open Sans", serif;
-  color: $darkblue;
+  font: $BigSpecialText;
+  color: $purple;
 }
 
 .a-label {
+  display: block;
+  padding:1em 0;
+  font:$smallSpecialSemibold;
+  color:$darkblue;
+}
+
+#a-file-input{
   cursor: pointer;
 }
 
-.a-label,
 select,
 option,
 textarea,
 input {
+  width: calc(100% - 1em);
+  padding: 0.5em;
   font: 300 14px "Open Sans", serif;
-  color: $lightgray;
+  color: $lightgrey;
 }
+
 .a-images-icon {
   color: $cyan;
 }
 
 .a-button {
+  width:100%;
   margin: auto;
   font: 300 14px "Raleway", serif;
   color: $white;
@@ -110,15 +141,7 @@ input {
   transition-timing-function: ease, ease-out;
 }
 
-.mat-form-field {
-  width: 100%;
-
-}
 .mat-dialog-content {
   overflow: visible;
 }
 
-::ng-deep .cdk-overlay-pane {
-  width: 50% !important;
-  height: 90vh;
-}

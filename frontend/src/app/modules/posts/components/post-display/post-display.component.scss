@@ -30,14 +30,21 @@
 }
 
 .a-post-title {
-  margin:0;
-  font: 600 18px 'Open Sans', serif;
+  font: $BigSpecialText;
+  line-height: 150%;
   color: $darkblue;
+  cursor: pointer;
 }
 
 .a-icon-text {
   font: $blackSmallSemibold;
-  color: $lightgray;
+  color: $lightgrey;
+}
+
+.a-post-date {
+  font: $smallRegularText;
+  color: $lightgrey;
+
 }
 
 .a-post-icon{

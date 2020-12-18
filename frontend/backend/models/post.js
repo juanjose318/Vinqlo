@@ -6,6 +6,7 @@ const postSchema = mongoose.Schema({
   tags: { type: String, required : true },
   category: { type: Number, required : true },
   likes: { type: Number, default: 0 },
+  createdAt: { type: Date, required:true},
   file: { type: String }
 });
 

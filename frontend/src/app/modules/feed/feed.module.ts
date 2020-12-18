@@ -27,7 +27,10 @@ import { MaterialModule } from '../materials/material.module';
     HttpClientModule,
   ],
   exports: [
-    FeedComponent
+    FeedComponent,
+    HeaderComponent,
+    FooterComponent,
+    PostDisplayComponent
   ],
   declarations: [
     FeedComponent,

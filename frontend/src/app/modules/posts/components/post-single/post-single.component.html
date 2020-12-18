@@ -1,9 +1,9 @@
-<a (click)="goBack()">back</a>
-
-<ng-container *ngIf="post">
-  <p>{{ post.body }}</p>
-  <p>{{ post.title }}</p>
-  <p>{{ post.tags }}</p>
-</ng-container>
-
-
+<app-header></app-header>
+<div class="o-container">
+  <app-description-bar></app-description-bar>
+  <app-post-display
+  [items]="post"
+  (postEdited)="handleUpdate($event)">
+  </app-post-display>
+</div>
+<app-footer></app-footer>

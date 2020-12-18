@@ -2,7 +2,8 @@
   <ng-container>
     <app-post-display
       [items]="posts"
-      (postDeleted)="onPostDeleted($event)">
+      (postDeleted)="onPostDeleted($event)"
+      (postEdited)="onPostEdited($event)">
     </app-post-display>
   </ng-container>
 <div>

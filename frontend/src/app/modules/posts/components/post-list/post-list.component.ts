@@ -7,7 +7,7 @@ import { Post } from '../../models/post.interface';
   styleUrls: ['./post-list.component.scss']
 })
 
-export class PostListComponent implements OnChanges {
+export class PostListComponent  {
 
 @Input()
 posts: Post;
@@ -15,15 +15,17 @@ posts: Post;
 @Output()
 postDeleted = new EventEmitter();
 
+@Output()
+postEdited = new EventEmitter();
+
 constructor() {}
 
-ngOnChanges(changes) {
-  if (changes.posts) {
-    console.log(changes.posts);
-  }
-}
-onPostDeleted(post) {
+onPostDeleted(post: Post) {
   this.postDeleted.emit(post);
+}
+
+onPostEdited(post: Post) {
+  this.postEdited.emit(post);
 }
 
 }

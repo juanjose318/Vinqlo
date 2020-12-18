@@ -16,7 +16,7 @@ export class FeedComponent implements OnInit {
     this.postsService.getPosts().subscribe((data) => (this.posts = data.posts));
   }
 
-  onPostCreated(newPost: Post) {
+  onPostCreated(newPost: Post): void {
     this.postsService.addPost(newPost);
     this.posts.push(newPost);
   }
@@ -29,5 +29,9 @@ export class FeedComponent implements OnInit {
       );
       this.posts = updatedPosts;
     });
+  }
+
+  handleEdit(post: Post): void {
+    this.postsService.updatePost(post);
   }
 }

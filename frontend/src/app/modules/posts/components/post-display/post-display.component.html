@@ -1,46 +1,131 @@
 <ng-container *ngIf="items">
-  <div class="m-post-wrapper" *ngFor="let post of items;">
-    <div class="m-post-row">
-      <p class="a-post-title"><a (click)='onView(post)'>{{ post?.title }}</a></p>
-      <div class="m-menu">
-        <fa-icon class="a-post-more-icon" [icon]="faEllipsisH" [matMenuTriggerFor]="menu" ></fa-icon>
-        <mat-menu #menu="matMenu" yPosition="below" xPosition="before">
+  <div *ngIf="items.length > 1; else singlePost">
+    <div class="m-post-wrapper" *ngFor="let post of items">
+      <div class="m-post-row">
+        <div class="m-right-wrapper">
+          <p class="a-post-title">
+            <a (click)="onView(post)">{{ post?.title }}</a>
+          </p>
+          <p class="a-post-date">{{ post.createdAt | date: "medium" }}</p>
+        </div>
+        <div class="m-menu">
+          <fa-icon
+            class="a-post-more-icon"
+            [icon]="faEllipsisH"
+            [matMenuTriggerFor]="menu"
+          ></fa-icon>
+          <mat-menu #menu="matMenu" yPosition="below" xPosition="before">
             <button mat-menu-item class="a-option-item">Report</button>
-            <button mat-menu-item class="a-option-item" (click)="onDelete(post)">Delete</button>
-        </mat-menu>
+            <button
+              mat-menu-item
+              class="a-option-item"
+              (click)="onDelete(post)"
+            >
+              Delete
+            </button>
+          </mat-menu>
+        </div>
       </div>
-    </div>
 
-    <p class="a-post-body">{{ post.body }} </p>
-    <div class="m-post-row">
-      <p class="a-post-tags">{{ post.tags }}</p>
-      <div class="m-actions-wrapper">
-        <div class="m-action-item">
-          <fa-icon class="a-post-icon" [icon]="faHeart"></fa-icon>
-          <a class="a-icon-text">15</a>
-        </div>
-        <div class="m-action-item">
-          <fa-icon class="a-post-icon" [icon]="faComments"></fa-icon>
-          <a class="a-icon-text">10</a>
-        </div>
-        <div class="m-action-item">
-          <fa-icon class="a-post-icon" [icon]="faBookmark"></fa-icon>
-        </div>
-        <div class="m-action-item">
-          <fa-icon class="a-post-icon" [icon]="faShare"></fa-icon>
+      <p class="a-post-body">{{ post.body }}</p>
+      <div class="m-post-row">
+        <p class="a-post-tags">{{ post.tags }}</p>
+        <div class="m-actions-wrapper">
+          <div class="m-action-item">
+            <fa-icon class="a-post-icon" [icon]="faHeart"></fa-icon>
+            <a class="a-icon-text">15</a>
+          </div>
+          <div class="m-action-item">
+            <fa-icon class="a-post-icon" [icon]="faComments"></fa-icon>
+            <a class="a-icon-text">10</a>
+          </div>
+          <div class="m-action-item">
+            <fa-icon class="a-post-icon" [icon]="faBookmark"></fa-icon>
+          </div>
+          <div class="m-action-item">
+            <fa-icon class="a-post-icon" [icon]="faShare"></fa-icon>
+          </div>
         </div>
       </div>
-    </div>
-    <mat-divider></mat-divider>
-        <mat-expansion-panel >
-          <mat-expansion-panel-header>
-            <div class="m-comments">
-              <fa-icon class="a-post-icon" [icon]="faComments"></fa-icon>
-              <a class="a-icon-text">Comments</a>
-           </div>
+      <mat-divider></mat-divider>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <div class="m-comments">
+            <fa-icon class="a-post-icon" [icon]="faComments"></fa-icon>
+            <a class="a-icon-text">Comments</a>
+          </div>
         </mat-expansion-panel-header>
         <app-post-comments></app-post-comments>
         <app-create-post-comments></app-create-post-comments>
       </mat-expansion-panel>
+    </div>
   </div>
+  <ng-template #singlePost>
+    <div class="m-post-wrapper">
+      <div class="m-post-row">
+        <div class="m-right-wrapper">
+          <p class="a-post-title">
+            <a (click)="onView(items)">{{ items.title }}</a>
+          </p>
+          <p class="a-post-date">{{ items.createdAt | date: "medium" }}</p>
+        </div>
+        <div class="m-menu">
+          <fa-icon
+            class="a-post-more-icon"
+            [icon]="faEllipsisH"
+            [matMenuTriggerFor]="menu"
+          ></fa-icon>
+          <mat-menu #menu="matMenu" yPosition="below" xPosition="before">
+            <button mat-menu-item class="a-option-item">Report</button>
+            <button
+              mat-menu-item
+              class="a-option-item"
+              (click)="onDelete(items)"
+            >
+              Delete
+            </button>
+            <button
+              mat-menu-item
+              class="a-option-item"
+              (click)="openDialog()"
+            >
+              Edit
+            </button>
+          </mat-menu>
+        </div>
+      </div>
+
+      <p class="a-post-body">{{ items.body }}</p>
+      <div class="m-post-row">
+        <p class="a-post-tags">{{ items.tags }}</p>
+        <div class="m-actions-wrapper">
+          <div class="m-action-item">
+            <fa-icon class="a-post-icon" [icon]="faHeart"></fa-icon>
+            <a class="a-icon-text">15</a>
+          </div>
+          <div class="m-action-item">
+            <fa-icon class="a-post-icon" [icon]="faComments"></fa-icon>
+            <a class="a-icon-text">10</a>
+          </div>
+          <div class="m-action-item">
+            <fa-icon class="a-post-icon" [icon]="faBookmark"></fa-icon>
+          </div>
+          <div class="m-action-item">
+            <fa-icon class="a-post-icon" [icon]="faShare"></fa-icon>
+          </div>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <div class="m-comments">
+            <fa-icon class="a-post-icon" [icon]="faComments"></fa-icon>
+            <a class="a-icon-text">Comments</a>
+          </div>
+        </mat-expansion-panel-header>
+        <app-post-comments></app-post-comments>
+        <app-create-post-comments></app-create-post-comments>
+      </mat-expansion-panel>
+    </div>
+  </ng-template>
 </ng-container>

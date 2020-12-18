@@ -25,11 +25,12 @@ export class CreatePostButtonComponent {
     openDialog(): void {
     const dialogRef = this.dialog.open(CreatePostComponent, {
       width: '30%',
+      id: 'a-create-post-modal'
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if(!!result){
-      this.postCreated.emit(result);
+        this.postCreated.emit(result);
       }
     });
     }

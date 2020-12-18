@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PostService } from '../../services/posts.service';
-
 import { switchMap } from 'rxjs/operators';
 import { Post } from '../../models/post.interface';
 
@@ -12,16 +11,25 @@ import { Post } from '../../models/post.interface';
 })
 export class PostSingleComponent implements OnInit {
   post: Post;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private postService: PostService
+    private postService: PostService,
+
   ) {}
 
   ngOnInit() {
     this.route.params
       .pipe(switchMap((data) => this.postService.getSinglePost(data)))
       .subscribe((data) => (this.post = data.post));
+  }
+
+  handleUpdate(updatedPost) {
+    if (!!updatedPost) {
+      this.postService.updatePost(updatedPost);
+      this.post = updatedPost;
+    }
   }
 
   goBack() {
