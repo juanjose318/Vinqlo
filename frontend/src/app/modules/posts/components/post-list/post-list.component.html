@@ -1,6 +1,7 @@
 <div class="o-container">
   <ng-container>
-    <app-post-display
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+      <app-post-display
       [items]="posts"
       (postDeleted)="onPostDeleted($event)"
       (postEdited)="onPostEdited($event)">

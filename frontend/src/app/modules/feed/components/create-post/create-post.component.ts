@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { Post } from 'src/app/modules/posts/models/post.interface';
 import { faImages, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { nineType } from './mime-type.validator';
 
 @Component({
   selector: 'app-create-post-form',
@@ -25,7 +26,8 @@ export class CreatePostComponent implements OnInit {
   tags: string;
   createdAt: Date = new Date();
   category: string;
-  file: File;
+  image: File;
+  imagePreview: string | ArrayBuffer;
 
   faTimesCircle = faTimesCircle;
   faImages = faImages;
@@ -36,7 +38,6 @@ export class CreatePostComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data) {}
 
     ngOnInit() {
-    console.log(this.data);
     this.form = this.fb.group({
       _id: new FormControl(this.id),
       title: new FormControl(this.title, [
@@ -49,8 +50,7 @@ export class CreatePostComponent implements OnInit {
       ]),
       tags: new FormControl(this.tags, [Validators.minLength(2)]),
       category: new FormControl(this.category, [Validators.required]),
-      // ADD validation to file
-      file: new FormControl(this.file),
+      file: new FormControl(this.image, { asyncValidators: [nineType] }),
       createdAt: new FormControl(this.createdAt),
     });
 
@@ -67,6 +67,20 @@ export class CreatePostComponent implements OnInit {
         file: this.data.post.file
       })
     }
+  }
+
+  /**
+   * Validator for image upload
+   */
+  onFileUploaded(event: Event){
+    const image = (event.target as HTMLInputElement).files[0];
+    this.form.patchValue({ file : image });
+    this.form.get('file').updateValueAndValidity();
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePreview = reader.result;
+    }
+    reader.readAsDataURL(image);
   }
 
   save() {

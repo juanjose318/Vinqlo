@@ -11,7 +11,7 @@
 }
 
 .a-file-input {
-  display: none;
+  display:none;
 }
 
 textarea {
@@ -42,7 +42,6 @@ select:focus {
   padding: 0.5em;
 }
 
-
 select {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -69,17 +68,16 @@ select {
 
 .m-input-wrapper {
   width: 100%;
-  margin:2em 0;
+  margin: 2em 0;
 }
 
 .m-input-wrapper:first-of-type {
-  margin:0;
+  margin: 0;
 }
 
 .m-input-wrapper-last {
-  margin-bottom:1em;
+  margin-bottom: 1em;
 }
-
 
 .a-times-icon {
   font-size: 1.5em;
@@ -100,13 +98,22 @@ select {
 
 .a-label {
   display: block;
-  padding:1em 0;
-  font:$smallSpecialSemibold;
-  color:$darkblue;
+  padding: 1em 0;
+  font: $smallSpecialSemibold;
+  color: $darkblue;
 }
 
-#a-file-input{
+#a-file-input {
   cursor: pointer;
+}
+
+.a-image-preview {
+  height: 4em;
+  margin: 1em 0;
+}
+
+.a-image-preview img {
+  height: 100%;
 }
 
 select,
@@ -124,7 +131,7 @@ input {
 }
 
 .a-button {
-  width:100%;
+  width: 100%;
   margin: auto;
   font: 300 14px "Raleway", serif;
   color: $white;
@@ -144,4 +151,3 @@ input {
 .mat-dialog-content {
   overflow: visible;
 }
-

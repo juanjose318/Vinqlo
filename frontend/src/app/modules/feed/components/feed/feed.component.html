@@ -5,6 +5,7 @@
   </div>
   <div class="m-main-content">
     <app-searchbar></app-searchbar>
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
     <app-post-list
     (postDeleted)="handleDelete($event)"
     [posts]="posts">

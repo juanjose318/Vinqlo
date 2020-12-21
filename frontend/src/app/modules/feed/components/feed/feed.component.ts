@@ -11,9 +11,13 @@ import { PostService } from 'src/app/modules/posts/services/posts.service';
 export class FeedComponent implements OnInit {
   constructor(private postsService: PostService) {}
   posts: Post[] = [];
+  isLoading: boolean;
 
   ngOnInit() {
-    this.postsService.getPosts().subscribe((data) => (this.posts = data.posts));
+    this.isLoading = true;
+    this.postsService.getPosts().subscribe((data) =>  {this.posts = data.posts
+    console.log(data.posts)});
+    this.isLoading= false;
   }
 
   onPostCreated(newPost: Post): void {

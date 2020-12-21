@@ -60,18 +60,16 @@
         />
       </div>
 
-      <div class="m-input-wrapper">
-        <mat-label for="file-input" class="a-label" id="a-file-input">
+      <div class="m-input-wrapper-last">
+        <mat-label class="a-label" (click)="fileUpload.click()" id="a-file-input" >
           <fa-icon class="a-images-icon" [icon]="faImages"></fa-icon>
           Upload an image
         </mat-label>
-        <input
-          matInput
-          class="a-file-input"
-          type="file"
-          id="file-input"
-          formControlName="file"
-        />
+        <input matInput  type="file" class="a-file-input" #fileUpload  (change)="onFileUploaded($event)" />
+      </div>
+
+      <div class="a-image-preview" *ngIf="imagePreview !== '' && imagePreview && form.get('file').valid">
+        <img [src]="imagePreview" [alt]="form.value.title">
       </div>
 
       <div mat-dialog-actions>
@@ -145,17 +143,11 @@
       </div>
 
       <div class="m-input-wrapper-last">
-        <mat-label for="file-input" class="a-label" id="a-file-input">
+        <mat-label class="a-label" (click)="fileUpload.click()" id="a-file-input" >
           <fa-icon class="a-images-icon" [icon]="faImages"></fa-icon>
           Upload an image
         </mat-label>
-        <input
-          matInput
-          class="a-file-input"
-          type="file"
-          id="file-input"
-          formControlName="file"
-        />
+        <input matInput  type="file" class="a-file-input" #fileUpload formControlName="file"/>
       </div>
 
       <div mat-dialog-actions>

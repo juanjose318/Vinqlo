@@ -4,6 +4,8 @@ export interface Post {
   title: string;
   body: string;
   tags?: string;
+  file?: string;
+  category?: string;
   createdAt:Date;
   comments?: [{
     body: string;
