@@ -29,7 +29,6 @@ const storage = multer.diskStorage({
 
 router.get("/:id", (req, res) => {
   Post.findOne({ _id: req.params.id }).then((postData) => {
-    console.log(postData);
     res.status(200).json({
       message: "Post fetched succesfully!",
       post: postData,
@@ -39,15 +38,13 @@ router.get("/:id", (req, res) => {
 
 router.delete("/:id", (req, res) => {
   Post.deleteOne({ _id: req.params.id }).then((postData) => {
-    console.log(postData);
-      res.status(200).json({ message: "Post Deleted" });
-    });
+    res.status(200).json({ message: "Post Deleted" });
   });
+});
 
-  router.post("", multer({ storage: storage }).single("file"), (req, res) => {
+router.post("", multer({ storage: storage }).single("file"), (req, res) => {
   const url = req.protocol + "://" + req.get("host");
   let post;
-  console.log(req.body);
   if (req.file !== undefined) {
     post = new Post({
       title: req.body.title,
@@ -79,24 +76,34 @@ router.delete("/:id", (req, res) => {
   });
 });
 
-router.put("/:id", (req, res, next) => {
-  const post = new Post({
-    _id: req.body._id,
-    title: req.body.title,
-    body: req.body.body,
-    tags: req.body.tags,
-    category: req.body.category,
-    createdAt: req.body.createdAt,
-    likes: req.body.category,
-    file: req.body.file,
-  });
-  Post.updateOne({ _id: req.params.id }, post).then((updatedPost) => {
-    console.log(res);
-    res.status(200).json({
-      message: "Updated post sucesfully!",
+router.put(
+  "/:id",
+  multer({ storage: storage }).single("file"),
+  (req, res, next) => {
+    let imageUrl;
+    if (req.file) {
+      const url = req.protocol + "://" + req.get("host");
+      imageUrl = url + "/images/" + req.file.filename;
+    }
+    const post = new Post({
+      _id: req.body.id,
+      title: req.body.title,
+      body: req.body.body,
+      tags: req.body.tags,
+      category: req.body.category,
+      createdAt: req.body.createdAt,
+      likes: req.body.category,
+      file: imageUrl,
     });
-  });
-});
+    console.log(post);
+    Post.updateOne({ _id: req.params.id }, post).then((updatedPost) => {
+      console.log(res);
+      res.status(200).json({
+        message: "Updated post sucesfully!",
+      });
+    });
+  }
+);
 
 router.get("", (req, res) => {
   Post.find().then((documents) => {

@@ -26,11 +26,23 @@ export class PostSingleComponent implements OnInit {
       .subscribe((data) => (this.post = data.post));
   }
 
+
+  /**
+   *
+   * Set Timeout to refresh page and not interrupt the http call
+   * Files changed kept in backend, specify in GPDR
+   */
   handleUpdate(updatedPost) {
     if (!!updatedPost) {
       this.postService.updatePost(updatedPost);
       this.post = updatedPost;
+      setTimeout( this.refresh , 200);
     }
+  }
+
+  refresh()
+  {
+    window.location.reload();
   }
 
   handleDelete(postToDelete) {

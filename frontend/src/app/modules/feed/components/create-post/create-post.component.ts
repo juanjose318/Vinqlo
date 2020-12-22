@@ -26,7 +26,7 @@ export class CreatePostComponent implements OnInit {
   tags: string;
   createdAt: Date = new Date();
   category: string;
-  image: Blob;
+  image: string;
   imagePreview: string | ArrayBuffer;
 
   faTimesCircle = faTimesCircle;
@@ -56,7 +56,7 @@ export class CreatePostComponent implements OnInit {
     });
 
     /**
-     * Set data from post to edit
+     * Set data from post to edit if sending data to component
      */
     if (!!this.data) {
       this.form.patchValue({
@@ -85,6 +85,9 @@ export class CreatePostComponent implements OnInit {
   }
 
   save() {
+    if(this.form.invalid){
+      return;
+    }
     this.dialogRef.close(this.form.value);
   }
 
