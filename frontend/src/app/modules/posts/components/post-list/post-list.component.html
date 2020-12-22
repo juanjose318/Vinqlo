@@ -1,10 +1,14 @@
 <div class="o-container">
-  <ng-container>
+  <div *ngIf="posts; else noPost">
     <mat-spinner *ngIf="isLoading"></mat-spinner>
       <app-post-display
       [items]="posts"
       (postDeleted)="onPostDeleted($event)"
       (postEdited)="onPostEdited($event)">
     </app-post-display>
-  </ng-container>
+  </div>
+
+  <ng-template #noPost>
+    <p class="a-notification-text">No post Available</p>
+  </ng-template>
 <div>

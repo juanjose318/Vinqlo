@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PostService } from '../../services/posts.service';
 import { switchMap } from 'rxjs/operators';
@@ -16,7 +17,7 @@ export class PostSingleComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private postService: PostService,
-
+    private location: Location
   ) {}
 
   ngOnInit() {
@@ -30,6 +31,11 @@ export class PostSingleComponent implements OnInit {
       this.postService.updatePost(updatedPost);
       this.post = updatedPost;
     }
+  }
+
+  handleDelete(postToDelete) {
+    this.postService.deletePost(postToDelete);
+    this.location.back();
   }
 
   goBack() {

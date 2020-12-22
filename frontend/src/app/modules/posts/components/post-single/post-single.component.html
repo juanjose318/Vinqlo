@@ -3,7 +3,8 @@
   <app-description-bar></app-description-bar>
   <app-post-display
   [items]="post"
-  (postEdited)="handleUpdate($event)">
+  (postEdited)="handleUpdate($event)"
+  (postDeleted)="handleDelete($event)">
   </app-post-display>
 </div>
 <app-footer></app-footer>

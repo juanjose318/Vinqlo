@@ -26,7 +26,7 @@
           </mat-menu>
         </div>
       </div>
-      <div class="a-post-image">
+      <div class="a-post-image" *ngIf="post.file !== undefined">
         <img [src]="post.file" [alt]="post.title">
       </div>
       <p class="a-post-body">{{ post.body }}</p>
@@ -49,17 +49,6 @@
           </div>
         </div>
       </div>
-      <mat-divider></mat-divider>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <div class="m-comments">
-            <fa-icon class="a-post-icon" [icon]="faComments"></fa-icon>
-            <a class="a-icon-text">Comments</a>
-          </div>
-        </mat-expansion-panel-header>
-        <app-post-comments></app-post-comments>
-        <app-create-post-comments></app-create-post-comments>
-      </mat-expansion-panel>
     </div>
   </div>
   <ng-template #singlePost>
@@ -96,7 +85,7 @@
           </mat-menu>
         </div>
       </div>
-      <div class="a-post-image">
+      <div class="a-post-image" *ngIf="items.file !== undefined">
         <img [src]="items.file" [alt]="items.title">
       </div>
       <p class="a-post-body">{{ items.body }}</p>

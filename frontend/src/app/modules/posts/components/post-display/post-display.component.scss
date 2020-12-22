@@ -19,6 +19,10 @@
   margin-bottom:1em;
 }
 
+.m-post-row:last-of-type {
+  margin-bottom: 0;
+}
+
 .m-actions-wrapper {
   display: flex;
   flex-direction: row;
@@ -37,11 +41,14 @@
 }
 
 .a-post-image {
-  width: 100%;
+  width: 540px;
+  height: auto;
 }
 
 .a-post-image img{
   width: 100%;
+  margin:auto;
+  height: 100%;
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
 }
 
