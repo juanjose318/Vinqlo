@@ -32,7 +32,7 @@ router.get("/:id", (req, res) => {
     console.log(postData);
     res.status(200).json({
       message: "Post fetched succesfully!",
-      post: post,
+      post: postData,
     });
   });
 });
@@ -40,14 +40,15 @@ router.get("/:id", (req, res) => {
 router.delete("/:id", (req, res) => {
   Post.deleteOne({ _id: req.params.id }).then((postData) => {
     console.log(postData);
-    res.status(200).json({ message: "Post Deleted" });
+      res.status(200).json({ message: "Post Deleted" });
+    });
   });
-});
 
-router.post("", multer({ storage: storage }).single("file"), (req, res) => {
+  router.post("", multer({ storage: storage }).single("file"), (req, res) => {
   const url = req.protocol + "://" + req.get("host");
   let post;
-  if (req.body.file) {
+  console.log(req.body);
+  if (req.file !== undefined) {
     post = new Post({
       title: req.body.title,
       body: req.body.body,
@@ -55,7 +56,7 @@ router.post("", multer({ storage: storage }).single("file"), (req, res) => {
       category: req.body.category,
       createdAt: req.body.createdAt,
       likes: req.body.category,
-      file: url + "/images" + req.file.filename,
+      file: url + "/images/" + req.file.filename,
     });
   } else {
     post = new Post({
@@ -68,7 +69,6 @@ router.post("", multer({ storage: storage }).single("file"), (req, res) => {
     });
   }
   post.save().then((createdPost) => {
-    console.log(res);
     res.status(201).json({
       message: "Post added succesfully",
       post: {

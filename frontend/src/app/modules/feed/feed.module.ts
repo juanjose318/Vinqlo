@@ -43,8 +43,8 @@ import { MaterialModule } from '../materials/material.module';
     SideBarComponent,
     FooterComponent,
     PostCommentsComponent,
-    PostCreateCommentsComponent
-  ],
+    PostCreateCommentsComponent,
+    ],
   providers: [],
 })
 export class FeedModule { }

@@ -28,12 +28,11 @@ export class PostService {
   }
 
   addPost(post: Post) {
-    console.log(post.file);
     const postData = new FormData();
     postData.append("title", post.title);
     postData.append("body", post.body);
     postData.append("tags", post.tags);
-    if(post.file){
+    if(!!post.file){
       postData.append("file", post.file, post.title);
     }
     postData.append("category", post.category);
@@ -42,12 +41,9 @@ export class PostService {
     postData.append("createdAt", dataestr);
 
     console.log(postData);
-    console.log(post);
-
     this.http
       .post<{ message: string; postId }>(`${environment.apiUrl}/posts`, postData)
       .subscribe((responseData) => {
-        console.log(responseData.message);
         const postId = responseData.postId;
         post._id = postId;
       });

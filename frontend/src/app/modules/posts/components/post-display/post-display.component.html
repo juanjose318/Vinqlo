@@ -26,7 +26,9 @@
           </mat-menu>
         </div>
       </div>
-
+      <div class="a-post-image">
+        <img [src]="post.file" [alt]="post.title">
+      </div>
       <p class="a-post-body">{{ post.body }}</p>
       <div class="m-post-row">
         <p class="a-post-tags">{{ post.tags }}</p>
@@ -94,7 +96,9 @@
           </mat-menu>
         </div>
       </div>
-
+      <div class="a-post-image">
+        <img [src]="items.file" [alt]="items.title">
+      </div>
       <p class="a-post-body">{{ items.body }}</p>
       <div class="m-post-row">
         <p class="a-post-tags">{{ items.tags }}</p>

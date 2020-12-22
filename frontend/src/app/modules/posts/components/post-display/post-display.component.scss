@@ -36,6 +36,15 @@
   cursor: pointer;
 }
 
+.a-post-image {
+  width: 100%;
+}
+
+.a-post-image img{
+  width: 100%;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+}
+
 .a-icon-text {
   font: $blackSmallSemibold;
   color: $lightgrey;

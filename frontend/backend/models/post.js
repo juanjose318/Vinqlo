@@ -7,7 +7,7 @@ const postSchema = mongoose.Schema({
   category: { type: Number, required : true },
   likes: { type: Number, default: 0 },
   createdAt: { type: Date, required:true},
-  file: { type: String, default: 'nofile.jpg' }
+  file: { type: String }
 });
 
 module.exports = mongoose.model('Post', postSchema);

@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NotFoundComponent } from './not-found-component/not-found-component.component';
+import { NgFileValidatorLibModule } from 'angular-file-validator';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { NotFoundComponent } from './not-found-component/not-found-component.com
     FormsModule,
     ReactiveFormsModule,
     FontAwesomeModule,
+    NgFileValidatorLibModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

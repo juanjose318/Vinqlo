@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { Post } from 'src/app/modules/posts/models/post.interface';
 import { faImages, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
-import { nineType } from './mime-type.validator';
+import { FileCheck } from 'angular-file-validator';
 
 @Component({
   selector: 'app-create-post-form',
@@ -26,7 +26,7 @@ export class CreatePostComponent implements OnInit {
   tags: string;
   createdAt: Date = new Date();
   category: string;
-  image: File;
+  image: Blob;
   imagePreview: string | ArrayBuffer;
 
   faTimesCircle = faTimesCircle;
@@ -35,9 +35,10 @@ export class CreatePostComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<CreatePostComponent>,
-    @Inject(MAT_DIALOG_DATA) public data) {}
+    @Inject(MAT_DIALOG_DATA) public data
+  ) {}
 
-    ngOnInit() {
+  ngOnInit() {
     this.form = this.fb.group({
       _id: new FormControl(this.id),
       title: new FormControl(this.title, [
@@ -50,36 +51,36 @@ export class CreatePostComponent implements OnInit {
       ]),
       tags: new FormControl(this.tags, [Validators.minLength(2)]),
       category: new FormControl(this.category, [Validators.required]),
-      file: new FormControl(this.image, { asyncValidators: [nineType] }),
+      file: new FormControl(this.image,{ asyncValidators: [FileCheck.ngFileValidator(['png', 'jpeg','gif','jpeg'])]}),
       createdAt: new FormControl(this.createdAt),
     });
 
     /**
      * Set data from post to edit
      */
-    if(!!this.data) {
+    if (!!this.data) {
       this.form.patchValue({
         _id: this.data.post._id,
         title: this.data.post.title,
-        category:this.data.post.category,
+        category: this.data.post.category,
         body: this.data.post.body,
         tags: this.data.post.tags,
-        file: this.data.post.file
-      })
+        file: this.data.post.file,
+      });
     }
   }
 
   /**
    * Validator for image upload
    */
-  onFileUploaded(event: Event){
+  onFileUploaded(event: Event) {
     const image = (event.target as HTMLInputElement).files[0];
-    this.form.patchValue({ file : image });
+    this.form.patchValue({ file: image });
     this.form.get('file').updateValueAndValidity();
     const reader = new FileReader();
     reader.onload = () => {
       this.imagePreview = reader.result;
-    }
+    };
     reader.readAsDataURL(image);
   }
 

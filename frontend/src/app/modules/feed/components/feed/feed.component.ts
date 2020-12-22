@@ -1,4 +1,5 @@
 import { Component, Injectable, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Post } from 'src/app/modules/posts/models/post.interface';
 import { PostService } from 'src/app/modules/posts/services/posts.service';
 
@@ -9,20 +10,21 @@ import { PostService } from 'src/app/modules/posts/services/posts.service';
 })
 @Injectable()
 export class FeedComponent implements OnInit {
-  constructor(private postsService: PostService) {}
+  constructor(private postsService: PostService,
+    private router: Router) {}
   posts: Post[] = [];
   isLoading: boolean;
 
   ngOnInit() {
     this.isLoading = true;
-    this.postsService.getPosts().subscribe((data) =>  {this.posts = data.posts
-    console.log(data.posts)});
-    this.isLoading= false;
+    this.postsService.getPosts().subscribe((data) => (this.posts = data.posts));
+    this.isLoading = false;
   }
 
   onPostCreated(newPost: Post): void {
     this.postsService.addPost(newPost);
     this.posts.push(newPost);
+    this.router.navigate(['posts/:id', newPost._id]);
   }
 
   handleDelete(post: Post): void {
