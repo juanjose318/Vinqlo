@@ -7,6 +7,7 @@ export interface Post {
   file?: string;
   category?: string;
   createdAt:Date;
+  likes: number;
   comments?: [{
     body: string;
     title: string;

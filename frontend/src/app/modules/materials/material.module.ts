@@ -8,9 +8,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   imports: [
@@ -24,7 +24,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     MatInputModule,
     MatFormFieldModule,
     FontAwesomeModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSelectModule,
   ],
   exports: [
     MatDividerModule,
@@ -33,10 +34,11 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     MatMenuModule,
     MatToolbarModule,
     MatIconModule,
+    MatSelectModule,
     MatDialogModule,
     MatSidenavModule,
     MatProgressSpinnerModule,
-    FontAwesomeModule
+    FontAwesomeModule,
   ],
   declarations: [],
   providers: [],

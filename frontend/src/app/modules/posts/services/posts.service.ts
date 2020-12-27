@@ -10,9 +10,9 @@ import { identifierModuleUrl } from '@angular/compiler';
 export class PostService {
   constructor(private http: HttpClient) {}
 
-  getPosts(): Observable<{ posts: Post[]; message: string }> {
+  getPosts(): Observable<{ posts; message: string }> {
     return this.http
-      .get<{ posts: Post[]; message: string }>(`${environment.apiUrl}/posts`)
+      .get<{ posts; message: string }>(`${environment.apiUrl}/posts`)
       .pipe(map((response) => response));
   }
 
@@ -81,7 +81,8 @@ export class PostService {
         tags: post.tags,
         category: post.category,
         file: post.file,
-        createdAt: post.createdAt
+        createdAt: post.createdAt,
+        likes: post.likes
       }
     }
     this.http

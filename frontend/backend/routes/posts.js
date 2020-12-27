@@ -2,6 +2,7 @@ const express = require("express");
 const multer = require("multer");
 
 const Post = require("../models/post");
+const checkAuth = require('../middleware/check-auth');
 
 const router = express.Router();
 
@@ -36,13 +37,15 @@ router.get("/:id", (req, res) => {
   });
 });
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id",checkAuth, (req, res) => {
   Post.deleteOne({ _id: req.params.id }).then((postData) => {
     res.status(200).json({ message: "Post Deleted" });
   });
 });
 
-router.post("", multer({ storage: storage }).single("file"), (req, res) => {
+router.post("",
+checkAuth,
+multer({ storage: storage }).single("file"), (req, res) => {
   const url = req.protocol + "://" + req.get("host");
   let post;
   if (req.file !== undefined) {
@@ -78,6 +81,7 @@ router.post("", multer({ storage: storage }).single("file"), (req, res) => {
 
 router.put(
   "/:id",
+  checkAuth,
   multer({ storage: storage }).single("file"),
   (req, res, next) => {
     let imageUrl;
@@ -106,11 +110,32 @@ router.put(
 );
 
 router.get("", (req, res) => {
-  Post.find().then((documents) => {
+  Post.find().then((postsResults) => {
+    // const page = parseInt(req.query.page)
+    // const limit = parseInt(req.query.limit)
+
+    // const startIndex = (page - 1) * limit
+    // const endIndex = page * limit
+
+    // const results = {};
+
+    // if (endIndex < postsResults.length) {
+    //   results.next = {
+    //     page: page + 1,
+    //     limit: limit,
+    //   };
+    // }
+
+    // if (startIndex > 0) {
+    //   results.previous = {
+    //     page: page - 1,
+    //     limit: limit,
+    //   };
+    // }
+    // results.results = postsResults.slice(startIndex, endIndex);
     res.status(200).json({
-      message: "Post fetched succesfully!",
-      posts: documents,
-    });
+      message: 'Posts fetched',
+      posts: postsResults });
   });
 });
 

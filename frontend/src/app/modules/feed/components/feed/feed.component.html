@@ -8,12 +8,19 @@
     <mat-spinner *ngIf="isLoading"></mat-spinner>
     <app-post-list
     (postDeleted)="handleDelete($event)"
-    [posts]="posts">
+    [posts]="posts"
+    infiniteScroll
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="50"
+    (scrolled)="onScroll()"
+    class="a-post-list"
+    >
     </app-post-list>
   </div>
   <div class="a-push"></div>
 </div>
 <app-create-post-button
+*ngIf="userIsAuthenticated"
 (postCreated)="onPostCreated($event)"
 ></app-create-post-button>
 <app-footer class="a-footer"></app-footer>

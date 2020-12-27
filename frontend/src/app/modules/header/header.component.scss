@@ -17,6 +17,18 @@
   flex-direction: row;
 }
 
+.a-menu-sublevel {
+  display: flex;
+  flex-flow: column;
+  border: 0;
+  cursor: pointer;
+  background-color: $white;
+}
+
+.sub {
+  margin-right: 0.2em;
+}
+
 .a-menu-link{
   color: $darkblue;
   font:400 14px 'Raleway';

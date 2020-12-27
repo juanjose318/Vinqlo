@@ -28,7 +28,6 @@ export class PostSingleComponent implements OnInit {
 
 
   /**
-   *
    * Set Timeout to refresh page and not interrupt the http call
    * Files changed kept in backend, specify in GPDR
    */

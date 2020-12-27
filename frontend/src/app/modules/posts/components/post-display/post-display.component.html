@@ -34,8 +34,8 @@
         <p class="a-post-tags">{{ post.tags }}</p>
         <div class="m-actions-wrapper">
           <div class="m-action-item">
-            <fa-icon class="a-post-icon" [icon]="faHeart"></fa-icon>
-            <a class="a-icon-text">15</a>
+            <fa-icon class="a-post-icon likes" (click)="onLiked(post)" [icon]="faHeart"></fa-icon>
+            <a class="a-icon-text" >{{ post.likes }}</a>
           </div>
           <div class="m-action-item">
             <fa-icon class="a-post-icon" [icon]="faComments"></fa-icon>

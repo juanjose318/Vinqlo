@@ -38,6 +38,11 @@ export class PostDisplayComponent {
   @Output()
   postEdited = new EventEmitter();
 
+  @Output()
+  postLiked = new EventEmitter();
+
+  isLiked: Boolean;
+
   @ViewChild(MatExpansionPanel) expansionPannel: MatExpansionPanel;
   faEllipsisH = faEllipsisH;
   faComments = faComments;
@@ -62,6 +67,10 @@ export class PostDisplayComponent {
         this.postEdited.emit(postUpdated);
       }
     });
+  }
+
+  onLiked(post: Post) {
+   console.log("liked");
   }
 
   onView(post: Post) {
