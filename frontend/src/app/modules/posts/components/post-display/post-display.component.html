@@ -19,7 +19,7 @@
             <button
               mat-menu-item
               class="a-option-item"
-              (click)="onDelete(post)"
+              (click)="onDelete(post.id)"
             >
               Delete
             </button>
@@ -56,7 +56,7 @@
       <div class="m-post-row">
         <div class="m-right-wrapper">
           <p class="a-post-title">
-            <a (click)="onView(items)">{{ items.title }}</a>
+            <a>{{ items.title }}</a>
           </p>
           <p class="a-post-date">{{ items.createdAt | date: "medium" }}</p>
         </div>
@@ -71,7 +71,7 @@
             <button
               mat-menu-item
               class="a-option-item"
-              (click)="onDelete(items)"
+              (click)="onDelete(items._id)"
             >
               Delete
             </button>

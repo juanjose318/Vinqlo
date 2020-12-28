@@ -3,17 +3,46 @@ import { Post } from '../models/post.interface';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
-import { identifierModuleUrl } from '@angular/compiler';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class PostService {
+  private posts: Post[] = [];
+  private postListener = new Subject<{ posts: Post[] }>();
+
   constructor(private http: HttpClient) {}
 
-  getPosts(): Observable<{ posts; message: string }> {
+  getPosts() {
     return this.http
-      .get<{ posts; message: string }>(`${environment.apiUrl}/posts`)
-      .pipe(map((response) => response));
+      .get<{ posts: any; message: string }>(`${environment.apiUrl}/posts`)
+      .pipe(
+        map((postData) => {
+          return {
+            posts: postData.posts.map((post) => {
+              return {
+                title: post.title,
+                body: post.body,
+                id: post._id,
+                file: post.file,
+                category: post.category,
+                tags: post.tags,
+                createdAt: post.createdAt,
+                likes: post.likes
+              };
+            }),
+          };
+        })
+      )
+      .subscribe((transformedPostData) => {
+        this.posts = transformedPostData.posts;
+        this.postListener.next({
+          posts: [...this.posts],
+        });
+      });
+  }
+
+  getPostListener() {
+    return this.postListener.asObservable();
   }
 
   getSinglePost(post): Observable<{ post: Post; message: string }> {
@@ -47,24 +76,20 @@ export class PostService {
       )
       .subscribe((responseData) => {
         const postId = responseData.postId;
-        post._id = postId;
+        post.id = postId;
       });
   }
 
-  deletePost(post: Post) {
-    this.http
-      .delete<{ message: string }>(`${environment.apiUrl}/posts/` + post._id)
-      .subscribe((responseData) => {
-        console.log(responseData.message);
-      });
+  deletePost(postId) {
+    this.http.delete(`${environment.apiUrl}/posts/` + postId).subscribe();
   }
 
   updatePost(post: Post) {
     let postData: Post | FormData;
-    if(typeof (post.file) ==='object') {
+    if (typeof post.file === 'object') {
       postData = new FormData();
       var dataestr = new Date(post.createdAt).toUTCString();
-      var idStrg = post._id.toString();
+      var idStrg = post.id.toString();
       postData.append('id', idStrg);
       postData.append('title', post.title);
       postData.append('body', post.body);
@@ -72,21 +97,23 @@ export class PostService {
       postData.append('file', post.file, post.title);
       postData.append('category', post.category);
       postData.append('createdAt', dataestr);
-    }
-    else {
-        postData = {
-        _id: post._id,
+    } else {
+      postData = {
+        id: post.id,
         title: post.title,
         body: post.body,
         tags: post.tags,
         category: post.category,
         file: post.file,
         createdAt: post.createdAt,
-        likes: post.likes
-      }
+        likes: post.likes,
+      };
     }
     this.http
-      .put<{ message: string }>(`${environment.apiUrl}/posts/` + post._id, postData)
+      .put<{ message: string }>(
+        `${environment.apiUrl}/posts/` + post.id,
+        postData
+      )
       .subscribe((responseData) => {
         console.log(responseData.message);
       });

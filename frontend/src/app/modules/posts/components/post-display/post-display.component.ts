@@ -74,10 +74,10 @@ export class PostDisplayComponent {
   }
 
   onView(post: Post) {
-    this.router.navigate(['/posts/', post._id]);
+    this.router.navigate(['/posts/', post.id]);
   }
 
-  onDelete(post: Post) {
-    this.postDeleted.emit(post);
+  onDelete(postId) {
+    this.postDeleted.emit(postId);
   }
 }

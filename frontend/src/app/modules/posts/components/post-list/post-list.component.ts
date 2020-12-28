@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, Input } from '@angular/core';
+import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
 import { Post } from '../../models/post.interface';
 
 @Component({
@@ -7,7 +7,7 @@ import { Post } from '../../models/post.interface';
   styleUrls: ['./post-list.component.scss']
 })
 
-export class PostListComponent  {
+export class PostListComponent {
 
 @Input()
 posts: Post;
@@ -27,9 +27,9 @@ isEmpty: boolean = true;
 
 constructor() {}
 
-onPostDeleted(post: Post) {
+onPostDeleted(postId) {
   this.isLoading = true;
-  this.postDeleted.emit(post);
+  this.postDeleted.emit(postId);
   this.isLoading = false;
 }
 

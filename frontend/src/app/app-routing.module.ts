@@ -9,6 +9,7 @@ import { NotFoundComponent } from './not-found-component/not-found-component.com
 const routes: Routes = [
   {
     path: 'feed',
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import('./modules/feed/feed.module').then((m) => m.FeedModule),
   },

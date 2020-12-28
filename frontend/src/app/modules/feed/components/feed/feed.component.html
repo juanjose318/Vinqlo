@@ -9,10 +9,6 @@
     <app-post-list
     (postDeleted)="handleDelete($event)"
     [posts]="posts"
-    infiniteScroll
-    [infiniteScrollDistance]="2"
-    [infiniteScrollThrottle]="50"
-    (scrolled)="onScroll()"
     class="a-post-list"
     >
     </app-post-list>

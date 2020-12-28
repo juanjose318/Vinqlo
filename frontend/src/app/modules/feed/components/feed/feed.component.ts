@@ -31,7 +31,13 @@ export class FeedComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.userIsAuthenticated = this.authService.getisAuth();
     this.isLoading = true;
-    this.postsService.getPosts().subscribe((data) => (this.posts = data.posts))
+    this.postsService.getPosts();
+    this.postsSub = this.postsService.
+    getPostListener()
+    .subscribe((postData: { posts: Post[] }) => {
+      this.isLoading = false;
+      this.posts = postData.posts;
+        });
     this.authStatusSub = this.authService
       .getAuthStatusListener()
       .subscribe((isAuthenticated) => {
@@ -42,19 +48,20 @@ export class FeedComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.authStatusSub.unsubscribe();
+    this.postsSub.unsubscribe();
   }
 
   onPostCreated(newPost: Post): void {
     this.postsService.addPost(newPost);
     this.posts.push(newPost);
-    this.router.navigate(['posts/:id', newPost._id]);
+    this.router.navigate(['posts/:id', newPost.id]);
   }
 
-  handleDelete(post: Post): void {
-    this.postsService.deletePost(post);
+  handleDelete(postId): void {
+    this.postsService.deletePost(postId);
     this.posts.filter(() => {
       const updatedPosts = this.posts.filter(
-        (deletedPost) => deletedPost._id !== post._id
+        (deletedPost) => deletedPost.id !== postId
       );
       this.posts = updatedPosts;
     });

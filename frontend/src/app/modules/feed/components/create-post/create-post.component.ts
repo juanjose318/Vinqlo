@@ -40,7 +40,7 @@ export class CreatePostComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.fb.group({
-      _id: new FormControl(this.id),
+      id: new FormControl(this.id),
       title: new FormControl(this.title, [
         Validators.required,
         Validators.minLength(4),
@@ -59,8 +59,9 @@ export class CreatePostComponent implements OnInit {
      * Set data from post to edit if sending data to component
      */
     if (!!this.data) {
+      console.log(this.data.post);
       this.form.patchValue({
-        _id: this.data.post._id,
+        id: this.data.post._id,
         title: this.data.post.title,
         category: this.data.post.category,
         body: this.data.post.body,
@@ -79,7 +80,7 @@ export class CreatePostComponent implements OnInit {
     this.form.get('file').updateValueAndValidity();
     const reader = new FileReader();
     reader.onload = () => {
-      this.imagePreview = reader.result;
+      this.imagePreview = reader.result as string;
     };
     reader.readAsDataURL(image);
   }
