@@ -60,8 +60,10 @@ export class FeedComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * TODO: Pagination infite scroll
+   */
   onScroll() {
-    console.log('hi');
   }
 
   handleEdit(post: Post): void {
