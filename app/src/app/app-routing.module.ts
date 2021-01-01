@@ -30,16 +30,9 @@ const routes: Routes = [
       import('./modules/posts/post.module').then((m) => m.PostModule),
   },
   {
-    path:'emailConfirmation',
-    component: EmailConfirmationComponent
-  },
-  {
-    path: 'login',
-    component: LoginComponent,
-  },
-  {
-    path: 'register',
-    component: RegisterComponent,
+    path:'auth',
+    loadChildren: () =>
+      import('./modules/auth/auth.module').then((m) => m.AuthModule)
   },
   {
     path: '404',

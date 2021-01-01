@@ -8,7 +8,7 @@ const authRoutes = require ("./routes/auth");
 
 mongoose
   .connect(
-    "mongodb+srv://Admin:__N4FWbp@cluster0.vccib.mongodb.net/vinqlo?retryWrites=true&w=majority",
+    "mongodb+srv://Admin:"+ process.env.MONGO_PASSWORD + "@cluster0.vccib.mongodb.net/vinqlo?retryWrites=true&w=majority",
     { useNewUrlParser: true, useUnifiedTopology: true }
   )
   .then(() => {
