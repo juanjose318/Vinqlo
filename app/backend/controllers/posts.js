@@ -1,7 +1,7 @@
 const Post = require("../models/post");
 
 exports.getPost = (req, res) => {
-  Post.findOne({ _id: req.params.id })
+  Post.findOne({ _id: req.params.id }).populate("comments")
     .then((postData) => {
       if (postData) {
         res.status(200).json({
@@ -26,7 +26,7 @@ exports.deletePost = (req, res) => {
     .then((postData) => {
       if (postData.n > 0) {
         res.status(200).json({
-          message: "Updated post sucesfully!",
+          message: "Deleted post sucesfully!",
         });
       } else {
         res.status(401).json({
@@ -79,7 +79,7 @@ exports.createPost = (req, res) => {
     })
     .catch((err) => {
       res.status(500).json({
-        message: "Creating an error failed",
+        message: "Creating a post failed",
       });
     });
 };
@@ -101,7 +101,6 @@ exports.updatePost = (req, res, next) => {
     file: imageUrl,
     creator: req.userData.userId,
   });
-  console.log(post);
   Post.updateOne({ _id: req.params.id, creator: req.userData.userId }, post)
     .then((updatedPost) => {
       if (updatedPost.nModified > 0) {

@@ -2,8 +2,6 @@ const UserController = require("../controllers/user");
 
 const express = require("express");
 
-const app = require("../app");
-
 const router = express.Router();
 
 router.get("/users", UserController.getUsers);

@@ -1,4 +1,3 @@
-require("dotenv").config();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
@@ -154,6 +153,8 @@ exports.login = (req, res, next) => {
         token: token,
         expiresIn: 3600,
         userId: fetchedUser._id,
+        userName: fetchedUser.name,
+        lastName: fetchedUser.lastName
       });
     })
     .catch((err) => {
