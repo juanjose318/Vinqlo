@@ -28,8 +28,9 @@ export class PostService {
                 tags: post.tags,
                 createdAt: post.createdAt,
                 likes: post.likes,
+                likers: post.likers,
                 comments: post.comments,
-                creator: post.creator
+                creator: post.creator,
               };
             }),
           };
@@ -64,16 +65,24 @@ export class PostService {
       );
   }
 
+  addPostToCollection(postId) {
+    this.http.post(
+      `${environment.apiUrl}/posts/` + postId + '/addPostToUserCollection', postId)
+      .subscribe((response) => {
+        console.log(response);
+      })
+  }
+
   addCommentPost(comment) {
     this.http
-    .post<{ message: string; comment: any }>(
-      `${environment.apiUrl}/comments/` + comment.post,
-       comment
-    )
-    .subscribe(( responseData ) => {
-       const creatorId = responseData.comment.creator;
+      .post<{ message: string; comment: any }>(
+        `${environment.apiUrl}/comments/` + comment.post,
+        comment
+      )
+      .subscribe((responseData) => {
+        const creatorId = responseData.comment.creator;
         this.creatorId = creatorId;
-    });
+      });
   }
 
   addPost(post: Post) {
@@ -99,12 +108,26 @@ export class PostService {
       });
   }
 
+  likeToggle(post) {
+    console.log(post);
+    return this.http
+      .post<{ message: string; status: string; likesCount: number }>(
+        `${environment.apiUrl}/posts/` + post.id + '/toggleLikePost',
+        true
+      )
+      .subscribe((postData) => {
+        const likes = postData;
+      });
+  }
+
   deletePost(postId) {
     return this.http.delete(`${environment.apiUrl}/posts/` + postId);
   }
 
   deleteComment(comment) {
-    return this.http.delete(`${environment.apiUrl}/comments/` + comment.post +'/'+ comment._id );
+    return this.http.delete(
+      `${environment.apiUrl}/comments/` + comment.post + '/' + comment._id
+    );
   }
 
   updatePost(post: Post) {
@@ -130,7 +153,7 @@ export class PostService {
         file: post.file,
         createdAt: post.createdAt,
         likes: post.likes,
-        creator: post.creator
+        creator: post.creator,
       };
     }
     this.http

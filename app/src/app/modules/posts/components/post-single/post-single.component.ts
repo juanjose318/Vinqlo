@@ -58,7 +58,7 @@ export class PostSingleComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.authStatusSub.unsubscribe();
-  }
+}
 
   handleDelete(postToDelete) {
     this.postService.deletePost(postToDelete);
@@ -68,6 +68,10 @@ export class PostSingleComponent implements OnInit {
   handleCommentCreated(comment) {
     this.post.comments.push(comment);
     this.postService.addCommentPost(comment);
+  }
+
+  handleLiked(postId) {
+    this.postService.likeToggle(postId);
   }
 
   goBack() {

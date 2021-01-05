@@ -28,8 +28,12 @@ exports.createComment = (req, res) => {
 
   comment.save();
 
-  Post.updateOne({ _id: req.params.id }, { $push: { comments: comment } })
-    .then(() => {
+  Post.updateOne({ _id: req.params.id },
+    {
+      $push: {
+        comments: comment
+      }
+    }).then(() => {
       res.status(201).json({
         message: "Comment added Succesfully",
         comments: comment,

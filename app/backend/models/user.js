@@ -10,6 +10,7 @@ const userSchema = mongoose.Schema({
   campus: { type: String, required: true },
   file: { type: String },
   status: { type: String, default: "pending" },
+  postsCollection : [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" , required: true}],
   isAdmin: { type: Boolean, default: false }
 });
 

@@ -60,6 +60,10 @@ export class FeedComponent implements OnInit, OnDestroy {
     this.router.navigate(['posts/:id', newPost.id]);
   }
 
+  handleAddedToCollection(postId) {
+    this.postsService.addPostToCollection(postId);
+  }
+
   handleDelete(postId){
    this.postsService.deletePost(postId).subscribe(() => {
       this.postsService.getPosts();
@@ -77,6 +81,10 @@ export class FeedComponent implements OnInit, OnDestroy {
    * TODO: Pagination infite scroll
    */
   onScroll() {
+  }
+
+  handleLiked(post) {
+    this.postsService.likeToggle(post);
   }
 
   handleEdit(post: Post): void {

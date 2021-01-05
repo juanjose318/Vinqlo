@@ -8,6 +8,8 @@
     <mat-spinner *ngIf="isLoading"></mat-spinner>
     <app-post-list
     (postDeleted)="handleDelete($event)"
+    (postLiked)="handleLiked($event)"
+    (postAddedToCollection)="handleAddedToCollection($event)"
     [userId] = "userId"
     [posts]="posts"
     class="a-post-list"

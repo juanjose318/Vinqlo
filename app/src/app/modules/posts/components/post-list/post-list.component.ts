@@ -21,11 +21,14 @@ postDeleted = new EventEmitter();
 @Output()
 postEdited = new EventEmitter();
 
+@Output()
+postLiked = new EventEmitter();
+
+@Output()
+postAddedToCollection = new EventEmitter();
+
 isLoading: boolean;
 
-/*
-* TODO: Add condition to prevent displaying post display if there are no posts availables
-*/
 isEmpty: boolean = true;
 
 constructor() {}
@@ -40,6 +43,14 @@ onPostEdited(post: Post) {
   this.isLoading = true;
   this.postEdited.emit(post);
   this.isLoading = false;
+}
+
+onPostLiked(postId) {
+  this.postLiked.emit(postId);
+}
+
+onPostAddedToCollection(postId){
+  this.postAddedToCollection.emit(postId);
 }
 
 onCommentCreated(event: Event) {

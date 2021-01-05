@@ -5,6 +5,7 @@
   [userId]="userId"
   [items]="post"
   (postEdited)="handleUpdate($event)"
+  (postLiked)="handleLiked($event)"
   (postDeleted)="handleDelete($event)"
   (commentCreated)="handleCommentCreated($event)">
   </app-post-display>

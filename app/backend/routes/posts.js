@@ -13,7 +13,11 @@ router.post("",checkAuth, fileUpload, Postcontroller.createPost);
 
 router.put( "/:id", checkAuth, fileUpload , Postcontroller.updatePost);
 
-router.post( "/:id/toggleLikePost", checkAuth, fileUpload , Postcontroller.updatePost);
+router.post( "/:id/toggleLikePost", checkAuth,  Postcontroller.toggleLikePost);
+
+router.post( "/:id/addPostToUserCollection", checkAuth,  Postcontroller.addPostToUserCollection);
+
+router.put( "/:id/removePostToUserCollection", checkAuth,  Postcontroller.deletePostFromUserCollection);
 
 router.get("",Postcontroller.getPosts);
 

@@ -47,6 +47,9 @@ export class PostDisplayComponent {
   @Output()
   commentCreated = new EventEmitter();
 
+  @Output()
+  postAddedToCollection = new EventEmitter();
+
   isLiked: Boolean;
   public commentCreatedEvent: Event;
 
@@ -74,11 +77,11 @@ export class PostDisplayComponent {
       if (!!postUpdated) {
         this.postEdited.emit(postUpdated);
       }
-    });
+      });
   }
 
-  onLiked(post: Post) {
-   console.log("liked");
+  onLiked(postId) {
+    this.postLiked.emit(postId);
   }
 
   onView(post: Post) {
@@ -89,8 +92,12 @@ export class PostDisplayComponent {
     this.postDeleted.emit(postId);
   }
 
+  onAddToCollection(postId) {
+    this.postAddedToCollection.emit(postId);
+  }
+
   onCommentCreated(comment) {
     this.commentCreated.emit(comment);
-    this.commentCreatedEvent = comment;
+
   }
 }
