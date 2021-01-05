@@ -35,7 +35,6 @@ export class AuthService {
         authCredentials
       )
       .subscribe((userData) => {
-        console.log(userData);
         const token = userData.token;
         this.token = token;
         if (token) {

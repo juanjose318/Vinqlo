@@ -1,7 +1,14 @@
 const Post = require("../models/post");
 
-exports.getPost = (req, res) => {
-  Post.findOne({ _id: req.params.id }).populate("comments")
+exports.getPost = async (req, res) => {
+  const postById = (
+    await Post.findOne({ _id: req.params.id })
+      .populate("creator", "name")
+      .populate({ path : "comments",
+                  populate : { path: 'creator',
+                               select: 'name' }
+    }))
+    .execPopulate()
     .then((postData) => {
       if (postData) {
         res.status(200).json({
@@ -69,6 +76,7 @@ exports.createPost = (req, res) => {
   post
     .save()
     .then((createdPost) => {
+      console.log(createdPost);
       res.status(201).json({
         message: "Post added succesfully",
         post: {
@@ -120,10 +128,25 @@ exports.updatePost = (req, res, next) => {
     });
 };
 
-exports.getPosts = (req, res) => {
-  Post.find()
+exports.getPosts = async (req, res) => {
+  const posts = Post.find()
+    .populate("creator", "name")
+    .exec()
     .then((postsResults) => {
-      // const page = parseInt(req.query.page)
+
+      res.status(200).json({
+        message: "Posts fetched",
+        posts: postsResults,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: "Fetching posts failed",
+        error: err,
+      });
+    });
+};
+ // const page = parseInt(req.query.page)
       // const limit = parseInt(req.query.limit)
 
       // const startIndex = (page - 1) * limit
@@ -145,15 +168,3 @@ exports.getPosts = (req, res) => {
       //   };
       // }
       // results.results = postsResults.slice(startIndex, endIndex);
-      res.status(200).json({
-        message: "Posts fetched",
-        posts: postsResults,
-      });
-    })
-    .catch((err) => {
-      res.status(500).json({
-        message: "Fetching posts failed",
-        error: err
-      });
-    });
-};

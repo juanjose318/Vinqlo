@@ -42,4 +42,9 @@ onPostEdited(post: Post) {
   this.isLoading = false;
 }
 
+onCommentCreated(event: Event) {
+
+}
+
+
 }

@@ -5,7 +5,8 @@
   [userId]="userId"
   [items]="post"
   (postEdited)="handleUpdate($event)"
-  (postDeleted)="handleDelete($event)">
+  (postDeleted)="handleDelete($event)"
+  (commentCreated)="handleCommentCreated($event)">
   </app-post-display>
 </div>
 <app-footer></app-footer>

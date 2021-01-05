@@ -17,3 +17,19 @@
 .a-comment-text {
   font: 300 12px 'Open Sans';
 }
+
+.m-comment-header {
+  display:flex;
+  flex-flow: row;
+  justify-content: space-between;
+}
+
+.a-comment-username {
+  font: $blueBold;
+  color: $darkblue;
+}
+
+.a-comment-date {
+  font: $smallRegularText;
+  color: $lightgrey;
+}

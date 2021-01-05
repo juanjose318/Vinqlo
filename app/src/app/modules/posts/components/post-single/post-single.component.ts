@@ -30,7 +30,6 @@ export class PostSingleComponent implements OnInit {
     this.route.params
       .pipe(switchMap((data) => this.postService.getSinglePost(data)))
       .subscribe((data) => (this.post = data.post));
-
     this.userId = this.authService.getUserId();
     this.authStatusSub = this.authService
       .getAuthStatusListener()
@@ -38,6 +37,7 @@ export class PostSingleComponent implements OnInit {
         this.userIsAuthenticated = isAuthenticated;
         this.userId = this.authService.getUserId();
       });
+
   }
 
   /**
@@ -63,6 +63,11 @@ export class PostSingleComponent implements OnInit {
   handleDelete(postToDelete) {
     this.postService.deletePost(postToDelete);
     this.location.back();
+  }
+
+  handleCommentCreated(comment) {
+    this.post.comments.push(comment);
+    this.postService.addCommentPost(comment);
   }
 
   goBack() {

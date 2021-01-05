@@ -1,5 +1,5 @@
 <div class="o-container">
-  <div *ngIf="isEmpty; else noPost">
+  <div *ngIf="[posts]?.length !== 0 ; else noPost">
     <mat-spinner *ngIf="isLoading"></mat-spinner>
       <app-post-display
       [items]="posts"

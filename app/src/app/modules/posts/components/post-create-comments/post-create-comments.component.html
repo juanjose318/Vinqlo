@@ -1,5 +1,5 @@
 <div class="m-create-comment-wrapper">
-  <form action="">
-    <input type="text" placeholder="Write a comment...">
-  </form>
+  <div [formGroup]="form" (keydown.enter) ="createComment()">
+    <input type="text" matInput formControlName ="body" placeholder="Write a comment...">
+  </div>
 </div>

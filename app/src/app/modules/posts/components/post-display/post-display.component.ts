@@ -44,7 +44,12 @@ export class PostDisplayComponent {
   @Output()
   postLiked = new EventEmitter();
 
+  @Output()
+  commentCreated = new EventEmitter();
+
   isLiked: Boolean;
+  public commentCreatedEvent: Event;
+
 
   @ViewChild(MatExpansionPanel) expansionPannel: MatExpansionPanel;
   faEllipsisH = faEllipsisH;
@@ -82,5 +87,10 @@ export class PostDisplayComponent {
 
   onDelete(postId) {
     this.postDeleted.emit(postId);
+  }
+
+  onCommentCreated(comment) {
+    this.commentCreated.emit(comment);
+    this.commentCreatedEvent = comment;
   }
 }

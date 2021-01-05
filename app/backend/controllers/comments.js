@@ -23,42 +23,37 @@ exports.createComment = (req, res) => {
     createdAt: req.body.createdAt,
     creator: req.userData.userId,
     userName: req.userData.userName + " " + req.userData.lastName,
+    post: req.body.post,
   });
 
-  comment
-    .save()
-    .then((createdComment) => {
-      res.status(201).jons({
+  comment.save();
+
+  Post.updateOne({ _id: req.params.id }, { $push: { comments: comment } })
+    .then(() => {
+      res.status(201).json({
         message: "Comment added Succesfully",
-        comment: {
-          ...createdComment,
-          id: createdComment._id,
-        },
+        comments: comment,
       });
     })
-    .catch((err) => {
-      res.status(500).jons({
-        message: "Creating a comment failed",
+    .catch(() => {
+      res.status(500).json({
+        message: "Failed to create comment",
       });
     });
 };
 
-exports.deleteComment = (req, res) => {
+exports.deleteComment = async (req, res) => {
   try {
-    const post = Post.findByIdAndUpdate(
-      req.params.id,
-      {
-        $pull: { comments: req.params.commentId },
-      },
-      { new: true }
-    );
+    const post = await Post.findByIdAndUpdate(req.params.id, {
+      $pull: { comments: req.params.commentId },
+    });
     if (!post) {
       res.status(404).json({
         message: "Post not found",
       });
     }
 
-    Comment.findByIdAndDelete({
+    const comment = await Comment.deleteOne({
       _id: req.params.commentId,
       creator: req.userData.userId,
     })
@@ -78,9 +73,41 @@ exports.deleteComment = (req, res) => {
           message: "Deleting comment failed",
         });
       });
-  } catch {
+  } catch (err) {
     res.status(500).json({
       message: "Something went wrong",
     });
   }
+};
+
+exports.updateComment = (req, res) => {
+  const comment = new Comment({
+    body: req.body.body,
+    createdAt: req.body.createdAt,
+    creator: req.userData.userId,
+    userName: req.userData.userName + " " + req.userData.lastName,
+  });
+
+  const post = Post.findOneAndUpdate(
+    { _id: req.params.id },
+    {
+      $push: {
+        comments: comment,
+      },
+    }
+  ).then(
+    ((newComment) => {
+      res.status(201).jon({
+        message: "Comment added Succesfully",
+        comment: {
+          ...newComment,
+          id: newComment._id,
+        },
+      });
+    }).catch((err) => {
+      res.status(500).json({
+        message: "Failed to create comment",
+      });
+    })
+  );
 };

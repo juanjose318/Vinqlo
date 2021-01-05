@@ -1,4 +1,4 @@
-import { Component, Injectable, OnDestroy, OnInit } from '@angular/core';
+  import { Component, Injectable, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/modules/auth/auth.services';
@@ -54,14 +54,17 @@ export class FeedComponent implements OnInit, OnDestroy {
     this.postsSub.unsubscribe();
   }
 
-  onPostCreated(newPost: Post): void {
+  onPostCreated(newPost: Post){
     this.postsService.addPost(newPost);
     this.posts.push(newPost);
     this.router.navigate(['posts/:id', newPost.id]);
   }
 
-  handleDelete(postId): void {
-    this.postsService.deletePost(postId);
+  handleDelete(postId){
+   this.postsService.deletePost(postId).subscribe(() => {
+      this.postsService.getPosts();
+    });
+
     this.posts.filter(() => {
       const updatedPosts = this.posts.filter(
         (deletedPost) => deletedPost.id !== postId

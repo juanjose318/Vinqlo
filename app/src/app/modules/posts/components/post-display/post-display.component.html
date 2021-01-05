@@ -1,12 +1,12 @@
 <ng-container *ngIf="items">
-  <div *ngIf="items.length > 1; else singlePost">
+  <div *ngIf="items?.length; else singlePost">
     <div class="m-post-wrapper" *ngFor="let post of items">
       <div class="m-post-row">
         <div class="m-right-wrapper">
           <p class="a-post-title">
             <a (click)="onView(post)">{{ post?.title }}</a>
           </p>
-          <p class="a-post-date">{{ post.createdAt | date: "medium" }}</p>
+          <p class="a-post-date"><span class="a-creators-name">{{ post.creator.name}}</span>{{ post.createdAt | date: "medium" }}</p>
         </div>
         <div class="m-menu">
           <fa-icon
@@ -16,11 +16,11 @@
           ></fa-icon>
           <mat-menu  #menu="matMenu" yPosition="below" xPosition="before">
             <button
-             *ngIf="userId !== post.creator"
+             *ngIf="userId !== post.creator._id"
              mat-menu-item
              class="a-option-item">Report</button>
             <button
-            *ngIf="userId == post.creator;"
+            *ngIf="userId == post.creator._id;"
               mat-menu-item
               class="a-option-item"
               (click)="onDelete(post.id)"
@@ -43,7 +43,7 @@
           </div>
           <div class="m-action-item">
             <fa-icon class="a-post-icon" [icon]="faComments"></fa-icon>
-            <a class="a-icon-text">10</a>
+            <a class="a-icon-text">{{ post.comments.length }}</a>
           </div>
           <div class="m-action-item">
             <fa-icon class="a-post-icon" [icon]="faBookmark"></fa-icon>
@@ -62,7 +62,7 @@
           <p class="a-post-title">
             <a>{{ items.title }}</a>
           </p>
-          <p class="a-post-date">{{ items.createdAt | date: "medium" }}</p>
+          <p class="a-post-date"><span class="a-creators-name">{{ items.creator?.name}}</span>{{ items.createdAt | date: "medium" }}</p>
         </div>
         <div class="m-menu">
           <fa-icon
@@ -72,10 +72,10 @@
           ></fa-icon>
           <mat-menu #menu="matMenu" yPosition="below" xPosition="before">
             <button mat-menu-item
-            *ngIf="userId !== items.creator"
+            *ngIf="userId !== items.creator?._id"
              class="a-option-item">Report</button>
             <button
-            *ngIf="userId == items.creator;"
+            *ngIf="userId == items.creator?._id;"
               mat-menu-item
               class="a-option-item"
               (click)="onDelete(items._id)"
@@ -83,7 +83,7 @@
               Delete
             </button>
             <button
-            *ngIf="userId == items.creator;"
+            *ngIf="userId == items.creator?._id;"
               mat-menu-item
               class="a-option-item"
               (click)="openDialog()"
@@ -106,7 +106,7 @@
           </div>
           <div class="m-action-item">
             <fa-icon class="a-post-icon" [icon]="faComments"></fa-icon>
-            <a class="a-icon-text">10</a>
+            <a class="a-icon-text">{{ items.comments?.length}}</a>
           </div>
           <div class="m-action-item">
             <fa-icon class="a-post-icon" [icon]="faBookmark"></fa-icon>
@@ -124,8 +124,12 @@
             <a class="a-icon-text">Comments</a>
           </div>
         </mat-expansion-panel-header>
-        <app-post-comments></app-post-comments>
-        <app-create-post-comments></app-create-post-comments>
+        <app-post-comments
+        [post]="items"
+        [comment]="commentCreatedEvent"></app-post-comments>
+        <app-create-post-comments
+        [post]="items"
+        (commentCreated)="onCommentCreated($event)"></app-create-post-comments>
       </mat-expansion-panel>
     </div>
   </ng-template>

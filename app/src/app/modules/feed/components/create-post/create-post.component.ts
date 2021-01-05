@@ -59,7 +59,6 @@ export class CreatePostComponent implements OnInit {
      * Set data from post to edit if sending data to component
      */
     if (!!this.data) {
-      console.log(this.data.post);
       this.form.patchValue({
         id: this.data.post._id,
         title: this.data.post.title,

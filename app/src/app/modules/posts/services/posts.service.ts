@@ -7,9 +7,9 @@ import { Observable, Subject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class PostService {
+  private creatorId;
   private posts: Post[] = [];
   private postListener = new Subject<{ posts: Post[] }>();
-
   constructor(private http: HttpClient) {}
 
   getPosts() {
@@ -28,6 +28,7 @@ export class PostService {
                 tags: post.tags,
                 createdAt: post.createdAt,
                 likes: post.likes,
+                comments: post.comments,
                 creator: post.creator
               };
             }),
@@ -41,6 +42,10 @@ export class PostService {
           posts: [...this.posts],
         });
       });
+  }
+
+  getCreatorId() {
+    return this.creatorId;
   }
 
   getPostListener() {
@@ -59,6 +64,18 @@ export class PostService {
       );
   }
 
+  addCommentPost(comment) {
+    this.http
+    .post<{ message: string; comment: any }>(
+      `${environment.apiUrl}/comments/` + comment.post,
+       comment
+    )
+    .subscribe(( responseData ) => {
+       const creatorId = responseData.comment.creator;
+        this.creatorId = creatorId;
+    });
+  }
+
   addPost(post: Post) {
     const postData = new FormData();
     postData.append('title', post.title);
@@ -71,7 +88,6 @@ export class PostService {
     postData.append('category', post.category);
     var dataestr = new Date(post.createdAt).toUTCString();
     postData.append('createdAt', dataestr);
-
     this.http
       .post<{ message: string; postId }>(
         `${environment.apiUrl}/posts`,
@@ -84,7 +100,11 @@ export class PostService {
   }
 
   deletePost(postId) {
-    this.http.delete(`${environment.apiUrl}/posts/` + postId).subscribe();
+    return this.http.delete(`${environment.apiUrl}/posts/` + postId);
+  }
+
+  deleteComment(comment) {
+    return this.http.delete(`${environment.apiUrl}/comments/` + comment.post +'/'+ comment._id );
   }
 
   updatePost(post: Post) {

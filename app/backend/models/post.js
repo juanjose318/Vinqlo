@@ -6,10 +6,10 @@ const postSchema = mongoose.Schema({
   tags: { type: String, required : true },
   category: { type: Number, required : true },
   likes: { type: Number, default: 0 },
-  createdAt: { type: Date, required:true},
+  createdAt: { type: Date, required: true },
   file: { type: String },
-  creator: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true},
-  comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
+  creator: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+  comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" , required: true}]
 });
 
 module.exports = mongoose.model('Post', postSchema);
