@@ -1,15 +1,8 @@
-@import "../../../../../assets/styles/variables.scss";
+@import '../../../../../assets/styles/variables.scss';
 
-.m-form {
-  display: block;
-  margin: auto;
+.a-file-input {
+  display:none;
 }
-
-.m-row {
-  display: flex;
-  justify-content: space-between;
-}
-
 
 textarea {
   box-sizing: border-box;
@@ -20,8 +13,8 @@ textarea {
 }
 
 input,
-textarea,
-select {
+textarea
+ {
   width: 100%;
   border: 0px;
   border-bottom: 2px solid $darkblue;
@@ -29,8 +22,7 @@ select {
 }
 
 input:focus,
-textarea:focus,
-select:focus {
+textarea:focus {
   width: 100%;
   border: 0px;
   border-bottom: 2px solid $purple;
@@ -39,18 +31,7 @@ select:focus {
   padding: 0.5em;
 }
 
-select {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  -o-appearance: none;
-  appearance: none;
-  background-position: 98% center;
-  background-repeat: no-repeat;
-  outline: none;
-}
-
-::placeholder,
-select {
+::placeholder {
   font: 300 14px "Open Sans", serif;
   color: $darkblue;
 }
@@ -76,6 +57,11 @@ select {
   margin-bottom: 1em;
 }
 
+.m-input-wrapper h2 {
+  font: $ralewayRegular;
+  color: $purple;
+}
+
 .a-times-icon {
   font-size: 1.5em;
   color: $darkblue;
@@ -92,6 +78,7 @@ select {
   font: $BigSpecialText;
   color: $purple;
 }
+
 
 .a-label {
   display: block;
@@ -113,8 +100,6 @@ select {
   height: 100%;
 }
 
-select,
-option,
 textarea,
 input {
   width: calc(100% - 1em);

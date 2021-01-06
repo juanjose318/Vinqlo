@@ -134,8 +134,8 @@ export class PostService {
     let postData: Post | FormData;
     if (typeof post.file === 'object') {
       postData = new FormData();
-      var dataestr = new Date(post.createdAt).toUTCString();
-      var idStrg = post.id.toString();
+      let dataestr = new Date(post.createdAt).toUTCString();
+      let idStrg = post.id.toString();
       postData.append('id', idStrg);
       postData.append('title', post.title);
       postData.append('body', post.body);

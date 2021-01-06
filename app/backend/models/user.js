@@ -9,7 +9,15 @@ const userSchema = mongoose.Schema({
   degree: { type: String, required: true },
   campus: { type: String, required: true },
   file: { type: String },
+  bio: { type: String},
   status: { type: String, default: "pending" },
+  communities: [{ type: mongoose.Schema.Types.ObjectId, ref: "Community" }],
+  socialMedia: {
+    twitter: { type: String },
+    facebook: { type: String },
+    instagram: { type: String },
+    phoneNumber: { type: String }
+  },
   postsCollection : [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" , required: true}],
   isAdmin: { type: Boolean, default: false }
 });

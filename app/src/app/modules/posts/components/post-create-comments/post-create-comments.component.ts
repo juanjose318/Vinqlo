@@ -5,7 +5,6 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { Post } from '../../models/post.interface';
 import { PostService } from '../../services/posts.service';
 
 @Component({

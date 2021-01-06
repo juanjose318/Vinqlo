@@ -13,8 +13,8 @@
         >
       </li>
       <li>
-        <a routerLink="/profile" class="a-menu-link"
-          ><fa-icon class="a-menu-icon" [icon]="faUserAlt"></fa-icon> Profile</a
+        <a class="a-menu-link" (click)="goToProfile(userId)"
+          ><fa-icon class="a-menu-icon" [icon]="faUserAlt" ></fa-icon> Profile</a
         >
       </li>
     </ul>

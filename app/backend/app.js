@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 const postsRoutes = require ("./routes/posts");
 const authRoutes = require ("./routes/auth");
 const commentRoutes = require ("./routes/comments");
-
+const profileRoutes = require("./routes/profile");
 
 mongoose
   .connect(
@@ -30,6 +30,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
  */
 app.use("/images", express.static(path.join("backend/images")));
 
+
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*"),
     res.setHeader(
@@ -46,5 +47,6 @@ app.use((req, res, next) => {
 app.use("/api/posts", postsRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/comments", commentRoutes);
+app.use("/api/profile", profileRoutes);
 
 module.exports = app;

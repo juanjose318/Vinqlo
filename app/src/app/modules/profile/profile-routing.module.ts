@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { UserHeaderComponent } from './components/user-header/user-header.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: UserHeaderComponent,
+    children: [
+      { path: ':id', component:  UserProfileComponent,  pathMatch: 'full'}
+    ]
   }
 ];
 

@@ -18,7 +18,7 @@ exports.getPost = async (req, res) => {
           post: postData,
         });
       } else {
-        res.status(500).json({
+        res.status(404).json({
           message: "Post not found",
         });
       }
@@ -94,43 +94,53 @@ exports.createPost = (req, res) => {
     });
 };
 
-exports.addPostToUserCollection = async(req, res, next) => {
+exports.addPostToUserCollection = async (req, res, next) => {
   const postId = req.params.id;
-  const user = await User.findOneAndUpdate({
-    _id: req.userData.userId
-   },{
-     $push: {
-        "postsCollection" :  postId
-     }
-  }).then(() => {
-    res.status(200).json({
-      message: "Post Added to your collection"
+  const user = await User.findOneAndUpdate(
+    {
+      _id: req.userData.userId,
+    },
+    {
+      $push: {
+        postsCollection: postId,
+      },
+    }
+  )
+    .then(() => {
+      res.status(200).json({
+        message: "Post Added to your collection",
+      });
     })
-  }).catch(() => {
-    res.status(500).json({
-      message: "Couldn't add post to your collection"
-    })
-  })
-}
+    .catch(() => {
+      res.status(500).json({
+        message: "Couldn't add post to your collection",
+      });
+    });
+};
 
 exports.deletePostFromUserCollection = async (req, rex, next) => {
   const postId = req.params.id;
-  const user = await User.findOneAndUpdate({
-    _id: req.userData.userId
-   },{
-     $pull: {
-        "postsCollection" :  postId
-     }
-  }).then(() => {
-    res.status(200).json({
-      message: "Post removed from your collection"
+  const user = await User.findOneAndUpdate(
+    {
+      _id: req.userData.userId,
+    },
+    {
+      $pull: {
+        postsCollection: postId,
+      },
+    }
+  )
+    .then(() => {
+      res.status(200).json({
+        message: "Post removed from your collection",
+      });
     })
-  }).catch(()=> {
-    res.status(500).json({
-      message: "Couldn't remove post to your collection"
-    })
-  })
-}
+    .catch(() => {
+      res.status(500).json({
+        message: "Couldn't remove post to your collection",
+      });
+    });
+};
 
 exports.toggleLikePost = async (req, res, next) => {
   const post = await Post.findOne({ _id: req.params.id })
@@ -146,48 +156,55 @@ exports.toggleLikePost = async (req, res, next) => {
         if (isLiked) {
           Post.updateOne(
             {
-              _id: req.params.id
-            },{
-              $pull: { "likers": req.userData.userId }
-            }).then(() => {
+              _id: req.params.id,
+            },
+            {
+              $pull: { likers: req.userData.userId },
+            }
+          )
+            .then(() => {
               res.status(200).json({
                 message: "post unliked",
                 status: "unliked",
-                likesCount: [post.likers].length
-            });
-          }).catch(() => {
-            res.status(500).json({
-              message: "couldn't update post"
+                likesCount: [post.likers].length,
+              });
             })
-            }) ;
+            .catch(() => {
+              res.status(500).json({
+                message: "couldn't update post",
+              });
+            });
         } else {
           Post.updateOne(
             {
-              _id: req.params.id
-            },{
+              _id: req.params.id,
+            },
+            {
               $push: {
-                "likers": {
-                  "_id": req.userData.userId,
+                likers: {
+                  _id: req.userData.userId,
                 },
               },
             }
-          ).then((post) => {
-            res.status(200).json({
-              message: "post has been liked",
-              status: "liked",
-              likesCount: [post.likers].length
-            });
-          }).catch((err) => {
-            res.status(500).json({
-              message: "Couldn't like post"+ err
+          )
+            .then((post) => {
+              res.status(200).json({
+                message: "post has been liked",
+                status: "liked",
+                likesCount: [post.likers].length,
+              });
             })
-          });
+            .catch((err) => {
+              res.status(500).json({
+                message: "Couldn't like post" + err,
+              });
+            });
         }
       }
     })
     .catch(() => {
       res.status(404).json({
-        message: "Post doesn't exist"
+        message: "Post doesn't exist",
       });
     });
 };
