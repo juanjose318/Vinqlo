@@ -39,7 +39,6 @@ export class FeedComponent implements OnInit, OnDestroy {
       .subscribe((postData: { posts: Post[] }) => {
         this.isLoading = false;
         this.posts = postData.posts;
-        console.log(this.posts);
       });
     this.authStatusSub = this.authService
       .getAuthStatusListener()

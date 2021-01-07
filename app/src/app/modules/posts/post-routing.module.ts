@@ -9,7 +9,6 @@ const routes: Routes = [
     path: '',
     children: [
       { path: ':id', component: PostSingleComponent, pathMatch: 'full' },
-      { path: 'savedPosts', component: PostDisplayComponent }
     ],
   },
 ];

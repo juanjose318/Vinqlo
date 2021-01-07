@@ -3,7 +3,6 @@ const Post = require("../models/post");
 const SocialMedia = require("../models/social-media");
 const Community = require("../models/community");
 const user = require("../models/user");
-const { cpuUsage } = require("process");
 
 exports.getProfileInfo = async (req, res) => {
   const user = (
