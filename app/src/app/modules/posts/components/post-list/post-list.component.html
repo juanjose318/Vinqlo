@@ -6,8 +6,9 @@
       [userId]="userId"
       (postDeleted)="onPostDeleted($event)"
       (postEdited)="onPostEdited($event)"
-      (postLiked)="onPostLiked($event)"
-      (postAddedToCollection)="onPostAddedToCollection($event)">
+      (postAddedToCollection)="onPostAddedToCollection($event)"
+      (creatorViewed)="onCreatorViewed($event)"
+      (postViewed)="onPostViewed($event)">
     </app-post-display>
   </div>
 

@@ -1,13 +1,18 @@
 <app-header></app-header>
 <div class="o-container">
-  <app-description-bar></app-description-bar>
-  <app-post-display
-  [userId]="userId"
-  [items]="post"
-  (postEdited)="handleUpdate($event)"
-  (postLiked)="handleLiked($event)"
-  (postDeleted)="handleDelete($event)"
-  (commentCreated)="handleCommentCreated($event)">
-  </app-post-display>
+  <div class="o-wrapper">
+    <app-description-bar></app-description-bar>
+    <app-post-display
+      [userId]="userId"
+      [items]="post"
+      (postEdited)="handleUpdate($event)"
+      (postLiked)="handleLiked($event)"
+      (postDeleted)="handleDelete($event)"
+      (commentCreated)="handleCommentCreated($event)"
+      (postAddedToCollection)="handlePostAddedToCollection($event)"
+      (creatorViewed)="handleUserViewed($event)"
+    >
+    </app-post-display>
+  </div>
 </div>
 <app-footer></app-footer>

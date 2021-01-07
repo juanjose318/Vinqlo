@@ -3,8 +3,8 @@
   <div class="m-post-comment-display">
     <div class="m-comment-header">
       <div class="m-info-wrapper">
-        <h2 class="a-comment-username"> {{ comment.creator?.name }}</h2>
-        <p class="a-comment-date">{{ comment.createdAt | date: 'medium'}}</p>
+        <h2 class="a-comment-username" (click)="goToProfile(comment?.creator?._id)"> {{ comment?.creator?.name }}</h2>
+        <p class="a-comment-date">{{ comment?.createdAt | date: 'medium'}}</p>
       </div>
       <div class="m-menu">
         <fa-icon
@@ -14,11 +14,11 @@
         ></fa-icon>
         <mat-menu  #menu="matMenu" yPosition="below" xPosition="before">
           <button
-           *ngIf="userId !== comment.creator?._id"
+           *ngIf="userId !== comment?.creator?._id"
            mat-menu-item
            class="a-option-item">Report</button>
           <button
-          *ngIf="userId == comment.creator?._id;"
+          *ngIf="userId == comment?.creator?._id;"
             mat-menu-item
             class="a-option-item"
             (click)="onDelete(comment)"
@@ -29,7 +29,7 @@
       </div>
     </div>
 
-    <p class="a-comment-user">{{comment.name}}</p>
-    <p class="a-comment-text">{{comment.body}}</p>
+    <p class="a-comment-user">{{comment?.name}}</p>
+    <p class="a-comment-text">{{comment?.body}}</p>
   </div>
 </div>

@@ -1,5 +1,5 @@
 export interface Post {
-  id: number;
+  _id: number;
   UserId?: number;
   title: string;
   body: string;
@@ -7,7 +7,6 @@ export interface Post {
   file?: string;
   category?: string;
   createdAt:Date;
-  likes: number;
   creator: string;
   comments?: [{
     body: string;

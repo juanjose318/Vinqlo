@@ -13,10 +13,10 @@ import {
   faShare,
 } from '@fortawesome/free-solid-svg-icons';
 import { MatExpansionPanel } from '@angular/material/expansion';
-import { Post } from '../../models/post.interface';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { CreatePostComponent } from 'src/app/modules/feed/components/create-post/create-post.component';
+import { PostService } from '../../services/posts.service';
 
 @Component({
   selector: 'app-post-display',
@@ -24,7 +24,8 @@ import { CreatePostComponent } from 'src/app/modules/feed/components/create-post
   templateUrl: 'post-display.component.html',
 })
 export class PostDisplayComponent {
-  constructor(private router: Router, private dialog: MatDialog) {}
+  constructor(private router: Router, private dialog: MatDialog,
+    private postsService : PostService) {}
 
   @Input()
   items;
@@ -33,26 +34,28 @@ export class PostDisplayComponent {
   userId: string;
 
   @Output()
-  postDeleted = new EventEmitter();
+  postDeleted: EventEmitter<any> = new EventEmitter();
 
   @Output()
-  postViewed = new EventEmitter();
+  postViewed: EventEmitter<any> = new EventEmitter();
 
   @Output()
-  postEdited = new EventEmitter();
+  postEdited: EventEmitter<any> = new EventEmitter();
 
   @Output()
-  postLiked = new EventEmitter();
+  postLiked: EventEmitter<any> = new EventEmitter();
 
   @Output()
-  commentCreated = new EventEmitter();
+  commentCreated: EventEmitter<any> = new EventEmitter();
 
   @Output()
-  postAddedToCollection = new EventEmitter();
+  postAddedToCollection: EventEmitter<any> = new EventEmitter();
 
-  isLiked: Boolean;
+  @Output()
+  creatorViewed: EventEmitter<any> = new EventEmitter();
+
+  isLiked: boolean;
   public commentCreatedEvent: Event;
-
 
   @ViewChild(MatExpansionPanel) expansionPannel: MatExpansionPanel;
   faEllipsisH = faEllipsisH;
@@ -61,31 +64,41 @@ export class PostDisplayComponent {
   faHeart = faHeart;
   faShare = faShare;
 
-   /**
-    * Opens Dialog when editing and passes data to the dialog, then emits back the edited post to its parent component
-    */
+  /**
+   * Opens Dialog when editing and passes data to the dialog, then emits back the edited post to its parent component
+   */
 
   openDialog(): void {
-
     const dialogRef = this.dialog.open(CreatePostComponent, {
       width: '30%',
       data: { post: this.items },
-
     });
 
     dialogRef.afterClosed().subscribe((postUpdated) => {
       if (!!postUpdated) {
         this.postEdited.emit(postUpdated);
       }
-      });
+    });
   }
 
-  onLiked(postId) {
-    this.postLiked.emit(postId);
+  handleLiked(postId) {
+    this.postsService.likeToggle(postId).subscribe((postData) => {
+      if(postData.status == "liked") {
+        this.isLiked = true;
+        console.log(this.isLiked);
+      } else {
+        this.isLiked = false;
+        console.log(this.isLiked)
+      }
+    });
   }
 
-  onView(post: Post) {
-    this.router.navigate(['/posts/', post.id]);
+  onView(postId) {
+    this.postViewed.emit(postId);
+  }
+
+  goToProfile(user) {
+    this.creatorViewed.emit(user);
   }
 
   onDelete(postId) {
@@ -98,6 +111,5 @@ export class PostDisplayComponent {
 
   onCommentCreated(comment) {
     this.commentCreated.emit(comment);
-
   }
 }

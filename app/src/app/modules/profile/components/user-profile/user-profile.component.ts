@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { AuthService } from 'src/app/modules/auth/auth.services';
+import { PostService } from 'src/app/modules/posts/services/posts.service';
 import { ProfileService } from '../../profile.services';
 
 @Component({
@@ -20,8 +21,10 @@ export class UserProfileComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private profileService : ProfileService,
-    private authService: AuthService) { }
+    private authService: AuthService,
+    private postService: PostService) { }
 
   ngOnInit() {
     this.userId = this.authService.getUserId();
@@ -34,6 +37,7 @@ export class UserProfileComponent implements OnInit {
     .pipe(switchMap((userId) => this.profileService.getProfileInfo(userId)))
     .subscribe((data) => {
       this.userProfileData = data;
+      console.log(this.userProfileData);
     });
   }
 
@@ -41,8 +45,19 @@ export class UserProfileComponent implements OnInit {
     this.authStatusListenerSubs.unsubscribe();
   }
 
-  onUserEdited(user){
-    console.log(user);
-    this.profileService.updateProfileInfo(user);
+  handleLiked(postId){
+    this.postService.likeToggle(postId);
+  }
+
+  handleAddToCollection(postId) {
+    this.postService.addPostToCollection(postId);
+  }
+
+  handlePostViewed(postId) {
+    this.router.navigate(['/posts', postId]);
+  }
+
+  handleUserEdited(){
+    this.profileService.updateProfileInfo(this.userId);
   }
 }

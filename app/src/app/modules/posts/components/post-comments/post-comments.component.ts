@@ -6,6 +6,7 @@ import {
   SimpleChange,
   SimpleChanges,
 } from '@angular/core';
+import { Router } from '@angular/router';
 import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/modules/auth/auth.services';
@@ -19,7 +20,8 @@ import { PostService } from '../../services/posts.service';
 export class PostCommentsComponent implements OnInit {
   constructor(
     private authService: AuthService,
-    private postService: PostService
+    private postService: PostService,
+    private router: Router
   ) {}
 
   private authStatusSub: Subscription;
@@ -52,8 +54,19 @@ export class PostCommentsComponent implements OnInit {
 
   onDelete(comment) {
     this.postService.deleteComment(comment).subscribe(() => {
-      this.post = this.postService.getSinglePost(this.post._id);
+      this.postService.getSinglePost(comment.post);
+      this.post.comments.filter(() => {
+        const updatedComments = this.post.comments.filter(
+          (deletedComment) => deletedComment._id  !== comment._id
+        );
+        this.post.comments = updatedComments;
+      })
     });
+
+  }
+
+  goToProfile(userId){
+    this.router.navigate(['/profile', userId]);
   }
 
   onCreate(comment) {

@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/modules/auth/auth.services';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'selector-name',
+  selector: 'app-post-single-page',
   templateUrl: 'post-single.component.html',
   styleUrls: ['./post-single.component.scss'],
 })
@@ -37,7 +37,6 @@ export class PostSingleComponent implements OnInit {
         this.userIsAuthenticated = isAuthenticated;
         this.userId = this.authService.getUserId();
       });
-
   }
 
   /**
@@ -66,12 +65,22 @@ export class PostSingleComponent implements OnInit {
   }
 
   handleCommentCreated(comment) {
-    this.post.comments.push(comment);
-    this.postService.addCommentPost(comment);
+    this.postService.addCommentPost(comment).subscribe(() => {
+        this.post.comments.push(comment);
+    });
+  }
+
+  handleUserViewed(userId) {
+    console.log(userId);
+    this.router.navigate(['/profile', userId]);
   }
 
   handleLiked(postId) {
     this.postService.likeToggle(postId);
+  }
+
+  handlePostAddedToCollection(userId){
+    this.postService.addPostToCollection(userId);
   }
 
   goBack() {

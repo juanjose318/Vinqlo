@@ -41,6 +41,7 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatSidenavModule,
     MatProgressSpinnerModule,
     FontAwesomeModule,
+    MatTabsModule,
   ],
   declarations: [],
   providers: [],

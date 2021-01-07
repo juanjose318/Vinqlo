@@ -17,8 +17,8 @@ exports.getComments = (req, res, next) => {
     });
 };
 
-exports.createComment = (req, res) => {
-  const comment = new Comment({
+exports.createComment = async (req, res) => {
+  const comment = await new Comment({
     body: req.body.body,
     createdAt: req.body.createdAt,
     creator: req.userData.userId,
@@ -28,15 +28,18 @@ exports.createComment = (req, res) => {
 
   comment.save();
 
-  Post.updateOne({ _id: req.params.id },
+  const post = await Post.findOneAndUpdate({ _id: req.params.id },
     {
       $push: {
         comments: comment
       }
-    }).then(() => {
+    }).populate({ path: "comments", populate: {
+      path: "creator", select:"name"
+    } })
+    .then((response) => {
       res.status(201).json({
         message: "Comment added Succesfully",
-        comments: comment,
+        comment: response.comments,
       });
     })
     .catch(() => {

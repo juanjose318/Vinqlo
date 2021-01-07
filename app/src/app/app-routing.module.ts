@@ -3,8 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { EmailConfirmationComponent } from './email-confirmation/email-confirmation.component';
 import { HomeComponent } from './home-component/home.component';
 import { AuthGuard } from './modules/auth/auth.guards';
-import { LoginComponent } from './modules/auth/login/login.component';
-import { RegisterComponent } from './modules/auth/register/register.component';
 import { NotFoundComponent } from './not-found-component/not-found-component.component';
 
 const routes: Routes = [
@@ -33,6 +31,11 @@ const routes: Routes = [
     path:'auth',
     loadChildren: () =>
       import('./modules/auth/auth.module').then((m) => m.AuthModule)
+  },
+  {
+    path: 'emailConfirmation',
+    component: EmailConfirmationComponent,
+
   },
   {
     path: '404',

@@ -49,6 +49,7 @@
   display: inline-block;
   margin-right: 1em;
   text-decoration: underline;
+  cursor: pointer;
 }
 .a-post-image img{
   width: 100%;
@@ -71,6 +72,12 @@
 .a-post-icon{
   padding-right: 4px;
   color: $cyan;
+}
+
+
+
+.a-post-icon:active {
+  color: rgb(243, 51, 51);
 }
 
 .a-post-body {

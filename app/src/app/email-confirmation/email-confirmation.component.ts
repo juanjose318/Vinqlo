@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'selector-name',
+  selector: 'app-email-confirmation',
   templateUrl: 'email-confirmation.component.html',
   styleUrls: ['email-confirmation.component.scss'],
 })

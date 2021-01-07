@@ -22,7 +22,7 @@ export class PostService {
               return {
                 title: post.title,
                 body: post.body,
-                id: post._id,
+                _id: post._id,
                 file: post.file,
                 category: post.category,
                 tags: post.tags,
@@ -37,7 +37,6 @@ export class PostService {
         })
       )
       .subscribe((transformedPostData) => {
-        console.log(transformedPostData);
         this.posts = transformedPostData.posts;
         this.postListener.next({
           posts: [...this.posts],
@@ -66,23 +65,19 @@ export class PostService {
   }
 
   addPostToCollection(postId) {
-    this.http.post(
-      `${environment.apiUrl}/posts/` + postId + '/addPostToUserCollection', postId)
-      .subscribe((response) => {
-        console.log(response);
-      })
+    this.http
+      .post(
+        `${environment.apiUrl}/posts/` + postId + '/togglePostToUserCollection',
+        postId
+      )
+      .subscribe();
   }
 
   addCommentPost(comment) {
-    this.http
-      .post<{ message: string; comment: any }>(
-        `${environment.apiUrl}/comments/` + comment.post,
-        comment
-      )
-      .subscribe((responseData) => {
-        const creatorId = responseData.comment.creator;
-        this.creatorId = creatorId;
-      });
+    return this.http.post<{ message: string; comment: any }>(
+      `${environment.apiUrl}/comments/` + comment.post,
+      comment
+    );
   }
 
   addPost(post: Post) {
@@ -97,27 +92,19 @@ export class PostService {
     postData.append('category', post.category);
     var dataestr = new Date(post.createdAt).toUTCString();
     postData.append('createdAt', dataestr);
-    this.http
-      .post<{ message: string; postId }>(
-        `${environment.apiUrl}/posts`,
-        postData
-      )
-      .subscribe((responseData) => {
-        const postId = responseData.postId;
-        post.id = postId;
-      });
+
+    return this.http.post<{ message: string; post }>(
+      `${environment.apiUrl}/posts`,
+      postData
+    );
   }
 
-  likeToggle(post) {
-    console.log(post);
+  likeToggle(postId) {
     return this.http
       .post<{ message: string; status: string; likesCount: number }>(
-        `${environment.apiUrl}/posts/` + post.id + '/toggleLikePost',
+        `${environment.apiUrl}/posts/` + postId + '/toggleLikePost',
         true
       )
-      .subscribe((postData) => {
-        const likes = postData;
-      });
   }
 
   deletePost(postId) {
@@ -130,7 +117,7 @@ export class PostService {
     );
   }
 
-  updatePost(post: Post) {
+  updatePost(post) {
     let postData: Post | FormData;
     if (typeof post.file === 'object') {
       postData = new FormData();
@@ -145,20 +132,19 @@ export class PostService {
       postData.append('createdAt', dataestr);
     } else {
       postData = {
-        id: post.id,
+        _id: post._id,
         title: post.title,
         body: post.body,
         tags: post.tags,
         category: post.category,
         file: post.file,
         createdAt: post.createdAt,
-        likes: post.likes,
         creator: post.creator,
       };
     }
     this.http
       .put<{ message: string }>(
-        `${environment.apiUrl}/posts/` + post.id,
+        `${environment.apiUrl}/posts/` + post._id,
         postData
       )
       .subscribe((responseData) => {

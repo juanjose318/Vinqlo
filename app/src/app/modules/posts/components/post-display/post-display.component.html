@@ -4,9 +4,9 @@
       <div class="m-post-row">
         <div class="m-right-wrapper">
           <p class="a-post-title">
-            <a (click)="onView(post)">{{ post?.title }}</a>
+            <a (click)="onView(post._id)">{{ post?.title }}</a>
           </p>
-          <p class="a-post-date"><span class="a-creators-name">{{ post.creator.name}}</span>{{ post.createdAt | date: "medium" }}</p>
+          <p class="a-post-date"><span class="a-creators-name" (click)="goToProfile(post?.creator?._id)">{{ post?.creator?.name}}</span>{{ post.createdAt | date: "medium" }}</p>
         </div>
         <div class="m-menu">
           <fa-icon
@@ -23,7 +23,7 @@
             *ngIf="userId == post.creator._id;"
               mat-menu-item
               class="a-option-item"
-              (click)="onDelete(post.id)"
+              (click)="onDelete(post._id)"
             >
               Delete
             </button>
@@ -38,15 +38,15 @@
         <p class="a-post-tags">{{ post.tags }}</p>
         <div class="m-actions-wrapper">
           <div class="m-action-item">
-            <fa-icon class="a-post-icon likes" (click)="onLiked(post)" [icon]="faHeart"></fa-icon>
+            <fa-icon class="a-post-icon likes" (click)="handleLiked(post._id)" [icon]="faHeart"></fa-icon>
             <a class="a-icon-text" >{{ post.likers?.length }}</a>
           </div>
           <div class="m-action-item">
-            <fa-icon class="a-post-icon" [icon]="faComments"></fa-icon>
+            <fa-icon class="a-post-icon" [icon]="faComments" (click)="onView(post?._id)"></fa-icon>
             <a class="a-icon-text">{{ post.comments?.length }}</a>
           </div>
           <div class="m-action-item">
-            <fa-icon class="a-post-icon" [icon]="faBookmark" (click)="onAddToCollection(post?.id)"></fa-icon>
+            <fa-icon class="a-post-icon" [icon]="faBookmark" (click)="onAddToCollection(post?._id)"></fa-icon>
           </div>
           <div class="m-action-item">
             <fa-icon class="a-post-icon" [icon]="faShare"></fa-icon>
@@ -62,7 +62,7 @@
           <p class="a-post-title">
             <a>{{ items.title }}</a>
           </p>
-          <p class="a-post-date"><span class="a-creators-name">{{ items.creator?.name}}</span>{{ items.createdAt | date: "medium" }}</p>
+          <p class="a-post-date"><span class="a-creators-name" (click)="goToProfile(items?.creator?._id)">{{ items.creator?.name}}</span>{{ items.createdAt | date: "medium" }}</p>
         </div>
         <div class="m-menu">
           <fa-icon
@@ -101,14 +101,14 @@
         <p class="a-post-tags">{{ items.tags }}</p>
         <div class="m-actions-wrapper">
           <div class="m-action-item">
-            <fa-icon class="a-post-icon"  [icon]="faHeart" (click)="onLiked(items?._id)"></fa-icon>
+            <fa-icon class="a-post-icon" [icon]="faHeart" (click)="handleLiked(items?._id)"></fa-icon>
             <a class="a-icon-text">{{ items.likers?.length}}</a>
           </div>
           <div class="m-action-item">
             <fa-icon class="a-post-icon" [icon]="faComments"></fa-icon>
             <a class="a-icon-text">{{ items.comments?.length}}</a>
           </div>
-          <div class="m-action-item">
+          <div class="m-action-item" *ngIf="items?._id">
             <fa-icon class="a-post-icon" [icon]="faBookmark" (click)="onAddToCollection(items?._id)"></fa-icon>
           </div>
           <div class="m-action-item">

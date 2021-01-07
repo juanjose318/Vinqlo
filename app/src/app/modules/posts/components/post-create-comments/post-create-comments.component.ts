@@ -39,7 +39,7 @@ export class PostCreateCommentsComponent implements OnInit {
     });
 
     this.form.patchValue({
-      post: this.post._id
+      post: this.post._id,
     })
   }
 

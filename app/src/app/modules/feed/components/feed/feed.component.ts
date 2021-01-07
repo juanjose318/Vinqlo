@@ -1,4 +1,4 @@
-  import { Component, Injectable, OnDestroy, OnInit } from '@angular/core';
+import { Component, Injectable, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/modules/auth/auth.services';
@@ -34,12 +34,13 @@ export class FeedComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     this.postsService.getPosts();
     this.userId = this.authService.getUserId();
-    this.postsSub = this.postsService.
-    getPostListener()
-    .subscribe((postData: { posts: Post[] }) => {
-      this.isLoading = false;
-      this.posts = postData.posts;
-        });
+    this.postsSub = this.postsService
+      .getPostListener()
+      .subscribe((postData: { posts: Post[] }) => {
+        this.isLoading = false;
+        this.posts = postData.posts;
+        console.log(this.posts);
+      });
     this.authStatusSub = this.authService
       .getAuthStatusListener()
       .subscribe((isAuthenticated) => {
@@ -54,37 +55,42 @@ export class FeedComponent implements OnInit, OnDestroy {
     this.postsSub.unsubscribe();
   }
 
-  onPostCreated(newPost: Post){
-    this.postsService.addPost(newPost);
-    this.posts.push(newPost);
-    this.router.navigate(['posts/:id', newPost.id]);
+  onPostCreated(newPost: Post) {
+    this.postsService.addPost(newPost).subscribe((postData) => {
+      this.posts.push(postData.post);
+      this.router.navigate(['/posts', newPost._id]);
+    });
+  }
+
+  handlePostViewed(postId) {
+    console.log(postId);
+    this.router.navigate(['/posts', postId]);
   }
 
   handleAddedToCollection(postId) {
     this.postsService.addPostToCollection(postId);
   }
 
-  handleDelete(postId){
-   this.postsService.deletePost(postId).subscribe(() => {
+  handleDelete(postId) {
+    this.postsService.deletePost(postId).subscribe(() => {
       this.postsService.getPosts();
-    });
-
-    this.posts.filter(() => {
-      const updatedPosts = this.posts.filter(
-        (deletedPost) => deletedPost.id !== postId
-      );
-      this.posts = updatedPosts;
+      this.posts.filter(() => {
+        const updatedPosts = this.posts.filter(
+          (deletedPost) => deletedPost._id !== postId
+        );
+        this.posts = updatedPosts;
+      });
     });
   }
 
   /**
    * TODO: Pagination infite scroll
    */
-  onScroll() {
-  }
+  onScroll() {}
 
-  handleLiked(post) {
-    this.postsService.likeToggle(post);
+  handleCreatorViewed(userId) {
+    console.log(userId);
+    this.router.navigate(['/profile', userId]);
   }
 
   handleEdit(post: Post): void {

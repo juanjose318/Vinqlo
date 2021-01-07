@@ -4,58 +4,59 @@ import { Post } from '../../models/post.interface';
 @Component({
   selector: 'app-post-list',
   templateUrl: 'post-list.component.html',
-  styleUrls: ['./post-list.component.scss']
+  styleUrls: ['./post-list.component.scss'],
 })
-
 export class PostListComponent {
+  @Input()
+  posts: Post;
 
-@Input()
-posts: Post;
+  @Input()
+  userId: string;
 
-@Input()
-userId: string;
+  @Output()
+  postDeleted: EventEmitter<any> = new EventEmitter();
 
-@Output()
-postDeleted = new EventEmitter();
+  @Output()
+  postEdited: EventEmitter<any> = new EventEmitter();
 
-@Output()
-postEdited = new EventEmitter();
+  @Output()
+  postViewed: EventEmitter<any> = new EventEmitter();
 
-@Output()
-postLiked = new EventEmitter();
+  @Output()
+  postAddedToCollection: EventEmitter<any> = new EventEmitter();
 
-@Output()
-postAddedToCollection = new EventEmitter();
+  @Output()
+  creatorViewed: EventEmitter<any> = new EventEmitter();
 
-isLoading: boolean;
+  isLoading: boolean;
 
-isEmpty: boolean = true;
+  isEmpty: boolean = true;
 
-constructor() {}
+  constructor() {}
 
-onPostDeleted(postId) {
-  this.isLoading = true;
-  this.postDeleted.emit(postId);
-  this.isLoading = false;
-}
+  onPostDeleted(postId) {
+    this.isLoading = true;
+    this.postDeleted.emit(postId);
+    this.isLoading = false;
+  }
 
-onPostEdited(post: Post) {
-  this.isLoading = true;
-  this.postEdited.emit(post);
-  this.isLoading = false;
-}
+  onPostViewed(postId) {
+    console.log(postId);
+    this.postViewed.emit(postId);
+  }
 
-onPostLiked(postId) {
-  this.postLiked.emit(postId);
-}
+  onPostEdited(post: Post) {
+    this.isLoading = true;
+    this.postEdited.emit(post);
+    this.isLoading = false;
+  }
 
-onPostAddedToCollection(postId){
-  this.postAddedToCollection.emit(postId);
-}
+  onPostAddedToCollection(postId) {
+    this.postAddedToCollection.emit(postId);
+  }
 
-onCommentCreated(event: Event) {
-
-}
-
+  onCreatorViewed(userId){
+      this.creatorViewed.emit(userId);
+  }
 
 }

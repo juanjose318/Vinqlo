@@ -14,11 +14,6 @@ const routes: Routes = [
     component: RegisterComponent,
 
   },
-  {
-    path: 'emailConfirmation',
-    component: EmailConfirmationComponent,
-
-  }
 ]
 
 @NgModule({

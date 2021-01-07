@@ -16,15 +16,9 @@ router.put("/:id", checkAuth, fileUpload, Postcontroller.updatePost);
 router.post("/:id/toggleLikePost", checkAuth, Postcontroller.toggleLikePost);
 
 router.post(
-  "/:id/addPostToUserCollection",
+  "/:id/togglePostToUserCollection",
   checkAuth,
-  Postcontroller.addPostToUserCollection
-);
-
-router.put(
-  "/:id/removePostToUserCollection",
-  checkAuth,
-  Postcontroller.deletePostFromUserCollection
+  Postcontroller.togglePostToUserCollection
 );
 
 router.get("", Postcontroller.getPosts);

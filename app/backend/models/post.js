@@ -5,7 +5,6 @@ const postSchema = mongoose.Schema({
   body: { type: String, required : true },
   tags: { type: String, required : true },
   category: { type: Number, required : true },
-  likes: { type: Number, default: 0 },
   likers: [{ type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }],
   createdAt: { type: Date, required: true },
   file: { type: String },

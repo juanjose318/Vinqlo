@@ -60,7 +60,6 @@ exports.createPost = (req, res) => {
       tags: req.body.tags,
       category: req.body.category,
       createdAt: req.body.createdAt,
-      likes: req.body.category,
       file: url + "/images/" + req.file.filename,
       creator: req.userData.userId,
     });
@@ -71,20 +70,15 @@ exports.createPost = (req, res) => {
       tags: req.body.tags,
       category: req.body.category,
       createdAt: req.body.createdAt,
-      likes: req.body.category,
       creator: req.userData.userId,
     });
   }
   post
     .save()
     .then((createdPost) => {
-      console.log(createdPost);
       res.status(201).json({
         message: "Post added succesfully",
-        post: {
-          ...createdPost,
-          id: createdPost._id,
-        },
+        post: createdPost
       });
     })
     .catch((err) => {
@@ -94,50 +88,66 @@ exports.createPost = (req, res) => {
     });
 };
 
-exports.addPostToUserCollection = async (req, res, next) => {
+exports.togglePostToUserCollection = async (req, res, next) => {
   const postId = req.params.id;
-  const user = await User.findOneAndUpdate(
-    {
-      _id: req.userData.userId,
-    },
-    {
-      $push: {
-        postsCollection: postId,
-      },
-    }
-  )
-    .then(() => {
-      res.status(200).json({
-        message: "Post Added to your collection",
-      });
+  const user = await User.findOne({ _id: req.userData.userId })
+    .then((userData) => {
+      if (userData) {
+        isInCollection = false;
+        for (let post of userData.postsCollection) {
+          if (post == postId) {
+            isInCollection = true;
+            break;
+          }
+        }
+        if (isInCollection) {
+          User.updateOne(
+            {
+              _id: req.userData.userId,
+            },
+            {
+              $pull: {
+                postsCollection: postId,
+              },
+            }
+          )
+            .then(() => {
+              res.status(200).json({
+                message: "Post removed from collection",
+              });
+            })
+            .catch((err) => {
+              res.status(500).json({
+                message: "Couldn't remove post from collection",
+              });
+            });
+        } else {
+          User.updateOne(
+            {
+              _id: req.userData.userId,
+            },
+            {
+              $push: {
+                postsCollection: postId,
+              },
+            }
+          )
+            .then(() => {
+              res.status(200).json({
+                message: "Post added to collection",
+              });
+            })
+            .catch(() => {
+              res.status(500).json({
+                message: "Couldn't add post to collection",
+              });
+            });
+        }
+      }
     })
     .catch(() => {
-      res.status(500).json({
-        message: "Couldn't add post to your collection",
-      });
-    });
-};
-
-exports.deletePostFromUserCollection = async (req, rex, next) => {
-  const postId = req.params.id;
-  const user = await User.findOneAndUpdate(
-    {
-      _id: req.userData.userId,
-    },
-    {
-      $pull: {
-        postsCollection: postId,
-      },
-    }
-  )
-    .then(() => {
-      res.status(200).json({
-        message: "Post removed from your collection",
-      });
-    })
-    .catch(() => {
-      res.status(500).json({
-        message: "Couldn't remove post to your collection",
+      res.status(404).json({
+        message: "User doesn't exist",
       });
     });
 };
@@ -246,7 +256,7 @@ exports.updatePost = (req, res, next) => {
 };
 
 exports.getPosts = async (req, res) => {
-  const posts = Post.find()
+  const posts = Post.find().sort({ createdAt : 'asc'})
     .populate("creator", "name")
     .exec()
     .then((postsResults) => {

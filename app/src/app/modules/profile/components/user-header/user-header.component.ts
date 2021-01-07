@@ -10,7 +10,7 @@ import { EditUserProfileComponent } from '../edit-user-profile/edit-user-profile
   styleUrls: ['./user-header.component.scss']
 })
 
-export class UserHeaderComponent {
+export class UserHeaderComponent  {
   constructor(public dialog: MatDialog) {}
 
   @Input()
@@ -28,7 +28,6 @@ export class UserHeaderComponent {
   faTwitter = faTwitter;
   faWhatsapp = faWhatsapp;
 
-
   openDialog(): void {
     const dialogRef = this.dialog.open(EditUserProfileComponent, {
       width: '30%',
@@ -41,7 +40,5 @@ export class UserHeaderComponent {
         this.userEdited.emit(result);
       }
     });
-
   }
-
 }

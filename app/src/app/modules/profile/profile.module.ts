@@ -14,7 +14,7 @@ import { ProfileRoutingModule } from './profile-routing.module';
     CommonModule,
     ReactiveFormsModule,
     MaterialModule,
-    FeedModule
+    FeedModule,
   ],
   exports: [],
   declarations: [

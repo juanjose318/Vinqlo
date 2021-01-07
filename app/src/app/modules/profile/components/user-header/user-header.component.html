@@ -18,21 +18,21 @@
       </div>
       <div class="m-contact-info">
         <ul>
-          <li *ngIf="profileData?.socialMedia.twitter !== undefined">
+          <li *ngIf="profileData?.socialMedia?.twitter === undefined || profileData?.socialMedia?.twitter !== null ">
             <fa-icon class="a-icon" [icon]="faTwitter"></fa-icon>
-            <span class="a-media-text">{{ profileData?.socialMedia.twitter }}</span>
+            <span class="a-media-text">{{ profileData?.socialMedia?.twitter }}</span>
           </li>
-          <li *ngIf="profileData?.socialMedia.instagram !== undefined">
+          <li *ngIf="profileData?.socialMedia?.instagram === undefined || profileData?.socialMedia?.instagram !== null ">
             <fa-icon class="a-icon" [icon]="faInstagram"></fa-icon>
-            <span class="a-media-text">{{ profileData?.socialMedia.instagram }}</span>
+            <span class="a-media-text">{{ profileData?.socialMedia?.instagram }}</span>
           </li>
-          <li *ngIf="profileData?.socialMedia.facebook !== undefined">
-            <fa-icon class="a-icon" [icon]="faFacebook"></fa-icon>
-            <span class="a-media-text">{{ profileData?.socialMedia.facebook }}</span>
+          <li *ngIf="profileData?.socialMedia?.facebook === undefined || profileData?.socialMedia?.facebook !== null " >
+            <fa-icon  class="a-icon" [icon]="faFacebook"></fa-icon>
+            <span class="a-media-text">{{ profileData?.socialMedia?.facebook }}</span>
           </li>
-          <li *ngIf="profileData?.socialMedia.phoneNumber !== undefined">
+          <li *ngIf="profileData?.socialMedia?.phoneNumber === undefined || profileData?.socialMedia?.phoneNumber !== null ">
             <fa-icon class="a-icon" [icon]="faWhatsapp"></fa-icon>
-            <span class="a-media-text">{{ profileData?.socialMedia.phoneNumber }}</span>
+            <span class="a-media-text">{{ profileData?.socialMedia?.phoneNumber }}</span>
           </li>
         </ul>
       </div>
