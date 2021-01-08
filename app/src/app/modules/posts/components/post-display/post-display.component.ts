@@ -85,10 +85,8 @@ export class PostDisplayComponent {
     this.postsService.likeToggle(postId).subscribe((postData) => {
       if(postData.status == "liked") {
         this.isLiked = true;
-        console.log(this.isLiked);
       } else {
         this.isLiked = false;
-        console.log(this.isLiked)
       }
     });
   }

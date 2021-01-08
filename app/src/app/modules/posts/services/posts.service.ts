@@ -132,7 +132,7 @@ export class PostService {
       postData.append('createdAt', dataestr);
     } else {
       postData = {
-        _id: post._id,
+        _id: post.id,
         title: post.title,
         body: post.body,
         tags: post.tags,
@@ -144,7 +144,7 @@ export class PostService {
     }
     this.http
       .put<{ message: string }>(
-        `${environment.apiUrl}/posts/` + post._id,
+        `${environment.apiUrl}/posts/` + post.id,
         postData
       )
       .subscribe((responseData) => {

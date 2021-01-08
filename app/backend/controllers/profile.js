@@ -3,6 +3,7 @@ const Post = require("../models/post");
 const SocialMedia = require("../models/social-media");
 const Community = require("../models/community");
 const user = require("../models/user");
+const { EDESTADDRREQ } = require("constants");
 
 exports.getProfileInfo = async (req, res) => {
   const user = (
@@ -15,8 +16,9 @@ exports.getProfileInfo = async (req, res) => {
         path: "postsCollection",
         options: { sort: { createdAt: -1 } },
         populate: {
-          path: "creator", select:"name"
-        }
+          path: "creator",
+          select: "name",
+        },
       })
       .populate("socialMedia")
       .populate("communities")
@@ -42,47 +44,54 @@ exports.getProfileInfo = async (req, res) => {
 };
 
 exports.updateProfileInfo = async (req, res) => {
-  console.log(req.body);
-  // let imageUrl;
-  // let profileId = req.params.id;
+  let imageUrl;
+  let profileId = req.params.id;
 
-  // if (req.file) {
-  //   const url = req.protocol + "://" + req.get("host");
-  //   imageUrl = url + "/images/" + req.file.filename;
-  // }
-  // const userInfo = new User ({
-  //   degree: req.body.degree,
-  //   campus: req.body.campus,
-  //   bio: req.body.bio,
-  //   file: imageUrl,
-  //   socialMedia: {
-  //     twitter: req.body.twitter,
-  //     facebook: req.body.facebook,
-  //     instagram: req.body.instagram,
-  //     phoneNumber: req.body.phoneNumber,
-  //   },
-  // });
+  let userInfo;
 
-  // if (profileId === req.userData.userId) {
-  //   const profile = await User.findById({ _id: req.params.id });
+  if (req.file) {
+    const url = req.protocol + "://" + req.get("host");
+    imageUrl = url + "/images/" + req.file.filename;
+    userInfo = {
+      _id: req.body.id,
+      degree: req.body.degree,
+      campus: req.body.campus,
+      bio: req.body.bio,
+      file: imageUrl,
+      socialMedia: {
+        twitter: req.body.twitter,
+        facebook: req.body.facebook,
+        instagram: req.body.instagram,
+        phoneNumber: req.body.phoneNumber,
+      },
+    };
+  }
+    userInfo = {
+      _id: req.body.id,
+      degree: req.body.degree,
+      campus: req.body.campus,
+      bio: req.body.bio,
+      socialMedia: {
+        twitter: req.body.twitter,
+        facebook: req.body.facebook,
+        instagram: req.body.instagram,
+        phoneNumber: req.body.phoneNumber,
+      },
+    };
 
-  //   profile.updateOne(userInfo)
-  //     .then((profile) => {
-  //       if (profile.nModified > 0) {
-  //         res.status(200).json({
-  //           message: "profile updated succesfully",
-  //           profile: profile,
-  //         });
-  //       } else {
-  //         res.status(401).json({
-  //           message: "Couldn't update post",
-  //         });
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       res.status(404).json({
-  //         message: "profile not found" + err,
-  //       });
-  //     });
-  // }
+
+  if (profileId === req.userData.userId) {
+    User.findOneAndUpdate({ _id: req.params.id }, userInfo)
+      .then((profile) => {
+        res.status(200).json({
+          message: "profile updated succesfully",
+          profile: profile,
+        });
+      })
+      .catch((err) => {
+        res.status(404).json({
+          message: "couldn't update profile" + err,
+        });
+      });
+  }
 };

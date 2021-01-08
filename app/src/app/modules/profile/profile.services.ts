@@ -15,42 +15,37 @@ export class ProfileService {
   }
 
   updateProfileInfo(user) {
-   console.log(user);
-    let profileData : FormData;
+    console.log(user);
+    let profileData: FormData;
 
-    if(typeof user.file === 'object') {
+    if (typeof user.file === 'object') {
       profileData = new FormData();
       let idStrg = user.id.toString();
-      profileData.append('id', idStrg)
+      profileData.append('id', idStrg);
       profileData.append('degree', user.degree);
       profileData.append('campus', user.campus);
       profileData.append('bio', user.bio);
       profileData.append('twitter', user.twitter);
       profileData.append('instagram', user.instagram);
       profileData.append('facebook', user.facebook);
-      profileData.append('phoneNumber' , user.phoneNumber);
+      profileData.append('phoneNumber', user.phoneNumber);
       profileData.append('file', user.file);
-    }
-
-    else {
+    } else {
       profileData = new FormData();
       let idStrg = user.id.toString();
-      profileData.append('id', idStrg)
+      profileData.append('id', idStrg);
       profileData.append('degree', user.degree);
       profileData.append('campus', user.campus);
       profileData.append('bio', user.bio);
       profileData.append('twitter', user.twitter);
       profileData.append('instagram', user.instagram);
       profileData.append('facebook', user.facebook);
-      profileData.append('phoneNumber' , user.phoneNumber);
+      profileData.append('phoneNumber', user.phoneNumber);
     }
 
     return this.http.put<{ message: string; profile: any }>(
-      `${environment.apiUrl}/profile/` + user.id+ '/edit/',
+      `${environment.apiUrl}/profile/` + user.id + '/edit/',
       profileData
-    ).subscribe((UserData) => {
-      console.log(UserData)
-    }
-    );
+    ).subscribe();
   }
 }

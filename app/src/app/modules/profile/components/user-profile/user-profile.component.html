@@ -3,7 +3,7 @@
   <app-user-header
     [userId]="userId"
     [profileData]="userProfileData?.profile"
-    (userEdited)="handleUserEdited()"
+    (userEdited)="handleUserEdited($event)"
   ></app-user-header>
 </div>
 <div class="o-container">

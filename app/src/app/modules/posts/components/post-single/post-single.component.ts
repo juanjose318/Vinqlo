@@ -71,7 +71,6 @@ export class PostSingleComponent implements OnInit {
   }
 
   handleUserViewed(userId) {
-    console.log(userId);
     this.router.navigate(['/profile', userId]);
   }
 

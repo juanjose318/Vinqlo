@@ -62,7 +62,6 @@ export class FeedComponent implements OnInit, OnDestroy {
   }
 
   handlePostViewed(postId) {
-    console.log(postId);
     this.router.navigate(['/posts', postId]);
   }
 

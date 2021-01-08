@@ -41,7 +41,6 @@ export class PostListComponent {
   }
 
   onPostViewed(postId) {
-    console.log(postId);
     this.postViewed.emit(postId);
   }
 

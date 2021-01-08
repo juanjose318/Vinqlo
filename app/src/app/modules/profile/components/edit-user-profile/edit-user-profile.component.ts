@@ -60,15 +60,16 @@ export class EditUserProfileComponent implements OnInit {
     });
 
     if (!!this.data) {
+      console.log(this.data);
       this.form.patchValue({
         id: this.data._id,
         degree: this.data.degree,
         campus: this.data.campus,
-        instagram: this.data.socialMedia.instagram,
+        instagram: this.data.socialMedia?.instagram,
         bio: this.data.bio,
-        facebook: this.data.socialMedia.facebook,
-        twitter: this.data.socialMedia.twitter,
-        phoneNumber: this.data.socialMedia.phoneNumber,
+        facebook: this.data.socialMedia?.facebook,
+        twitter: this.data.socialMedia?.twitter,
+        phoneNumber: this.data.socialMedia?.phoneNumber,
         file: this.data.file,
       });
     }

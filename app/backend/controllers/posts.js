@@ -226,7 +226,7 @@ exports.updatePost = (req, res, next) => {
     imageUrl = url + "/images/" + req.file.filename;
   }
   const post = new Post({
-    _id: req.body.id,
+    _id: req.body._id,
     title: req.body.title,
     body: req.body.body,
     tags: req.body.tags,

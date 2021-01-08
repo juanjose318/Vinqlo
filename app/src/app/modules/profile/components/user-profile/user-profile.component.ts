@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { Location } from '@angular/common';
 import { switchMap } from 'rxjs/operators';
 import { AuthService } from 'src/app/modules/auth/auth.services';
 import { PostService } from 'src/app/modules/posts/services/posts.service';
@@ -23,6 +24,7 @@ export class UserProfileComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private profileService : ProfileService,
+    private location: Location,
     private authService: AuthService,
     private postService: PostService) { }
 
@@ -37,7 +39,6 @@ export class UserProfileComponent implements OnInit {
     .pipe(switchMap((userId) => this.profileService.getProfileInfo(userId)))
     .subscribe((data) => {
       this.userProfileData = data;
-      console.log(this.userProfileData);
     });
   }
 
@@ -57,7 +58,12 @@ export class UserProfileComponent implements OnInit {
     this.router.navigate(['/posts', postId]);
   }
 
-  handleUserEdited(){
-    this.profileService.updateProfileInfo(this.userId);
+  handleUserEdited(user){
+    this.profileService.updateProfileInfo(user);
+    setTimeout(this.refresh, 200);
+  }
+
+  refresh() {
+    window.location.reload();
   }
 }
