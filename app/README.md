@@ -8,7 +8,7 @@ Frontend : Angular
 Backend: Nodejs & Express,
 Database: Mongodb cloud storage (Atlas)
 
-Important, this app was made for an specific purpose, therefore it can only be used with an student account From Ghent.
+Important, this app was made for an specific purpose, therefore it can only be used with a student account From Ghent.
 
 ## Installation 
 
