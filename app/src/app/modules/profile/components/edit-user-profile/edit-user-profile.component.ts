@@ -60,7 +60,6 @@ export class EditUserProfileComponent implements OnInit {
     });
 
     if (!!this.data) {
-      console.log(this.data);
       this.form.patchValue({
         id: this.data._id,
         degree: this.data.degree,
@@ -88,7 +87,6 @@ export class EditUserProfileComponent implements OnInit {
 
   save() {
     if (this.form.invalid) {
-      console.log(this.form.value);
       return;
     }
     this.dialogRef.close(this.form.value);

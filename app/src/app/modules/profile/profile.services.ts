@@ -15,7 +15,6 @@ export class ProfileService {
   }
 
   updateProfileInfo(user) {
-    console.log(user);
     let profileData: FormData;
 
     if (typeof user.file === 'object') {

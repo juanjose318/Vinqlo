@@ -39,7 +39,6 @@ export class CommunityFeedComponent implements OnInit {
           this.categoryId = data.category._id;
           this.communities = data.category.communities;
           this.maxCommunities = data.maxCommunities;
-          console.log(data);
       } );
   }
 

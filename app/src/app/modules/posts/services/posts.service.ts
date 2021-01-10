@@ -147,8 +147,6 @@ export class PostService {
         `${environment.apiUrl}/posts/` + post.id,
         postData
       )
-      .subscribe((responseData) => {
-        console.log(responseData.message);
-      });
+      .subscribe();
   }
 }

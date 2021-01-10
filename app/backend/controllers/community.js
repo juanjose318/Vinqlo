@@ -95,7 +95,6 @@ exports.toggleJoinCommunity = async (req, res) => {
             }
           )
             .then((response) => {
-              console.log("deleted");
               res.status(200).json({
                 message: "Community removed from collection",
               });
@@ -143,7 +142,6 @@ exports.toggleJoinCommunity = async (req, res) => {
       }
     })
     .catch((err) => {
-      console.log(err);
       res.status(400).json({
         message: "User doesn't exist" + err,
       });

@@ -39,7 +39,6 @@ export class UserProfileComponent implements OnInit {
     .pipe(switchMap((userId) => this.profileService.getProfileInfo(userId)))
     .subscribe((data) => {
       this.userProfileData = data;
-      console.log(data);
     });
   }
 

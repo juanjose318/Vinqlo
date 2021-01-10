@@ -70,7 +70,6 @@ export class PostCommentsComponent implements OnInit {
   }
 
   onCreate(comment) {
-    console.log(comment);
   }
 
   onReport(commentId) {

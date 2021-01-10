@@ -87,7 +87,6 @@ export class FeedComponent implements OnInit, OnDestroy {
   onScroll() {}
 
   handleCreatorViewed(userId) {
-    console.log(userId);
     this.router.navigate(['/profile', userId]);
   }
 
