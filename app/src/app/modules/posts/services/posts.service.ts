@@ -87,7 +87,7 @@ export class PostService {
     postData.append('tags', post.tags);
     postData.append('creator', post.creator);
     if (!!post.file) {
-      postData.append('file', post.file, post.title);
+      postData.append('file', post.file, post.creator);
     }
     postData.append('category', post.category);
     var dataestr = new Date(post.createdAt).toUTCString();

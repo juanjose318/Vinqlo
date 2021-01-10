@@ -12,6 +12,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   imports: [
@@ -28,6 +29,7 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatProgressSpinnerModule,
     MatSelectModule,
     MatTabsModule,
+    MatPaginatorModule,
   ],
   exports: [
     MatDividerModule,
@@ -42,6 +44,7 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatProgressSpinnerModule,
     FontAwesomeModule,
     MatTabsModule,
+    MatPaginatorModule,
   ],
   declarations: [],
   providers: [],

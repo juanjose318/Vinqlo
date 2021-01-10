@@ -28,6 +28,12 @@ const routes: Routes = [
       import('./modules/posts/post.module').then((m) => m.PostModule),
   },
   {
+    path: 'category',
+    canActivate: [AuthGuard],
+    loadChildren: () =>
+    import('./modules/communties/community.module').then((m) =>m.CommunityModule),
+  },
+  {
     path:'auth',
     loadChildren: () =>
       import('./modules/auth/auth.module').then((m) => m.AuthModule)

@@ -6,7 +6,7 @@ import { FeedRoutingModule } from './feed-routing.module';
 
 import { FeedComponent } from './components/feed/feed.component';
 import { FooterComponent } from '../footer/footer.component';
-import { SideBarComponent } from './components/sidebar/sidebar.component';
+import { SideBarComponent } from './components/category-sidebar/sidebar.component';
 import { HeaderComponent } from '../header/header.component';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { CreatePostButtonComponent } from './components/create-post-button/create-post-button.component';
@@ -32,7 +32,9 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     FeedComponent,
     HeaderComponent,
     FooterComponent,
-    PostDisplayComponent
+    PostDisplayComponent,
+    SideBarComponent,
+    SearchBarComponent
   ],
   declarations: [
     FeedComponent,

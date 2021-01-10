@@ -44,6 +44,7 @@ export class AuthService {
           this.userId = userData.userId;
           this.authStatusListener.next(true);
           const now = new Date();
+          console.log(token);
           const expirationDate = new Date(
             now.getTime() + expiresInDuration * 1000
           );

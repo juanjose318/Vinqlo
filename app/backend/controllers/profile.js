@@ -1,9 +1,7 @@
 const User = require("../models/user");
 const Post = require("../models/post");
-const SocialMedia = require("../models/social-media");
 const Community = require("../models/community");
 const user = require("../models/user");
-const { EDESTADDRREQ } = require("constants");
 
 exports.getProfileInfo = async (req, res) => {
   const user = (

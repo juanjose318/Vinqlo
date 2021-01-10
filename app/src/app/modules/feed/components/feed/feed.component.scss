@@ -5,18 +5,19 @@
   flex-direction: row;
   justify-content: space-evenly;
   min-height: calc(100vh - 70px);
+  box-sizing: border-box;
+  flex-wrap: wrap;
+  width: 100%;
+  padding:2em;
 }
 
 .m-sidebar {
-  width: 20%;
+  flex:1;
 }
 
 .m-main-content {
-  width: 70%;
-}
-
-.a-push, .a-footer {
-  height: 140px;
+ flex:3;
+ margin-left: 2em;
 }
 
 .a-post-list {

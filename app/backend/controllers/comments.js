@@ -28,14 +28,21 @@ exports.createComment = async (req, res) => {
 
   comment.save();
 
-  const post = await Post.findOneAndUpdate({ _id: req.params.id },
+  const post = await Post.findOneAndUpdate(
+    { _id: req.params.id },
     {
       $push: {
-        comments: comment
-      }
-    }).populate({ path: "comments", populate: {
-      path: "creator", select:"name"
-    } })
+        comments: comment,
+      },
+    }
+  )
+    .populate({
+      path: "comments",
+      populate: {
+        path: "creator",
+        select: "name",
+      },
+    })
     .then((response) => {
       res.status(201).json({
         message: "Comment added Succesfully",
@@ -52,7 +59,9 @@ exports.createComment = async (req, res) => {
 exports.deleteComment = async (req, res) => {
   try {
     const post = await Post.findByIdAndUpdate(req.params.id, {
-      $pull: { comments: req.params.commentId },
+      $pull: {
+        comments: req.params.commentId,
+      },
     });
     if (!post) {
       res.status(404).json({

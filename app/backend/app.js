@@ -7,6 +7,9 @@ const postsRoutes = require ("./routes/posts");
 const authRoutes = require ("./routes/auth");
 const commentRoutes = require ("./routes/comments");
 const profileRoutes = require("./routes/profile");
+const categoryRoutes = require("./routes/category");
+const communityRoutes = require("./routes/community");
+const adminRoutes = require("./routes/admin");
 
 mongoose
   .connect(
@@ -20,6 +23,7 @@ mongoose
     console.log("connection failed");
   });
 
+mongoose.set('useFindAndModify', false);
 const app = express();
 
 app.use(bodyParser.json());
@@ -29,7 +33,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
  * Allow images
  */
 app.use("/images", express.static(path.join("backend/images")));
-
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*"),
@@ -48,5 +51,8 @@ app.use("/api/posts", postsRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/comments", commentRoutes);
 app.use("/api/profile", profileRoutes);
+app.use("/api/categories", categoryRoutes);
+app.use("/api/category", communityRoutes);
+// app.use("/api/admin", adminRoutes);
 
 module.exports = app;

@@ -8,6 +8,7 @@ import {
   faEllipsisV,
   faSignOutAlt,
   faUserPlus,
+  faHome,
 } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../auth/auth.services';
@@ -28,6 +29,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   faEllipsisV = faEllipsisV;
   faSignOutAlt = faSignOutAlt;
   faUserPlus = faUserPlus;
+  faHome = faHome;
 
   private authStatusListenerSubs: Subscription;
 

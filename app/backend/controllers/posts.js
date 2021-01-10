@@ -256,7 +256,7 @@ exports.updatePost = (req, res, next) => {
 };
 
 exports.getPosts = async (req, res) => {
-  const posts = Post.find().sort({ createdAt : 'asc'})
+  const posts = Post.find().sort({ createdAt : '-1'})
     .populate("creator", "name")
     .exec()
     .then((postsResults) => {
@@ -272,25 +272,3 @@ exports.getPosts = async (req, res) => {
       });
     });
 };
-// const page = parseInt(req.query.page)
-// const limit = parseInt(req.query.limit)
-
-// const startIndex = (page - 1) * limit
-// const endIndex = page * limit
-
-// const results = {};
-
-// if (endIndex < postsResults.length) {
-//   results.next = {
-//     page: page + 1,
-//     limit: limit,
-//   };
-// }
-
-// if (startIndex > 0) {
-//   results.previous = {
-//     page: page - 1,
-//     limit: limit,
-//   };
-// }
-// results.results = postsResults.slice(startIndex, endIndex);

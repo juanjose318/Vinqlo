@@ -5,6 +5,8 @@ const mongoose = require("mongoose");
 
 const postsRoutes = require ("./routes/posts");
 const authRoutes = require ("./routes/auth");
+const categoryRoutes = require ("./routes/category");
+const communityRoutes = require ("./routes/community");
 
 mongoose
   .connect(
@@ -43,5 +45,7 @@ app.use((req, res, next) => {
 
 app.use("/api/posts", postsRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/categories", categoryRoutes);
+app.user("/api/category/", communityRoutes)
 
 module.exports = app;
