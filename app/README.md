@@ -1,5 +1,15 @@
 # Vinqlo
 
+Community based app for Ghentian students from all over the world.
+
+## Specs 
+
+Frontend : Angular
+Backend: Nodejs & Express,
+Database: Mongodb cloud storage (Atlas)
+
+Important, this app was made for an specific purpose, therefore it can only be used with an student account From Ghent.
+
 ## Installation 
 
 Run `npm install` or `yarn install` to install all dependencies
@@ -10,7 +20,7 @@ Run `yarn start` or `npm start` for a dev server. Navigate to `http://localhost:
 
 ## Development server for Node Api
 
-Run `yarn start:server` or `npm start:server`
+Run `yarn start:server` or `npm start:server` requests can be send to http://localhost:3000/api
 
 ## Build
 
