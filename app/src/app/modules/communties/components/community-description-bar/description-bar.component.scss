@@ -42,6 +42,16 @@
   cursor: pointer;
 }
 
+.a-community-users-icon {
+  font: $blackSmallSemibold;
+  color: $lightgrey;
+}
+
+.a-community-users-icon-text {
+  font: $blackSmallSemibold;
+  color: $lightgrey;
+}
+
 .a-arrow-icon:hover {
   color:rgb(67, 0, 67);
   transition:2.5ms;

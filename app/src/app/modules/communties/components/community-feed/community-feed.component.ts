@@ -17,59 +17,75 @@ export class CommunityFeedComponent implements OnInit {
   communitiesPerPage: number = 10;
   categoryId: number;
   currentPage = 1;
-  maxCommunities : number;
+  maxCommunities: number;
   userId;
   isFollowing: boolean = false;
   private authStatusSub: Subscription;
-
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private location: Location,
     private authService: AuthService,
-    private communityService: CommunityService,
+    private communityService: CommunityService
   ) {}
 
   ngOnInit() {
     this.userId = this.authService.getUserId();
     this.route.params
-      .pipe(switchMap((data) =>  this.communityService.getCommunities(data, this.communitiesPerPage, this.currentPage)))
+      .pipe(
+        switchMap((data) =>
+          this.communityService.getCommunities(
+            data,
+            this.communitiesPerPage,
+            this.currentPage
+          )
+        )
+      )
       .subscribe((data) => {
-          this.categoryId = data.category._id;
-          this.communities = data.category.communities;
-          this.maxCommunities = data.maxCommunities;
-      } );
+        this.categoryId = data.category._id;
+        this.communities = data.category.communities;
+        this.maxCommunities = data.maxCommunities;
+      });
   }
 
-  handleProfileViewed(profileId){
-    this.router.navigate(['/profile', profileId])
+  handleProfileViewed(profileId) {
+    this.router.navigate(['/profile', profileId]);
   }
 
-  handleCommunityViewed(communityId){
-    this.router.navigate(['/community', communityId])
+  handleCommunityViewed(communityId) {
+    this.router.navigate(['/community', communityId]);
   }
 
   handleCommunityDeleted(communityId) {
-    this.communityService.deleteCommunity(this.categoryId,communityId)
-    .subscribe(() => {
-      this.communityService.getCommunities(this.categoryId, this.communitiesPerPage, this.currentPage);
-      this.communities.filter(() => {
-        const updatedCommunities = this.communities.filter(
-          (deletedCommunity) => deletedCommunity._id !== communityId
+    this.communityService
+      .deleteCommunity(this.categoryId, communityId)
+      .subscribe(() => {
+        this.communityService.getCommunities(
+          this.categoryId,
+          this.communitiesPerPage,
+          this.currentPage
         );
-        this.communities = updatedCommunities;
-      })
-    });
+        this.communities.filter(() => {
+          const updatedCommunities = this.communities.filter(
+            (deletedCommunity) => deletedCommunity._id !== communityId
+          );
+          this.communities = updatedCommunities;
+        });
+      });
   }
 
   handleCommunityJoined(communityId) {
     this.communityService.joinCommunity(communityId);
   }
 
-  handlePageChanged(pageData: PageEvent){
+  handlePageChanged(pageData: PageEvent) {
     this.currentPage = pageData.pageIndex + 1;
     this.communitiesPerPage = pageData.pageSize;
-    this.communityService.getCommunities(this.categoryId, this.communitiesPerPage, this.currentPage);
+    this.communityService.getCommunities(
+      this.categoryId,
+      this.communitiesPerPage,
+      this.currentPage
+    );
   }
 }

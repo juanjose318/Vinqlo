@@ -1,18 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
+import { CommunityModule } from '../communties/community.module';
 import { FeedModule } from '../feed/feed.module';
-import { UiKitModule } from '../ui-kit/components/uit-kit.module';
 import { PostSingleComponent } from './components/post-single/post-single.component';
 import { PostRoutingModule } from './post-routing.module';
 
 @NgModule({
-  imports: [
+    imports: [
     FeedModule,
     PostRoutingModule,
     CommonModule,
-    UiKitModule,
-    MatInputModule
+    MatInputModule,
   ],
   exports: [PostSingleComponent],
   declarations: [PostSingleComponent],

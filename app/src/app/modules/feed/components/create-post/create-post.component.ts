@@ -9,6 +9,11 @@ import {
 import { Post } from 'src/app/modules/posts/models/post.interface';
 import { faImages, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { FileCheck } from 'angular-file-validator';
+import { PostService } from 'src/app/modules/posts/services/posts.service';
+import { Community } from 'src/app/modules/communties/models/community.interface';
+import { ReplaySubject, Subject } from 'rxjs';
+import { debounceTime, delay, filter, map, takeUntil, tap } from 'rxjs/operators';
+import { CommunityService } from 'src/app/modules/communties/community.service';
 
 @Component({
   selector: 'app-create-post-form',
@@ -19,15 +24,22 @@ export class CreatePostComponent implements OnInit {
   @Output()
   postCreated: EventEmitter<Post> = new EventEmitter();
 
+  communitiesList: Community[];
+  searching = false;
+  filteredCommunities: ReplaySubject<Community[]> = new ReplaySubject<Community[]>(1);
+
   form: FormGroup;
   id: string;
+  community: string;
   title: string;
   body: string;
   tags: string;
   createdAt: Date = new Date();
-  category: string;
   image: string;
   imagePreview: string | ArrayBuffer;
+
+  protected _onDestroy = new Subject<void>();
+
 
   faTimesCircle = faTimesCircle;
   faImages = faImages;
@@ -35,10 +47,13 @@ export class CreatePostComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<CreatePostComponent>,
+    private postService: PostService,
+    private communityService: CommunityService,
     @Inject(MAT_DIALOG_DATA) public data
   ) {}
 
   ngOnInit() {
+    //this.communitiesList  =
     this.form = this.fb.group({
       id: new FormControl(this.id),
       title: new FormControl(this.title, [
@@ -50,9 +65,39 @@ export class CreatePostComponent implements OnInit {
         Validators.minLength(4),
       ]),
       tags: new FormControl(this.tags, [Validators.minLength(2)]),
-      category: new FormControl(this.category, [Validators.required]),
-      file: new FormControl(this.image,{ asyncValidators: [FileCheck.ngFileValidator(['png', 'jpeg','gif','jpeg'])]}),
+      communitySearch : new FormControl('',[Validators.required]),
+      community: new FormControl(this.community, [Validators.required]),
+      file: new FormControl(this.image, {
+        asyncValidators: [
+          FileCheck.ngFileValidator(['png', 'jpeg', 'gif', 'jpeg']),
+        ],
+      }),
       createdAt: new FormControl(this.createdAt),
+    });
+
+    this.form.get('communitySearch').valueChanges
+    .pipe(
+      filter(search => !!search),
+      tap(() => this.searching = true),
+      takeUntil((this._onDestroy)),
+      debounceTime(200),
+      map(search => {
+        if (!this.communitiesList) {
+          return [];
+        }
+
+        return this.communitiesList.filter(community => community.title.indexOf(search) > -1);
+
+      }), delay(500),
+      takeUntil(this._onDestroy)
+    ).subscribe(filteredCommunities => {
+      this.searching = false;
+      this.filteredCommunities.next(filteredCommunities);
+
+    },
+    error => {
+      this.searching = false;
+
     });
 
     /**
@@ -62,12 +107,17 @@ export class CreatePostComponent implements OnInit {
       this.form.patchValue({
         id: this.data.post._id,
         title: this.data.post.title,
-        category: this.data.post.category,
+        community: this.data.post.community,
         body: this.data.post.body,
         tags: this.data.post.tags,
         file: this.data.post.file,
       });
     }
+  }
+
+  ngOnDestroy() {
+    this._onDestroy.next();
+    this._onDestroy.complete();
   }
 
   /**
@@ -85,7 +135,7 @@ export class CreatePostComponent implements OnInit {
   }
 
   save() {
-    if(this.form.invalid){
+    if (this.form.invalid) {
       return;
     }
     this.dialogRef.close(this.form.value);

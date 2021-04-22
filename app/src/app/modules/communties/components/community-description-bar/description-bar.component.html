@@ -5,7 +5,7 @@
       class="a-arrow-icon"
       (click)="goBack()"
     ></fa-icon>
-    <h2 class="a-community-title">Community's name</h2>
+    <h2 class="a-community-title">{{ community?.title}}</h2>
     <div *ngIf="!joined; else join">
       <div class="a-leave-button" (click)="toggleJoinButton()">
         <fa-icon [icon]="faUnlink" class="a-link-closed-icon"></fa-icon>
@@ -33,9 +33,9 @@
 
   <div class="m-bar-body">
     <p class="a-body-paragraph">
-      Overpoort is a street lined with dance and drinking pubs, night shops,
-      chip shops and pita restaurants. Thursday night is student night, which
-      can get pretty crowded and wild.
+      {{ community?.description }}
     </p>
   </div>
+  <mat-divider></mat-divider>
+  <fa-icon [icon]="faUsers" class="a-community-icon"></fa-icon><p class="a-community-icon-text">{{community['users']?.length}}</p>
 </div>

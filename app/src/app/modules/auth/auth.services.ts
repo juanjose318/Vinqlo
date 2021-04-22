@@ -57,6 +57,10 @@ export class AuthService {
     return this.userId;
   }
 
+  getUserCommunities() {
+    return this.http.get(`${environment.apiUrl}/auth/getUserCommunities`)
+  }
+
   autoAuthUser() {
     const authInformation = this.getAuthData();
     if (!authInformation) {

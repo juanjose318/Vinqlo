@@ -5,14 +5,16 @@ import {
   faEllipsisH,
   faLink,
   faUnlink,
+  faUsers,
 } from '@fortawesome/free-solid-svg-icons';
+import { Community } from '../../models/community.interface';
 
 @Component({
   selector: 'app-description-bar',
   templateUrl: './description-bar.component.html',
   styleUrls: ['description-bar.component.scss'],
 })
-export class DescriptionBarComponent {
+export class CommunityDescriptionBarComponent {
   constructor(private location: Location) {}
 
   joined: boolean = true;
@@ -21,15 +23,11 @@ export class DescriptionBarComponent {
   faLink = faLink;
   faUnlink = faUnlink;
   faEllipsisH = faEllipsisH;
+  faUsers = faUsers;
 
-  /**
-   * TODO:
-   * Implement Communities loading the information
-   * NEED:
-   * Authorization, Communities
-   */
+
   @Input()
-  community;
+  community: Community;
 
   @Output()
   joinCommunity: EventEmitter<string> = new EventEmitter<string>();

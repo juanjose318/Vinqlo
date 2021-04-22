@@ -28,7 +28,7 @@ exports.getCommunities = async (req, res) => {
     })
     .then((count) => {
       res.status(200).json({
-        message: "Communities fetches succfesfully!",
+        message: "Communities fetched succfesfully!",
         category: fetchedCommunities,
         maxCommunities: count,
       });
@@ -36,6 +36,61 @@ exports.getCommunities = async (req, res) => {
     .catch((err) => {
       res.status(404).json({
         message: "Communities not found" + err,
+      });
+    });
+};
+
+/**
+ * Fetch community and its posts
+ */
+
+exports.getCommunity = async (req, res) => {
+  const community = await Community.findOne({ _id: req.params.communityId })
+    .populate("posts")
+    .exec()
+    .then((communityData) => {
+      if (communityData) {
+        res.status(200).json({
+          message: "Community fetched succesfully",
+          community: communityData,
+        });
+      } else {
+        res.status(404).json({
+          message: "Community not found",
+        });
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: "Fetching community failed",
+      });
+    });
+};
+
+/**
+ * Fetch user communities with the userId through the middleware check auth
+ */
+
+exports.getUserCommunities = async (req, res) => {
+  let userCommunities;
+
+  User.findOne({ _id: req.userData.userId })
+    .populate({
+      path: "communities",
+      select: "title",
+    })
+    .exec()
+    .then((user) => {
+      console.log(user.communities);
+      userCommunities = user.communities;
+      return res.status(200).json({
+        message: "Users communities fetched succesfully",
+        communities: userCommunities,
+      });
+    })
+    .catch((err) => {
+      res.status(404).json({
+        message: "User not found" + err,
       });
     });
 };
@@ -86,6 +141,7 @@ exports.toggleJoinCommunity = async (req, res) => {
           }
         }
         if (userBelongs) {
+          console.log("hihi");
           User.updateOne(
             { _id: userId },
             {

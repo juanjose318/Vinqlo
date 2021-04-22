@@ -2,6 +2,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 const User = require("../models/user");
+const { getCommunities } = require("./community");
 
 exports.getUsers = (req, res, next) => {
   User.find().then((users) => {
@@ -39,11 +40,9 @@ exports.createUser = (req, res, next) => {
         degree: req.body.degree,
       });
 
-      const emailToken = jwt.sign(
-        { user: user },
-        process.env.JWT_KEY,
-        { expiresIn: "1d" }
-      );
+      const emailToken = jwt.sign({ user: user }, process.env.JWT_KEY, {
+        expiresIn: "1d",
+      });
 
       const transporter = nodemailer.createTransport({
         service: "gmail",
@@ -87,17 +86,14 @@ exports.createUser = (req, res, next) => {
     })
     .catch((err) => {
       return res.status(401).json({
-        message: "Auth failed"
+        message: "Auth failed",
       });
     });
 };
 
 exports.getConfirmationToken = (req, res) => {
   try {
-    const userData = jwt.verify(
-      req.params.token,
-      process.env.JWT_KEY
-    );
+    const userData = jwt.verify(req.params.token, process.env.JWT_KEY);
     const changedStatus = new User({
       _id: userData.user._id,
       status: "confirmed",
@@ -116,7 +112,7 @@ exports.getConfirmationToken = (req, res) => {
     );
   } catch (err) {
     res.status(404).json({
-      message: "Auth failed"
+      message: "Auth failed",
     });
   }
 };
@@ -145,7 +141,11 @@ exports.login = (req, res, next) => {
         });
       }
       const token = jwt.sign(
-        { email: fetchedUser.email, userId: fetchedUser._id, userName : fetchedUser.name + fetchedUser.lastName },
+        {
+          email: fetchedUser.email,
+          userId: fetchedUser._id,
+          userName: fetchedUser.name + fetchedUser.lastName,
+        },
         process.env.JWT_KEY,
         { expiresIn: "1h" }
       );
@@ -154,7 +154,7 @@ exports.login = (req, res, next) => {
         expiresIn: 3600,
         userId: fetchedUser._id,
         userName: fetchedUser.name,
-        lastName: fetchedUser.lastName
+        lastName: fetchedUser.lastName,
       });
     })
     .catch((err) => {

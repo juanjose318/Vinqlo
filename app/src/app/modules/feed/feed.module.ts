@@ -16,7 +16,6 @@ import { PostListComponent } from '../posts/components/post-list/post-list.compo
 import { PostCreateCommentsComponent } from '../posts/components/post-create-comments/post-create-comments.component';
 import { PostCommentsComponent } from '../posts/components/post-comments/post-comments.component';
 import { MaterialModule } from '../materials/material.module';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
   imports: [
@@ -26,7 +25,6 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    InfiniteScrollModule
   ],
   exports: [
     FeedComponent,

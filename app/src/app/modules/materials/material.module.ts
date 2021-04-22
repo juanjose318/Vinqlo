@@ -11,6 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatSelectModule } from '@angular/material/select';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatPaginatorModule } from '@angular/material/paginator';
 
@@ -30,6 +31,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatSelectModule,
     MatTabsModule,
     MatPaginatorModule,
+    NgxMatSelectSearchModule
   ],
   exports: [
     MatDividerModule,
@@ -45,6 +47,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     FontAwesomeModule,
     MatTabsModule,
     MatPaginatorModule,
+    NgxMatSelectSearchModule
   ],
   declarations: [],
   providers: [],

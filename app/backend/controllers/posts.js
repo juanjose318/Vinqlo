@@ -1,5 +1,7 @@
 const User = require("../models/user");
 const Post = require("../models/post");
+const Community = require("../models/community");
+
 
 exports.getPost = async (req, res) => {
   const postById = (

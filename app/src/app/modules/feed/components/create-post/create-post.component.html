@@ -11,19 +11,20 @@
   <div mat-dialog-content [formGroup]="form" class="m-dialog-content">
     <div class="m-form">
       <div class="m-input-wrapper">
-        <mat-label class="a-label">Select Category</mat-label>
-        <select
-          class="a-select-input"
-          formControlName="category"
-          matSelect
-          placeholder="Select Category"
-        >
-          <option value="1">Sports</option>
-          <option value="2">Nightlife</option>
-          <option value="3">Education</option>
-          <option value="3">Events</option>
-          <option value="3">Tips & tricks</option>
-        </select>
+        <mat-label class="a-label">Select Community</mat-label>
+        <mat-select formControlName="community" placeholder="Select a community">
+          <mat-option>
+            <ngx-mat-select-search
+              formControlName="communitySearch"
+              [searching]="searching"
+              placeholderLabel="Find a commmunity"
+              noEntriesFoundLabel="No communities found"
+            ></ngx-mat-select-search>
+          </mat-option>
+          <mat-option *ngFor="let community of filteredCommunities | async" [value]="community">
+            {{community.title}}
+          </mat-option>
+        </mat-select>
       </div>
 
       <div class="m-input-wrapper">
@@ -61,15 +62,28 @@
       </div>
 
       <div class="m-input-wrapper-last">
-        <mat-label class="a-label" (click)="fileUpload.click()" id="a-file-input" >
+        <mat-label
+          class="a-label"
+          (click)="fileUpload.click()"
+          id="a-file-input"
+        >
           <fa-icon class="a-images-icon" [icon]="faImages"></fa-icon>
           Upload an image
         </mat-label>
-        <input matInput  type="file" class="a-file-input" #fileUpload  (change)="onFileUploaded($event)" />
+        <input
+          matInput
+          type="file"
+          class="a-file-input"
+          #fileUpload
+          (change)="onFileUploaded($event)"
+        />
       </div>
 
-      <div class="a-image-preview" *ngIf="imagePreview !== '' && imagePreview && form.get('file').valid">
-        <img [src]="imagePreview" [alt]="form.value.title">
+      <div
+        class="a-image-preview"
+        *ngIf="imagePreview !== '' && imagePreview && form.get('file').valid"
+      >
+        <img [src]="imagePreview" [alt]="form.value.title" />
       </div>
 
       <div mat-dialog-actions>
@@ -98,7 +112,7 @@
           formControlName="category"
           matSelect
           placeholder="Select Category"
-          >
+        >
           <option value="1">Sports</option>
           <option value="2">Nightlife</option>
           <option value="3">Education</option>
@@ -143,14 +157,27 @@
       </div>
 
       <div class="m-input-wrapper-last">
-        <mat-label class="a-label" (click)="fileUpload.click()" id="a-file-input" >
+        <mat-label
+          class="a-label"
+          (click)="fileUpload.click()"
+          id="a-file-input"
+        >
           <fa-icon class="a-images-icon" [icon]="faImages"></fa-icon>
           Upload an image
         </mat-label>
-        <input matInput  type="file" class="a-file-input" #fileUpload  (change)="onFileUploaded($event)" />
+        <input
+          matInput
+          type="file"
+          class="a-file-input"
+          #fileUpload
+          (change)="onFileUploaded($event)"
+        />
       </div>
-        <div class="a-image-preview" *ngIf="imagePreview !== '' && imagePreview && form.get('file').valid">
-        <img [src]="imagePreview" [alt]="form.value.title">
+      <div
+        class="a-image-preview"
+        *ngIf="imagePreview !== '' && imagePreview && form.get('file').valid"
+      >
+        <img [src]="imagePreview" [alt]="form.value.title" />
       </div>
       <div mat-dialog-actions>
         <button type="submit" class="a-button" (click)="save()">Update</button>

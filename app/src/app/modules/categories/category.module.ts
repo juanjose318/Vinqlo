@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PostSingleComponent } from '../posts/components/post-single/post-single.component';
+import { CommunityFeedComponent } from '../communties/components/community-feed/community-feed.component';
 
 const routes: Routes = [
   {
     path: '',
     children: [
-      { path: ':id', component: PostSingleComponent, pathMatch: 'full' },
+      { path: ':id', component: CommunityFeedComponent, pathMatch: 'full' },
     ],
   },
 ];
@@ -14,5 +14,7 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
+  declarations: [],
+  providers: [],
 })
-export class PostRoutingModule {}
+export class CategoryModule {}
